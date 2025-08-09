@@ -10,6 +10,7 @@ import * as SplashScreen from "expo-splash-screen"
 import { useEffect } from "react"
 import "react-native-reanimated"
 import { useColorScheme } from "react-native"
+import AppProvider from "@/src/components/providers/app-provider"
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -50,11 +51,13 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme()
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="welcome" />
-        <Stack.Screen name="(tabs)" />
-      </Stack>
+   <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <AppProvider>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="index" />
+          <Stack.Screen name="(tabs)" />
+        </Stack>
+      </AppProvider>
     </ThemeProvider>
   )
 }
