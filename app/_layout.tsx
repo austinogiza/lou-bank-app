@@ -11,6 +11,8 @@ import { useEffect } from "react"
 import "react-native-reanimated"
 import { useColorScheme } from "react-native"
 import AppProvider from "@/src/components/providers/app-provider"
+import { ArrowLeft } from 'iconsax-react-nativejs';
+import { BankColorsThemes } from "@/src/style/color"
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -55,6 +57,20 @@ function RootLayoutNav() {
       <AppProvider>
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="index" />
+          <Stack.Screen name="signup"
+            options={{
+              headerShown: true,
+              headerLeft: () => <ArrowLeft width={20} height={20} color={BankColorsThemes.white} />,
+              headerTitle: ()=> null,
+              headerTitleStyle: { color: BankColorsThemes.white },
+              headerStyle: { backgroundColor:"transparent" },
+            }} />
+          <Stack.Screen name="login"
+            options={{
+              headerShown: true,
+              headerTitle: () => null,
+              headerStyle: { backgroundColor: "transparent" },
+              headerLeft: () => <ArrowLeft width={20} height={20} color={BankColorsThemes.white} /> }} />
           <Stack.Screen name="(tabs)" />
         </Stack>
       </AppProvider>

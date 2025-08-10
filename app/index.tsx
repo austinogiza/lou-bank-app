@@ -1,24 +1,37 @@
-import { Pressable, StyleSheet, Text, View, Image } from "react-native"
+import {  StyleSheet,  View,  } from "react-native"
+
 import React from "react"
 import { BankColorsThemes } from "../src/style/color"
 import MainLoginButton from "@/src/style/button-styles/main-login"
-import LouLogo from '@/src/assets/images/lou-logo.png'
+import { useRouter } from "expo-router"
+import AppLogo from "@/src/components/images/app-logo"
+import AuthWrapper from "@/src/components/wrapper/auth-wrapper"
+
 
 const Welcome = () => {
+  const router = useRouter();
+  const goToLogin = () => {
+    // Logic to navigate to the login screen
+    router.navigate('/login')
+  }
+  const goToSignUp = () => {
+    // Logic to navigate to the sign-up screen
+     router.navigate('/signup')
+  }
   return (
-    <View style={styles.welcomeContainer}>
+    <AuthWrapper>
       <View style={styles.welcomeShowcase}>
-        {/* The fix is here: use the Image component and its source prop */}
-        <Image source={LouLogo} style={{ width: 120, height: 40 }} />
+<AppLogo/>
+
+        <View style={styles.spacingMargin}><MainLoginButton onPress={goToLogin} title="Login" primary /></View>
+      <View style={ styles.spacingMargin}> <MainLoginButton onPress={goToSignUp} title="Become a client of the bank" />
       </View>
-      <View style={ styles.spacingMargin}><MainLoginButton title="Login" primary/></View>
-      <View style={ styles.spacingMargin}> <MainLoginButton title="Become a client of the bank" />
-</View>
-    </View>
+    </View></AuthWrapper>
   )
 }
 export default Welcome
 const styles = StyleSheet.create({
+
   welcomeShowcase: {
     flex: 1,
     justifyContent: "center",
@@ -26,19 +39,19 @@ const styles = StyleSheet.create({
     padding: 16,
     width: "100%",
     marginVertical:88,
-    color: BankColorsThemes.brandMain,
+    color: BankColorsThemes.black,
 },
   welcomeContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: BankColorsThemes.mainBG,
+    backgroundColor: BankColorsThemes.black,
     padding: 16,
     width: "100%",
     color: BankColorsThemes.brandMain,
   },
   spacingMargin: {
-    marginVertical: 6,
+    marginVertical: 8,
     width: "100%",
   },
   signUpButton: {

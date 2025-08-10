@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from "react-native"
+import { Platform, StyleSheet, Text, View } from "react-native"
 import React, { FC } from "react"
-import AppWrapper from "../wrapper/app-wrapper"
+import { StatusBar } from "expo-status-bar"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import ReactQueryProvider from "./tanstack-query"
 interface AppProviderProps {
@@ -10,10 +10,9 @@ const AppProvider: FC<AppProviderProps> = (props) => {
   const { children } = props
   return (
     <>
+      <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
       <ReactQueryProvider>
-        <SafeAreaProvider>
-          <AppWrapper>{children}</AppWrapper>
-        </SafeAreaProvider>
+        <SafeAreaProvider>{children}</SafeAreaProvider>
       </ReactQueryProvider>
     </>
   )

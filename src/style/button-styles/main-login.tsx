@@ -2,15 +2,17 @@ import { Pressable, StyleSheet, Text, View } from "react-native"
 import React, { FC } from "react"
 import { BankColorsThemes } from "../color"
 import { LinearGradient } from "expo-linear-gradient"
+import { Link } from "expo-router"
 
 interface MainLoginButtonProps {
   title?: string
   onPress?: () => void
   primary?: boolean
+  link?: string
 }
 
 const MainLoginButton: FC<MainLoginButtonProps> = (props) => {
-  const { title, onPress, primary } = props
+  const { title, onPress, primary,link } = props
 
   return (
     <LinearGradient
