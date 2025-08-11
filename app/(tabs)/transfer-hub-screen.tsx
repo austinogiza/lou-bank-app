@@ -16,16 +16,6 @@ import { BankColorsThemes } from "@/src/style/color"
 import ContactRow from "@/src/components/transfer-container/contact-row"
 import QuickPerson from "@/src/components/transfer-container/quick-person"
 
-const C = {
-  bg: "#0e0f12",
-  card: "#1a1c1f",
-  panel: "#1b1d20",
-  text: "#f3f4f6",
-  sub: "#a1a1aa",
-  tick: "#9ca3af",
-  chip: "#2a2d31",
-}
-
 const BALANCE = 7896
 
 const QUICK = [

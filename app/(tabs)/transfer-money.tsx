@@ -3,6 +3,7 @@ import { SafeAreaView, View, Text, Image, Pressable, Alert } from "react-native"
 import tw from "twrnc"
 import { Ionicons } from "@expo/vector-icons"
 import { LinearGradient } from "expo-linear-gradient" // if bare RN, import from 'react-native-linear-gradient'
+import { BankColorsThemes } from "@/src/style/color"
 
 const C = {
   bg: "#0E0F12",
@@ -47,43 +48,28 @@ export default function TransferMoneyScreen() {
   }
 
   return (
-    <SafeAreaView style={[tw`flex-1`, { backgroundColor: C.bg }]}>
+    <SafeAreaView
+      style={[tw`flex-1`, { backgroundColor: BankColorsThemes.contactsBG }]}
+    >
       {/* Header */}
-      <View style={tw`px-4 py-2 flex-row items-center justify-between`}>
-        <Pressable style={tw`p-2 -ml-2 rounded-full`}>
-          <Ionicons name="chevron-back" size={22} color={C.text} />
-        </Pressable>
+      <View style={tw`px-4 py-2 mt-6 flex-column items-center justify-between`}>
         <Text style={tw`text-white font-semibold`}>Transfer</Text>
-        <View style={tw`w-6`} />
+        <View style={tw`h-1.5 w-16 mt-4 rounded-full bg-white/10`} />
       </View>
 
-      {/* Raised panel */}
-      <View
-        style={[
-          tw`mx-4 mt-2 rounded-3xl px-5 pt-4 pb-5`,
-          { backgroundColor: C.panel },
-        ]}
-      >
-        {/* handle */}
-        <View style={tw`items-center mb-4`}>
-          <View style={tw`h-1.5 w-16 rounded-full bg-white/10`} />
-        </View>
-
+      <View style={[tw`mx-4 mt-2 rounded-3xl px-5 pt-4 pb-5`]}>
         {/* Recipient */}
-        <View style={tw`items-center`}>
+        <View style={tw`items-center mx-4`}>
           <Image
             source={{
               uri: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=240&q=80",
             }}
-            style={tw`h-16 w-16 rounded-full`}
+            style={tw`h-10 w-10 rounded-full`}
           />
-          <View
-            style={tw`mt-2 px-3 py-1 rounded-full`}
-            className="bg-[#2A2D31]"
-          >
-            <Text style={tw`text-white text-xs`}>•• {REC_LAST4}</Text>
+          <View style={tw`mt-2  py-1 rounded-full`} className="bg-[#2A2D31]">
+            <Text style={tw`text-white text-xs`}>••{REC_LAST4}</Text>
           </View>
-          <Text style={tw`mt-1 text-white`}>Maya 🫶</Text>
+          <Text style={tw`mt-1 text-sm text-white`}>Maya 🫶</Text>
         </View>
 
         {/* Amount */}
@@ -116,9 +102,7 @@ export default function TransferMoneyScreen() {
               </Text>
             </View>
           </View>
-          <View
-            style={[tw`px-3 py-1 rounded-full`, { backgroundColor: C.chip }]}
-          >
+          <View style={[tw`py-1 rounded-full`, { backgroundColor: C.chip }]}>
             <Text style={tw`text-white text-xs`}>•• {LAST4}</Text>
           </View>
         </View>
@@ -150,7 +134,7 @@ export default function TransferMoneyScreen() {
       </View>
 
       {/* Keypad */}
-      <View style={tw`px-4 mt-6`}>
+      <View style={tw`mt-6`}>
         {[
           ["1", "2", "3"],
           ["4", "5", "6"],

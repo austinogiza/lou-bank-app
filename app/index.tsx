@@ -8,7 +8,7 @@ import CardTransactionsScreen from "./(tabs)/my-cards"
 import BudgetScreen from "./(tabs)/my-budget"
 import SendMoneyScreen from "./(tabs)/send-money"
 import TransferMoneyScreen from "./(tabs)/transfer-money"
-import TransferHubScreen from "./(tabs)/transfer-hub-screen"
+
 
 
 
@@ -23,7 +23,7 @@ const Welcome = () => {
   return (
     <>
 
-      <TransferHubScreen/>
+      <TransferMoneyScreen/>
 
       {/* <AuthWrapper>
       <View style={styles.welcomeShowcase}>
