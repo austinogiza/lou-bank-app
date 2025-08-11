@@ -5,14 +5,15 @@ import {
   ThemeProvider,
 } from "@react-navigation/native"
 import { useFonts } from "expo-font"
-import { Stack } from "expo-router"
+import { Stack, useRouter } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
 import { useEffect } from "react"
 import "react-native-reanimated"
-import { useColorScheme } from "react-native"
+import { Pressable, useColorScheme } from "react-native"
 import AppProvider from "@/src/components/providers/app-provider"
-import { ArrowLeft } from 'iconsax-react-nativejs';
+import { ArrowLeft } from 'lucide-react-native';
 import { BankColorsThemes } from "@/src/style/color"
+import HeaderLogo from "@/src/components/images/header-logo"
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -51,27 +52,63 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme()
+  const router=useRouter()
+  const goBack = () => {
+    if (router.canGoBack()) {
+      router.back()
+    } else {
+        router.navigate('/')
+    }
 
+}
   return (
    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <AppProvider>
         <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="index" />
+           <Stack.Screen name="auth-pin" options={{
+            headerTitle: () => <HeaderLogo />,
+          }} />
+           <Stack.Screen name="auth-confirm-pin" options={{
+            headerTitle: () => <HeaderLogo />,
+          }} />
+<Stack.Screen name="pin-success" options={{
+            headerTitle: () => <HeaderLogo />,
+          }} />
+          <Stack.Screen name="index" options={{
+            headerShown:true, headerShadowVisible:false,
+            headerTitle: () => <HeaderLogo />,
+            headerTitleAlign: "center",
+              headerTitleStyle: { color: BankColorsThemes.white, fontSize: 24, fontWeight: "600" },
+              headerTintColor: BankColorsThemes.white,
+              headerStyle: { backgroundColor: BankColorsThemes.mainBG },
+          }} />
+
           <Stack.Screen name="signup"
             options={{
               headerShown: true,
-              headerLeft: () => <ArrowLeft width={20} height={20} color={BankColorsThemes.white} />,
-              headerTitle: ()=> null,
-              headerTitleStyle: { color: BankColorsThemes.white },
-              headerStyle: { backgroundColor:"transparent" },
+              headerLeft: () => <Pressable onPress={goBack}><ArrowLeft width={20} height={20} color={BankColorsThemes.white} /></Pressable>,
+              headerTitle: "Let's get started",
+              headerTitleAlign: "center",
+              headerTitleStyle: { color: BankColorsThemes.white, fontSize: 24, fontWeight: "600" },
+              headerTintColor: BankColorsThemes.white,
+              headerStyle: { backgroundColor: BankColorsThemes.mainBG },
+              headerShadowVisible: false,
             }} />
           <Stack.Screen name="login"
             options={{
               headerShown: true,
-              headerTitle: () => null,
-              headerStyle: { backgroundColor: "transparent" },
-              headerLeft: () => <ArrowLeft width={20} height={20} color={BankColorsThemes.white} /> }} />
+              headerLeft: () => <Pressable onPress={goBack}><ArrowLeft width={20} height={20} color={BankColorsThemes.white} /></Pressable>,
+
+              headerTitleAlign: "center",
+              headerTitleStyle: { color: BankColorsThemes.white, fontSize: 24, fontWeight: "600" },
+              headerTintColor: BankColorsThemes.white,
+              headerStyle: { backgroundColor: BankColorsThemes.mainBG },
+              headerShadowVisible: false,
+              headerTitle: "Welcome back",
+             }} />
+
           <Stack.Screen name="(tabs)" />
+
         </Stack>
       </AppProvider>
     </ThemeProvider>

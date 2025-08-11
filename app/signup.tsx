@@ -1,72 +1,66 @@
 import { Pressable, StyleSheet, Text, View } from "react-native"
 import React, { useState } from "react"
-import { useForm } from "react-hook-form"
+import { SubmitHandler, useForm } from "react-hook-form"
 import AuthWrapper from "@/src/components/wrapper/auth-wrapper"
 import tw from "twrnc"
 import MainInput from "@/src/style/input/main-input"
 import { SignupFormDataProps } from "@/src/types/signup-types"
 import MainLoginButton from "@/src/style/button-styles/main-login"
 import InputLabel from "@/src/style/input/input-label"
-import { Eye, EyeClosed } from "lucide-react-native"
+import { Eye, EyeOff } from "lucide-react-native"
+import { BankColorsThemes } from "@/src/style/color"
+import AppLogo from "@/src/components/images/app-logo"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { SignupSchema } from "@/src/types/schema"
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev)
   }
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword((prev) => !prev)
+  }
   const {
     handleSubmit,
+    control,
     register,
     formState: { errors },
     watch,
     setValue,
   } = useForm<SignupFormDataProps>({
+    resolver: zodResolver(SignupSchema),
     defaultValues: {
       email: "",
       password: "",
     },
+    mode: "onChange",
+    reValidateMode: "onChange",
   })
 
-  // Validation function
-  const validateForm = () => {
-    const newErrors: any = {}
-    if (!formData.firstName) {
-      newErrors.firstName = "First name is required."
-    }
-    if (!formData.lastName) {
-      newErrors.lastName = "Last name is required."
-    }
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
-
   // Submit form handler
-  const onSubmit = () => {
-    if (validateForm()) {
-      console.log("Form submitted", formData)
-    }
-  }
+  const onSubmit: SubmitHandler<SignupFormDataProps> = (data) => {}
 
   return (
     <AuthWrapper>
-      <View>
-        <Text
-          style={tw`text-4xl mt-10 w-full text-white flex items-center justify-center text-center font-medium`}
-        >
-          Let's get started
-        </Text>
+      <View
+        style={tw`text-4xl mt-10 w-full text-white flex items-center justify-center text-center font-medium`}
+      >
+        <AppLogo />
       </View>
       <View
         style={[
           styles.formCover,
-          tw`text-2xl text-white mt-20 items-center w-full flex-1 justify-between text-center font-medium`,
+          tw`text-2xl text-white mt-3 items-center w-full flex-1 justify-between text-center font-medium`,
         ]}
       >
         <View style={tw`w-full`}>
           <View style={tw`w-full`}>
             <InputLabel title="Email" />
             <MainInput
+              control={control}
               placeholder="Email"
               name="email"
               value={watch("email")}
@@ -77,33 +71,81 @@ const Signup = () => {
 
           <View style={tw`w-full`}>
             <InputLabel title="Password" />
-            <View>
-              <View>
+            <View style={tw`relative w-full`}>
+              <View style={tw`absolute right-4 top-3 z-10`}>
                 <Pressable onPress={togglePasswordVisibility}>
-                  <Eye color="#fff" strokeWidth={2} size={20} />
-                  <EyeClosed color="#fff" strokeWidth={2} size={20} />
+                  {showPassword ? (
+                    <>
+                      <Eye
+                        color={BankColorsThemes.black}
+                        strokeWidth={2}
+                        size={20}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <EyeOff
+                        color={BankColorsThemes.black}
+                        strokeWidth={2}
+                        size={20}
+                      />
+                    </>
+                  )}
                 </Pressable>
               </View>
               <MainInput
+                control={control}
                 placeholder="Password"
                 name="password"
-                secureTextEntry
+                secureTextEntry={showPassword ? false : true}
                 value={watch("password")}
                 onChangeText={(text) => setValue("password", text)}
                 error={errors.password?.message as string}
               />
             </View>
-            <View style={tw`w-full items-end justify-end`}>
-              <Pressable>
-                <Text style={tw`w-full text-white items-end justify-end`}>
-                  Forgot password?
-                </Text>
-              </Pressable>
+          </View>
+          <View style={tw`w-full`}>
+            <InputLabel title="Confirm Password" />
+            <View style={tw`relative w-full`}>
+              <View style={tw`absolute right-4 top-3 z-10`}>
+                <Pressable onPress={toggleConfirmPasswordVisibility}>
+                  {showPassword ? (
+                    <>
+                      <Eye
+                        color={BankColorsThemes.black}
+                        strokeWidth={2}
+                        size={20}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <EyeOff
+                        color={BankColorsThemes.black}
+                        strokeWidth={2}
+                        size={20}
+                      />
+                    </>
+                  )}
+                </Pressable>
+              </View>
+              <MainInput
+                control={control}
+                placeholder="Confirm Password"
+                name="confirmPassword"
+                secureTextEntry={showConfirmPassword ? false : true}
+                value={watch("confirmPassword")}
+                onChangeText={(text) => setValue("confirmPassword", text)}
+                error={errors.confirmPassword?.message as string}
+              />
             </View>
           </View>
         </View>
         <View style={styles.submitButtonContainer}>
-          <MainLoginButton onPress={onSubmit} title="Login" primary />
+          <MainLoginButton
+            onPress={handleSubmit(onSubmit)}
+            title="Create your account"
+            primary
+          />
         </View>
       </View>
     </AuthWrapper>
@@ -116,7 +158,7 @@ const styles = StyleSheet.create({
   formCover: {
     width: "100%",
     padding: 12,
-    marginVertical: 20,
+    marginVertical: 24,
   },
   submitButtonContainer: {
     marginTop: 32,

@@ -3,6 +3,7 @@ import React, { FC } from "react"
 import { StatusBar } from "expo-status-bar"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import ReactQueryProvider from "./tanstack-query"
+import { PinProvider } from "@/src/context/pin-context"
 interface AppProviderProps {
   children?: React.ReactNode
 }
@@ -11,9 +12,11 @@ const AppProvider: FC<AppProviderProps> = (props) => {
   return (
     <>
       <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
-      <ReactQueryProvider>
-        <SafeAreaProvider>{children}</SafeAreaProvider>
-      </ReactQueryProvider>
+      <PinProvider>
+        <ReactQueryProvider>
+          <SafeAreaProvider>{children}</SafeAreaProvider>
+        </ReactQueryProvider>
+      </PinProvider>
     </>
   )
 }

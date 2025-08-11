@@ -1,14 +1,17 @@
 export const BankColorsThemes = {
   mainBG: "#1E2121",
   brandMain: "#F2FE8D",
+  brandSecondary: "#1E1F1F",
   transferOut: "#B2D0CE",
   transferIn: "#F2FE8D",
   buttonDark: "#363339",
+  contactsBG:"#282729",
   black: "#000000",
   white: "#FFFFFF",
   buttonColor: "#272A32",
   brandButtonLight:"#FCFFDF",
   brandButtonDark: "#F1FE87",
+  transactionBg:"#252626",
   primary: {
     '50': '#feffe6',
     '100': '#faffc8',
