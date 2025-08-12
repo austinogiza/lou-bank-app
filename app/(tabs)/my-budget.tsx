@@ -162,9 +162,7 @@ export default function BudgetScreen() {
               >
                 − {currency(active.value)}
               </Text>
-              <Text
-                style={[tw`text-center text-[10px] mt-1`, { color: C.sub }]}
-              >
+              <Text style={[tw`text-left text-2xl mt-1 text-white`]}>
                 {active.label} 15, 2020
               </Text>
             </View>

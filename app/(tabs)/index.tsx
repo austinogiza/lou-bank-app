@@ -8,19 +8,11 @@ import {
   SafeAreaView,
   Image,
 } from "react-native"
-import {
-  ChevronDown,
-  Search,
-  Star,
-  CreditCard,
-  PieChart,
-  Home,
-  ShoppingBag,
-  MessageCircle,
-  Grid3x3,
-  X,
-} from "lucide-react-native"
+import { ChevronDown, CreditCard, X } from "lucide-react-native"
 import tw from "twrnc"
+import AppBalance from "@/src/components/home/app-balance"
+import SalaryCards from "@/src/components/home/salary-cards"
+import FinanceQuick from "@/src/components/home/finance-quick"
 
 const BankingDashboard = () => {
   const [showInvestmentBanner, setShowInvestmentBanner] = useState(true)
@@ -40,29 +32,11 @@ const BankingDashboard = () => {
     <SafeAreaView style={tw`flex-1 bg-gray-900`}>
       <StatusBar barStyle="light-content" backgroundColor="#1a1a1a" />
 
-      <ScrollView style={tw`flex-1`}>
+      <ScrollView style={tw`flex-1 px-4 `}>
         {/* Header */}
-        <View style={tw`flex-row items-center justify-between px-4 py-3`}>
-          <View style={tw`flex-row items-center`}>
-            <View
-              style={tw`w-10 h-10 bg-yellow-400 rounded-full items-center justify-center mr-3`}
-            >
-              <Text style={tw`text-gray-900 font-bold text-lg`}>L</Text>
-            </View>
-            <Text style={tw`text-yellow-400 text-xl font-semibold`}>
-              LouBank
-            </Text>
-          </View>
-          <TouchableOpacity>
-            <Search size={24} color="#fbbf24" />
-          </TouchableOpacity>
-        </View>
+        <AppBalance />
 
         {/* Balance Section */}
-        <View style={tw`px-4 mt-4`}>
-          <Text style={tw`text-gray-400 text-sm`}>Your balance</Text>
-          <Text style={tw`text-white text-4xl font-bold mt-1`}>$ 7,896</Text>
-        </View>
 
         {/* Cards Section */}
         <ScrollView
@@ -70,71 +44,11 @@ const BankingDashboard = () => {
           showsHorizontalScrollIndicator={false}
           style={tw`mt-6 px-4`}
         >
-          {/* Salary Card */}
-          <View style={tw`bg-gray-200 rounded-2xl p-4 mr-3 w-40 h-48`}>
-            <View style={tw`flex-row items-center mb-2`}>
-              <Text style={tw`text-gray-800 font-semibold text-xs`}>VISA</Text>
-            </View>
-            <Text style={tw`text-gray-600 text-xs mt-8`}>Salary</Text>
-            <Text style={tw`text-gray-900 text-xl font-bold`}>$ 2,230</Text>
-            <Text style={tw`text-gray-600 text-xs mt-8`}>** 6917</Text>
-          </View>
-
-          {/* Savings Account Card */}
-          <View style={tw`bg-yellow-300 rounded-2xl p-4 mr-3 w-40 h-48`}>
-            <View style={tw`flex-row items-center mb-2`}>
-              <Text style={tw`text-gray-800 font-semibold text-xs`}>VISA</Text>
-            </View>
-            <Text style={tw`text-gray-700 text-xs mt-8`}>Savings account</Text>
-            <Text style={tw`text-gray-900 text-xl font-bold`}>$ 5,566</Text>
-            <Text style={tw`text-gray-700 text-xs mt-8`}>** 4552</Text>
-          </View>
-
-          {/* Security Card (Partial) */}
-          <View style={tw`bg-purple-200 rounded-2xl p-4 w-40 h-48`}>
-            <View style={tw`flex-row items-center mb-2`}>
-              <Text style={tw`text-gray-800 font-semibold text-xs`}>VISA</Text>
-            </View>
-            <Text style={tw`text-gray-700 text-xs mt-8`}>Security</Text>
-            <Text style={tw`text-gray-900 text-xl font-bold`}>$ 1,100</Text>
-            <Text style={tw`text-gray-700 text-xs mt-8`}>** 3298</Text>
-          </View>
+          <SalaryCards />
         </ScrollView>
 
         {/* Finance Section */}
-        <View style={tw`px-4 mt-6`}>
-          <Text style={tw`text-gray-400 text-xs uppercase mb-4`}>Finance</Text>
-          <View style={tw`flex-row`}>
-            <TouchableOpacity style={tw`items-center mr-8`}>
-              <View
-                style={tw`bg-yellow-400 w-12 h-12 rounded-xl items-center justify-center mb-2`}
-              >
-                <Star size={20} color="#1a1a1a" />
-              </View>
-              <Text style={tw`text-gray-400 text-xs`}>My bonuses</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={tw`items-center mr-8`}>
-              <View
-                style={tw`bg-gray-700 w-12 h-12 rounded-xl items-center justify-center mb-2`}
-              >
-                <CreditCard size={20} color="#9ca3af" />
-              </View>
-              <Text style={tw`text-gray-400 text-xs`}>My budget</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={tw`items-center`}>
-              <View
-                style={tw`bg-purple-900/50 w-12 h-12 rounded-xl items-center justify-center mb-2`}
-              >
-                <PieChart size={20} color="#9ca3af" />
-              </View>
-              <Text style={tw`text-gray-400 text-xs text-center`}>
-                Finance{"\n"}analysis
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <FinanceQuick />
 
         {/* Current Loans Section */}
         <TouchableOpacity
@@ -300,27 +214,6 @@ const BankingDashboard = () => {
           </View>
         )}
       </ScrollView>
-
-      {/* Bottom Navigation */}
-      <View
-        style={tw`flex-row items-center justify-around bg-gray-900 border-t border-gray-800 py-2`}
-      >
-        <TouchableOpacity style={tw`items-center py-2`}>
-          <Home size={24} color="#fbbf24" />
-        </TouchableOpacity>
-        <TouchableOpacity style={tw`items-center py-2`}>
-          <ShoppingBag size={24} color="#6b7280" />
-        </TouchableOpacity>
-        <TouchableOpacity style={tw`items-center py-2`}>
-          <CreditCard size={24} color="#6b7280" />
-        </TouchableOpacity>
-        <TouchableOpacity style={tw`items-center py-2`}>
-          <MessageCircle size={24} color="#6b7280" />
-        </TouchableOpacity>
-        <TouchableOpacity style={tw`items-center py-2`}>
-          <Grid3x3 size={24} color="#6b7280" />
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   )
 }

@@ -23,7 +23,8 @@ const Welcome = () => {
   return (
     <>
 
-      <TransferMoneyScreen/>
+      <BankingDashboard/>
+      {/* <BudgetScreen/> */}
 
       {/* <AuthWrapper>
       <View style={styles.welcomeShowcase}>
