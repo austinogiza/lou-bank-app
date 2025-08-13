@@ -1,42 +1,55 @@
 import React from "react"
 import { Tabs } from "expo-router"
-
+import {
+  House,
+  Banknote,
+  CreditCard,
+  Send,
+  CircleDollarSign,
+} from "lucide-react-native"
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: "",
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        // headerShown: useClientOnlyValue(false, true),
+        headerShown: false,
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: "Tab One",
-          // tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          // headerRight: () => (
-          //   <Link asChild>
-          //     <Pressable>
-          //       {({ pressed }) => (
-          //         <FontAwesome
-          //           name="info-circle"
-          //           size={25}
-          //           // color={Colors[colorScheme ?? "light"].text}
-          //           style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-          //         />
-          //       )}
-          //     </Pressable>
-          //   </Link>
-          // ),
+          title: "Home",
+          tabBarIcon: ({ color }) => <House width={20} color={color} />,
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="my-budget"
         options={{
-          title: "Tab Two",
-          // tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "My Budget",
+          tabBarIcon: ({ color }) => <Banknote width={20} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="my-cards"
+        options={{
+          title: "My Cards",
+          tabBarIcon: ({ color }) => <CreditCard width={20} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="transfer-hub-screen"
+        options={{
+          title: "Transfer",
+          tabBarIcon: ({ color }) => <Send width={20} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="transfer-money"
+        options={{
+          title: "Send money",
+          tabBarIcon: ({ color }) => (
+            <CircleDollarSign width={20} color={color} />
+          ),
         }}
       />
     </Tabs>

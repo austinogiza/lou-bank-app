@@ -3,11 +3,9 @@ import {  StyleSheet,  View,  } from "react-native"
 import React from "react"
 import { BankColorsThemes } from "../src/style/color"
 import { useRouter } from "expo-router"
-import BankingDashboard from "./(tabs)"
-import CardTransactionsScreen from "./(tabs)/my-cards"
-import BudgetScreen from "./(tabs)/my-budget"
-import SendMoneyScreen from "./(tabs)/send-money"
-import TransferMoneyScreen from "./(tabs)/transfer-money"
+import AuthWrapper from "@/src/components/wrapper/auth-wrapper"
+import MainLoginButton from "@/src/style/button-styles/main-login"
+import AppLogo from "@/src/components/images/app-logo"
 
 
 
@@ -23,17 +21,15 @@ const Welcome = () => {
   return (
     <>
 
-      <BankingDashboard/>
-      {/* <BudgetScreen/> */}
 
-      {/* <AuthWrapper>
+      <AuthWrapper>
       <View style={styles.welcomeShowcase}>
 <AppLogo/>
 
         <View style={styles.spacingMargin}><MainLoginButton onPress={goToLogin} title="Login" primary /></View>
       <View style={ styles.spacingMargin}> <MainLoginButton onPress={goToSignUp} title="Become a client of the bank" />
       </View>
-        </View></AuthWrapper> */}
+        </View></AuthWrapper>
     </>
   )
 }
