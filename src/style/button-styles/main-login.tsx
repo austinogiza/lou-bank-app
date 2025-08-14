@@ -12,49 +12,55 @@ interface MainLoginButtonProps {
 }
 
 const MainLoginButton: FC<MainLoginButtonProps> = (props) => {
-  const { title, onPress, primary,link } = props
+  const { title, onPress, primary, link } = props
 
   return (
-    <LinearGradient
-      // Fixed: Remove parentheses and use proper array syntax
-      colors={
-        primary
-          ? [BankColorsThemes.brandButtonLight, BankColorsThemes.brandButtonDark]
-          : [BankColorsThemes.buttonDark, BankColorsThemes.buttonColor] // Fixed: was incomplete "BankColorsThemes"
-      }
-      style={styles.gradientContainer}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-    >
-      <Pressable
-        style={styles.pressableButton}
+   <Pressable
+      style={[
+        styles.pressableButton,
+        primary ? styles.primaryButton : styles.secondaryButton,
+      ]}
         accessibilityRole="button"
         accessibilityLabel={title}
         onPress={onPress}
       >
-        <Text style={[primary ? styles.buttonTextDark : styles.buttonTextWhite,styles.buttonText]}>
+        <Text style={[primary ? styles.buttonTextDark : styles.buttonTextWhite, styles.buttonText]}>
           {title}
         </Text>
       </Pressable>
-    </LinearGradient>
   )
 }
 
 export default MainLoginButton
 
 const styles = StyleSheet.create({
-  gradientContainer: {
-    borderRadius: 99,
-    height: 48,
-    width: "100%",
-  },
+
   pressableButton: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 10,
     borderRadius: 99,
+    paddingVertical: 12,
+    width: "100%",
+    height: 56,
 
+  },
+  primaryButton: {
+    backgroundColor: BankColorsThemes.primary[500],
+    color: BankColorsThemes.white,
+
+  },
+  secondaryButton: {
+    backgroundColor: BankColorsThemes.black,
+     borderColor: BankColorsThemes.primary[500],
+    borderWidth: 1,
+      color: BankColorsThemes.primary[500],
+    shadowColor: BankColorsThemes.primary[500],
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    }
   },
   buttonText: {
     textAlign: "center",
@@ -62,11 +68,11 @@ const styles = StyleSheet.create({
     fontWeight: "400",
   },
   buttonTextDark: {
-    color: BankColorsThemes.black,
+    color: BankColorsThemes.white,
 
   },
   buttonTextWhite: {
-    color: BankColorsThemes.white,
+    color: BankColorsThemes.primary[500],
 
   },
 })

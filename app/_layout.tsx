@@ -80,7 +80,7 @@ function RootLayoutNav() {
             headerTitleAlign: "center",
               headerTitleStyle: { color: BankColorsThemes.white, fontSize: 24, fontWeight: "600" },
               headerTintColor: BankColorsThemes.white,
-              headerStyle: { backgroundColor: BankColorsThemes.mainBG },
+              headerStyle: { backgroundColor: BankColorsThemes.black },
           }} />
 
           <Stack.Screen name="signup"
@@ -91,7 +91,7 @@ function RootLayoutNav() {
               headerTitleAlign: "center",
               headerTitleStyle: { color: BankColorsThemes.white, fontSize: 24, fontWeight: "600" },
               headerTintColor: BankColorsThemes.white,
-              headerStyle: { backgroundColor: BankColorsThemes.mainBG },
+              headerStyle: { backgroundColor: BankColorsThemes.black },
               headerShadowVisible: false,
             }} />
           <Stack.Screen name="login"
@@ -102,7 +102,7 @@ function RootLayoutNav() {
               headerTitleAlign: "center",
               headerTitleStyle: { color: BankColorsThemes.white, fontSize: 24, fontWeight: "600" },
               headerTintColor: BankColorsThemes.white,
-              headerStyle: { backgroundColor: BankColorsThemes.mainBG },
+              headerStyle: { backgroundColor: BankColorsThemes.black },
               headerShadowVisible: false,
               headerTitle: "Welcome back",
              }} />

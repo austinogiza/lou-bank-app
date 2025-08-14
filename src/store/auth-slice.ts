@@ -4,13 +4,13 @@ import { toast } from "sonner"
 import { loginURL } from "@/constants/constants"
 import { getExpiresFromUrl } from "@/utils/utils"
 import { fetchUserDetails } from "@/utils/fetch-user-details"
-import type { UserInfoProps } from "@/utils/types"
+import type { any } from "@/utils/types"
 
 type AuthError = unknown
 
 type AuthState = {
   token: string | null
-  user: UserInfoProps | null
+  user: null
   profilePhoto: string | null
   loading: boolean
   error: AuthError | null
@@ -34,7 +34,7 @@ function safeParse<T>(raw: string | null): T | null {
 
 /** LOGIN */
 export const authLogin = createAsyncThunk<
-  { token: string; user: UserInfoProps },
+  { token: string; user: any },
   { username?: string; password?: string; navigation?: (path: string) => void }
 >(
   "auth/login",
@@ -49,7 +49,7 @@ export const authLogin = createAsyncThunk<
         new Date(res?.data?.jwt?.expirationDate).getTime()
       )
       const token: string = res?.data?.jwt?.token
-      const user: UserInfoProps = res?.data?.user
+      const user: any = res?.data?.user
 
       const needsPasswordChange = (user as any)?.needsPasswordChange
 
@@ -80,7 +80,7 @@ export const authLogin = createAsyncThunk<
 
 /** CHECK AUTH FROM LOCALSTORAGE */
 export const authCheckState = createAsyncThunk<
-  { token: string; user: UserInfoProps | null },
+  { token: string; user: any | null },
   void
 >("auth/checkState", async (_, { dispatch, rejectWithValue }) => {
   try {
@@ -100,14 +100,14 @@ export const authCheckState = createAsyncThunk<
       return rejectWithValue("Token expired")
     }
 
-    const storedUser = safeParse<UserInfoProps>(rawUser)
-    let freshUser: UserInfoProps | null = storedUser ?? null
+    const storedUser = safeParse<any>(rawUser)
+    let freshUser: any | null = storedUser ?? null
 
     // Refresh user details & profile photo just like the old code
     const userId = Number((storedUser as any)?.userId)
     if (!Number.isNaN(userId) && userId > 0) {
       const res = await fetchUserDetails(userId)
-      const userInfo: UserInfoProps = res?.userData
+      const userInfo: any = res?.userData
       freshUser = userInfo ?? storedUser ?? null
 
       const newPhoto = (userInfo as any)?.profile_s3_key

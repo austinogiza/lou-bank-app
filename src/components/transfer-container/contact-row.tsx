@@ -1,9 +1,9 @@
-import { Image } from "expo-image"
 import { FC, memo } from "react"
 import tw from "twrnc"
 import { CheckCheck } from "lucide-react-native"
 import { Pressable, Text, View } from "react-native"
 import { BankColorsThemes } from "@/src/style/color"
+import ImageContainer from "../images/image-container"
 interface ContactRowProps {
   name: string
   note: string
@@ -22,7 +22,10 @@ const ContactRow: FC<ContactRowProps> = (props) => {
         !last && tw`border-b border-white/5`,
       ]}
     >
-      <Image source={{ uri: avatar }} style={tw`h-10 w-10 rounded-full mr-3`} />
+      <ImageContainer
+        source={{ uri: avatar }}
+        style={tw`h-10 w-10 rounded-full mr-3`}
+      />
       <View style={tw`flex-1`}>
         <Text style={tw`text-white text-base font-normal`}>{name}</Text>
         <Text style={[tw`text-xs mt-1 text-gray-500`]} numberOfLines={1}>

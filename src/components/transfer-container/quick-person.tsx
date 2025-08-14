@@ -1,7 +1,7 @@
-import { Image } from "expo-image"
 import { FC, memo } from "react"
 import { Pressable, Text, View } from "react-native"
 import tw from "twrnc"
+import ImageContainer from "../images/image-container"
 interface QuickPersonProps {
   name: string
   avatar: string
@@ -21,7 +21,10 @@ const QuickPerson: FC<QuickPersonProps> = (props) => {
         {isAdd ? (
           <></>
         ) : (
-          <Image source={{ uri: avatar }} style={tw`h-14 w-14 rounded-full`} />
+          <ImageContainer
+            source={{ uri: avatar }}
+            style={tw`h-14 w-14 rounded-full`}
+          />
         )}
       </View>
       <Text

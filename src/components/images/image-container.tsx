@@ -1,24 +1,35 @@
 import { StyleSheet, Text, View } from "react-native"
 import React, { FC } from "react"
-import { Image } from "expo-image"
+import { Image, ImageSource } from "expo-image"
 import { blurhash } from "@/src/utils/image-blur"
 interface ImageContainerProps {
-  source?: string | number
+  source?: string | number | ImageSource
   height?: number
   width?: number
   style?: object
+  placeholder?: string
+  contentFit?: "cover" | "contain" | "fill" | "none" | "scale-down"
+  transition?: number
 }
 const ImageContainer: FC<ImageContainerProps> = (props) => {
-  const { source, height = 100, width = 100, style } = props
+  const {
+    source,
+    height = 100,
+    width = 100,
+    style,
+    placeholder,
+    transition,
+    contentFit,
+  } = props
 
   return (
     <View>
       <Image
         source={source}
-        style={[styles.imageContainer, { width: width, height: height }]}
-        placeholder={blurhash}
-        contentFit="cover"
-        transition={1000}
+        style={[styles.imageContainer, { width: width, height: height }, style]}
+        placeholder={blurhash || placeholder}
+        contentFit={contentFit ?? "cover"}
+        transition={transition ?? 100}
       />
     </View>
   )

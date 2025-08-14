@@ -1,13 +1,14 @@
 import { StyleSheet, View } from "react-native"
-import { Image } from "expo-image"
+
 import React from "react"
 import LouLogo from "@/src/assets/images/lou-logo.png"
 import { blurhash } from "@/src/utils/image-blur"
+import ImageContainer from "./image-container"
 
 const HeaderLogo = () => {
   return (
     <View style={styles.onboardingContainer}>
-      <Image
+      <ImageContainer
         source={LouLogo}
         style={{ width: 80, height: 32 }}
         placeholder={blurhash}
