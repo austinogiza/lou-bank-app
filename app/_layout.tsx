@@ -5,15 +5,16 @@ import {
   ThemeProvider,
 } from "@react-navigation/native"
 import { useFonts } from "expo-font"
-import { Stack, useRouter } from "expo-router"
+import { Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
 import { useEffect } from "react"
 import "react-native-reanimated"
-import { Pressable, useColorScheme } from "react-native"
+import {useColorScheme } from "react-native"
 import AppProvider from "@/src/components/providers/app-provider"
-import { ArrowLeft } from 'lucide-react-native';
+
 import { BankColorsThemes } from "@/src/style/color"
 import HeaderLogo from "@/src/components/images/header-logo"
+import GoBackButton from "@/src/components/helpers/go-back-button"
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -52,15 +53,7 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme()
-  const router=useRouter()
-  const goBack = () => {
-    if (router.canGoBack()) {
-      router.back()
-    } else {
-        router.navigate('/')
-    }
 
-}
   return (
    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <AppProvider>
@@ -86,10 +79,10 @@ function RootLayoutNav() {
           <Stack.Screen name="signup"
             options={{
               headerShown: true,
-              headerLeft: () => <Pressable onPress={goBack}><ArrowLeft width={20} height={20} color={BankColorsThemes.white} /></Pressable>,
-              headerTitle: "Let's get started",
+              headerLeft: () => <GoBackButton/>,
+              headerTitle: "Sign Up",
               headerTitleAlign: "center",
-              headerTitleStyle: { color: BankColorsThemes.white, fontSize: 24, fontWeight: "600" },
+              headerTitleStyle: { color: BankColorsThemes.white, fontSize: 16, fontWeight: "600" },
               headerTintColor: BankColorsThemes.white,
               headerStyle: { backgroundColor: BankColorsThemes.black },
               headerShadowVisible: false,
@@ -97,14 +90,14 @@ function RootLayoutNav() {
           <Stack.Screen name="login"
             options={{
               headerShown: true,
-              headerLeft: () => <Pressable onPress={goBack}><ArrowLeft width={20} height={20} color={BankColorsThemes.white} /></Pressable>,
+              headerLeft: () =><GoBackButton/>,
 
               headerTitleAlign: "center",
-              headerTitleStyle: { color: BankColorsThemes.white, fontSize: 24, fontWeight: "600" },
+              headerTitleStyle: { color: BankColorsThemes.white, fontSize: 16, fontWeight: "600" },
               headerTintColor: BankColorsThemes.white,
               headerStyle: { backgroundColor: BankColorsThemes.black },
               headerShadowVisible: false,
-              headerTitle: "Welcome back",
+              headerTitle: "Login",
              }} />
 
           <Stack.Screen name="(tabs)" />

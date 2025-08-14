@@ -12,6 +12,7 @@ import { BankColorsThemes } from "@/src/style/color"
 import AppLogo from "@/src/components/images/app-logo"
 import { LoginFormDataProps } from "@/src/types/signup-types"
 import { LoginSchema } from "@/src/types/schema"
+import AuthHeader from "@/src/components/auth/auth-header"
 
 const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -41,11 +42,11 @@ const LoginScreen = () => {
 
   return (
     <AuthWrapper>
-      <View
-        style={tw`text-4xl mt-10 w-full text-white flex items-center justify-center text-center font-medium`}
-      >
-        <AppLogo />
-      </View>
+      <AuthHeader
+        style={tw`mt-6`}
+        title="Welcome Back!"
+        subtitle="Enter your details to log in to your account"
+      />
       <View
         style={[
           styles.formCover,
@@ -106,14 +107,25 @@ const LoginScreen = () => {
                 </Text>
               </Pressable>
             </View>
+            <View>
+              <View style={styles.submitButtonContainer}>
+                <MainLoginButton
+                  onPress={handleSubmit(onSubmit)}
+                  title="Continue"
+                  primary
+                />
+              </View>
+
+              <View style={tw`w-full items-center justify-center`}>
+                <Pressable>
+                  <Text style={tw`w-full items-center justify-center`}>
+                    <Text style={styles.joinTitle}> Don’t have account? </Text>
+                    <Text style={styles.joinAction}> Sign Up</Text>
+                  </Text>
+                </Pressable>
+              </View>
+            </View>
           </View>
-        </View>
-        <View style={styles.submitButtonContainer}>
-          <MainLoginButton
-            onPress={handleSubmit(onSubmit)}
-            title="Login"
-            primary
-          />
         </View>
       </View>
     </AuthWrapper>
@@ -125,21 +137,33 @@ export default LoginScreen
 const styles = StyleSheet.create({
   formCover: {
     width: "100%",
-    padding: 12,
+
     marginVertical: 24,
   },
   submitButtonContainer: {
     marginTop: 32,
     width: "100%",
     marginBottom: 24,
+    height: 56,
   },
   submitButton: {
     backgroundColor: "#4CAF50",
-    // paddingVertical: 12,
-    // paddingHorizontal: 40,
+
     textAlign: "center",
     color: "#fff",
     fontWeight: "bold",
     borderRadius: 5,
+  },
+  joinTitle: {
+    color: BankColorsThemes.neutral[400],
+    fontSize: 16,
+    textAlign: "center",
+    fontWeight: "500",
+  },
+  joinAction: {
+    color: BankColorsThemes.white,
+    fontSize: 16,
+    textAlign: "center",
+    fontWeight: "500",
   },
 })

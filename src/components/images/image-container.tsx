@@ -1,35 +1,51 @@
-import { StyleSheet, Text, View } from "react-native"
 import React, { FC } from "react"
-import { Image, ImageSource } from "expo-image"
+import { StyleSheet, View, StyleProp, ViewStyle } from "react-native"
+import {
+  Image as ExpoImage,
+  ImageSource,
+  ImageErrorEventData,
+} from "expo-image"
 import { blurhash } from "@/src/utils/image-blur"
+
+type Fit = "cover" | "contain" | "fill" | "none" | "scale-down"
+
 interface ImageContainerProps {
-  source?: string | number | ImageSource
+  source?: ImageSource | string | number
   height?: number
   width?: number
-  style?: object
+  style?: StyleProp<ViewStyle>
   placeholder?: string
-  contentFit?: "cover" | "contain" | "fill" | "none" | "scale-down"
+  contentFit?: Fit
   transition?: number
 }
-const ImageContainer: FC<ImageContainerProps> = (props) => {
-  const {
-    source,
-    height = 100,
-    width = 100,
-    style,
-    placeholder,
-    transition,
-    contentFit,
-  } = props
+
+const normalizeSource = (src?: ImageContainerProps["source"]) => {
+  if (!src) return undefined
+  if (typeof src === "string") return { uri: src }
+  return src
+}
+
+const ImageContainer: FC<ImageContainerProps> = ({
+  source,
+  height,
+  width,
+  style,
+  placeholder,
+  transition = 120,
+  contentFit = "cover",
+}) => {
+  const normalized = normalizeSource(source)
 
   return (
-    <View>
-      <Image
-        source={source}
-        style={[styles.imageContainer, { width: width, height: height }, style]}
-        placeholder={blurhash || placeholder}
-        contentFit={contentFit ?? "cover"}
-        transition={transition ?? 100}
+    <View
+      style={[styles.wrap, width && height ? { width, height } : null, style]}
+    >
+      <ExpoImage
+        source={normalized}
+        style={StyleSheet.absoluteFill}
+        placeholder={placeholder ?? blurhash}
+        contentFit={contentFit}
+        transition={transition}
       />
     </View>
   )
@@ -38,12 +54,9 @@ const ImageContainer: FC<ImageContainerProps> = (props) => {
 export default ImageContainer
 
 const styles = StyleSheet.create({
-  imageContainer: {
-    width: "100%",
-    height: "auto",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+  wrap: {
     backgroundColor: "transparent",
+    overflow: "hidden",
+    borderRadius: 0,
   },
 })

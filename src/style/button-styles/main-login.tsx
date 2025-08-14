@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: "center",
     fontSize: 16,
-    fontWeight: "400",
+    fontWeight: "500",
   },
   buttonTextDark: {
     color: BankColorsThemes.white,

@@ -12,6 +12,7 @@ import { BankColorsThemes } from "@/src/style/color"
 import AppLogo from "@/src/components/images/app-logo"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { SignupSchema } from "@/src/types/schema"
+import AuthHeader from "@/src/components/auth/auth-header"
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -45,11 +46,10 @@ const Signup = () => {
 
   return (
     <AuthWrapper>
-      <View
-        style={tw`text-4xl mt-10 w-full text-white flex items-center justify-center text-center font-medium`}
-      >
-        <AppLogo />
-      </View>
+      <AuthHeader
+        title="Create New Account"
+        subtitle="Enter your details to create new account"
+      />
       <View
         style={[
           styles.formCover,

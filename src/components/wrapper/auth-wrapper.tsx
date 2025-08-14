@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
     height: "100%",
     flex: 1,
     justifyContent: "flex-start",
-    alignItems: "center",
+    alignItems: "flex-start",
     backgroundColor: BankColorsThemes.black,
+    padding: 16,
   },
 })

@@ -7,15 +7,12 @@ import tw from "twrnc"
 import React from "react";
 import {
   Dimensions,
-
-
-
   StyleSheet,
   Text,
 
   View,
 } from "react-native";
-
+import bankImage from "@/src/assets/images/bank_earth.png";
 const { width: W, height: H } = Dimensions.get("window");
 
 
@@ -46,10 +43,10 @@ const router = useRouter();
 
 
       <View style={styles.ctaRow}>
-<MainLoginButton onPress={goToLogin} title="Sign Up" />  <MainLoginButton primary onPress={goToSignUp} title="Log In" />
+<MainLoginButton onPress={goToSignUp} title="Sign Up" />  <MainLoginButton primary onPress={goToLogin} title="Log In" />
       </View>
 
-<ImageContainer source={{uri:''}} style={tw``}/>
+<ImageContainer source={bankImage} style={tw`w-full h-full`} contentFit="cover" />
     </View>
   );
 }
@@ -105,12 +102,12 @@ fontWeight: "800",
 
 
   ctaRow: {
-
     paddingHorizontal: 16,
-    marginTop:64,
+    marginTop:24,
     flexDirection: "row",
     gap: 16,
     justifyContent: "space-between",
+    marginBottom: 24,
   },
 
   btnFillText: {
