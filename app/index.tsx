@@ -1,33 +1,24 @@
-
-import ImageContainer from "@/src/components/images/image-container";
-import MainLoginButton from "@/src/style/button-styles/main-login";
-import { BankColorsThemes } from "@/src/style/color";
-import { useRouter } from "expo-router";
+import ImageContainer from "@/src/components/images/image-container"
+import MainLoginButton from "@/src/style/button-styles/main-login"
+import { BankColorsThemes } from "@/src/style/color"
+import { useRouter } from "expo-router"
 import tw from "twrnc"
-import React from "react";
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-
-  View,
-} from "react-native";
-import bankImage from "@/src/assets/images/bank_earth.png";
-const { width: W, height: H } = Dimensions.get("window");
-
+import React from "react"
+import { Dimensions, StyleSheet, Text, View } from "react-native"
+import bankImage from "@/src/assets/images/bank_earth.png"
+import { TextFontFamily } from "@/src/style/text-styles/text-font-family"
+const { width: W, height: H } = Dimensions.get("window")
 
 export default function Onboarding() {
-const router = useRouter();
+  const router = useRouter()
   const goToLogin = () => {
-    router.navigate('/login')
+    router.navigate("/login")
   }
   const goToSignUp = () => {
-     router.navigate('/signup')
+    router.navigate("/signup")
   }
   return (
     <View style={styles.container}>
-
-
       <View style={styles.titleWrap}>
         <Text style={styles.titleLine}>Trusted By</Text>
         <Text style={[styles.titleLine, styles.titleLineTight]}>
@@ -41,22 +32,25 @@ const router = useRouter();
         transection without any fee or charges
       </Text>
 
-
       <View style={styles.ctaRow}>
-<MainLoginButton onPress={goToSignUp} title="Sign Up" />  <MainLoginButton primary onPress={goToLogin} title="Log In" />
+        <MainLoginButton onPress={goToSignUp} title="Sign Up" />
+        <MainLoginButton primary onPress={goToLogin} title="Log In" />
       </View>
 
-<ImageContainer source={bankImage} style={tw`w-full h-full`} contentFit="cover" />
+      <ImageContainer
+        source={bankImage}
+        style={tw`w-full h-full`}
+        contentFit="cover"
+      />
     </View>
-  );
+  )
 }
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: BankColorsThemes.black,
-    },
+  },
 
   brand: {
     alignSelf: "center",
@@ -75,14 +69,14 @@ const styles = StyleSheet.create({
     color: BankColorsThemes.white,
     fontSize: 38,
     lineHeight: 38,
-fontWeight: "800",
+    fontWeight: "800",
     textAlign: "center",
     includeFontPadding: false,
+    fontFamily: TextFontFamily.NeuePlakExtraBlack,
   },
   titleLineTight: { marginTop: 6 },
 
   subtitle: {
-
     color: BankColorsThemes.neutral[200],
     textAlign: "center",
     paddingHorizontal: 28,
@@ -92,7 +86,6 @@ fontWeight: "800",
   },
 
   pager: {
-
     height: 14,
     flexDirection: "row",
     alignItems: "center",
@@ -100,10 +93,9 @@ fontWeight: "800",
     gap: 12,
   },
 
-
   ctaRow: {
     paddingHorizontal: 16,
-    marginTop:24,
+    marginTop: 24,
     flexDirection: "row",
     gap: 16,
     justifyContent: "space-between",
@@ -150,7 +142,6 @@ fontWeight: "800",
     width: 8,
     height: 8,
     borderRadius: 999,
-
   },
   ratingText: {
     color: "#EAEAEA",
@@ -158,7 +149,6 @@ fontWeight: "800",
     fontWeight: "700",
   },
   pinWrap: {
-
     borderWidth: 3,
     borderColor: "#FFFFFF",
     backgroundColor: "#0D0F14",
@@ -179,5 +169,4 @@ fontWeight: "800",
     borderTopColor: "#FFFFFF",
     transform: [{ rotate: "180deg" }],
   },
-
-});
+})

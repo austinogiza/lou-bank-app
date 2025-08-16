@@ -56,12 +56,13 @@ const styles = StyleSheet.create({
   },
   mainInput: {
     height: 44,
+
     borderColor: BankColorsThemes.neutral[900],
     borderWidth: 1,
     borderRadius: 12,
     paddingHorizontal: 12,
 
-    backgroundColor: BankColorsThemes.neutral[200],
+    backgroundColor: BankColorsThemes.black,
   },
 
   errorText: {

@@ -23,6 +23,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "flex-start",
     backgroundColor: BankColorsThemes.black,
-    padding: 16,
+    padding: 8,
   },
 })
