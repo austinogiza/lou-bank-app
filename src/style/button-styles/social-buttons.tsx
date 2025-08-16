@@ -1,33 +1,32 @@
-import { Pressable, StyleSheet, Text, View } from "react-native"
+// style/button-styles/social-buttons.tsx
 import React, { FC } from "react"
+import { Pressable, StyleSheet, Text } from "react-native"
 import { BankColorsThemes } from "../color"
-import { LinearGradient } from "expo-linear-gradient"
-import { Link } from "expo-router"
+import ImageContainer from "@/src/components/images/image-container"
+import { ImageSource } from "expo-image"
 
 interface SocialButtonsProps {
-  title?: string
+  title: string
   onPress?: () => void
   isGoogle?: boolean
-  link?: string
+  socialLogo?: any
 }
 
 const SocialButtons: FC<SocialButtonsProps> = (props) => {
-  const { title, onPress, isGoogle, link } = props
-
+  const { title, onPress, isGoogle, socialLogo } = props
   return (
     <Pressable
       style={[
-        styles.pressableButton,
-        isGoogle ? styles.primaryButton : styles.secondaryButton,
+        styles.baseButton,
+        isGoogle ? styles.googleButton : styles.secondaryButton,
       ]}
-      accessibilityRole="button"
-      accessibilityLabel={title}
       onPress={onPress}
     >
+      {socialLogo}
       <Text
         style={[
-          isGoogle ? styles.buttonTextDark : styles.buttonTextWhite,
           styles.buttonText,
+          isGoogle ? styles.googleText : styles.secondaryText,
         ]}
       >
         {title}
@@ -39,40 +38,33 @@ const SocialButtons: FC<SocialButtonsProps> = (props) => {
 export default SocialButtons
 
 const styles = StyleSheet.create({
-  pressableButton: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 10,
-    borderRadius: 99,
-    paddingVertical: 12,
+  baseButton: {
     width: "100%",
     height: 56,
+    borderRadius: 99,
+    alignItems: "center",
+    justifyContent: "center",
+    marginVertical: 8,
+    flexDirection: "row",
+    gap: 8,
   },
-  primaryButton: {
-    backgroundColor: BankColorsThemes.primary[500],
+  googleButton: {
+    backgroundColor: BankColorsThemes.black,
+    borderWidth: 1,
+    borderColor: BankColorsThemes.neutral[200],
+  },
+  googleText: {
     color: BankColorsThemes.white,
+    fontWeight: "600",
   },
   secondaryButton: {
-    backgroundColor: BankColorsThemes.black,
-    borderColor: BankColorsThemes.primary[500],
-    borderWidth: 1,
-    color: BankColorsThemes.primary[500],
-    shadowColor: BankColorsThemes.primary[500],
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    backgroundColor: BankColorsThemes.socialButtonDark,
+  },
+  secondaryText: {
+    color: BankColorsThemes.white,
+    fontWeight: "600",
   },
   buttonText: {
-    textAlign: "center",
     fontSize: 16,
-    fontWeight: "500",
-  },
-  buttonTextDark: {
-    color: BankColorsThemes.white,
-  },
-  buttonTextWhite: {
-    color: BankColorsThemes.primary[500],
   },
 })

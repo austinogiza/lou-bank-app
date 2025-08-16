@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native"
+import { ScrollView, Pressable, StyleSheet, Text, View } from "react-native"
 import React, { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import AuthWrapper from "@/src/components/wrapper/auth-wrapper"
@@ -9,152 +9,122 @@ import MainLoginButton from "@/src/style/button-styles/main-login"
 import InputLabel from "@/src/style/input/input-label"
 import { Eye, EyeOff } from "lucide-react-native"
 import { BankColorsThemes } from "@/src/style/color"
-import AppLogo from "@/src/components/images/app-logo"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { SignupSchema } from "@/src/types/schema"
 import AuthHeader from "@/src/components/auth/auth-header"
 import SocialButtons from "@/src/style/button-styles/social-buttons"
+import { AppleLogo, GoogleLogo } from "@/src/utils/image-export"
 
 const Signup = () => {
-  const [showPassword, setShowPassword] = useState<boolean>(false)
-  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
-  const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev)
-  }
-  const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword((prev) => !prev)
-  }
   const {
     handleSubmit,
     control,
-    register,
     formState: { errors },
     watch,
     setValue,
   } = useForm<SignupFormDataProps>({
     resolver: zodResolver(SignupSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    defaultValues: { email: "", password: "", confirmPassword: "" },
     mode: "onChange",
-    reValidateMode: "onChange",
   })
 
-  // Submit form handler
-  const onSubmit: SubmitHandler<SignupFormDataProps> = (data) => {}
+  const onSubmit: SubmitHandler<SignupFormDataProps> = (data) => {
+    console.log("form submitted:", data)
+  }
 
   return (
     <AuthWrapper>
-      <View>
-        <AuthHeader
-          style={tw`mt-6`}
-          title="Create New Account"
-          subtitle="Enter your details to create new account"
-        />
-        <View
-          style={[
-            styles.formCover,
-            tw`text-2xl text-white mt-3 items-center w-full flex-1 justify-between text-center font-medium`,
-          ]}
-        >
-          <View style={tw`w-full`}>
-            <View style={tw`w-full`}>
-              <InputLabel title="Email" />
+      <View style={tw`w-full justify-between flex-1`}>
+        <View style={tw`w-full`}>
+          <AuthHeader
+            style={tw`mt-6`}
+            title="Create New Account"
+            subtitle="Enter your details to create new account"
+          />
+
+          <View style={styles.formCover}>
+            {/* Email */}
+            <InputLabel title="Email" />
+            <MainInput
+              control={control}
+              placeholder="Email"
+              name="email"
+              value={watch("email")}
+              onChangeText={(text) => setValue("email", text)}
+              error={errors.email?.message as string}
+            />
+
+            {/* Password */}
+            <InputLabel title="Password" />
+            <View style={tw`relative`}>
+              <View style={tw`absolute right-4 top-3 z-10`}>
+                <Pressable onPress={() => setShowPassword((p) => !p)}>
+                  {showPassword ? (
+                    <Eye color={BankColorsThemes.black} size={20} />
+                  ) : (
+                    <EyeOff color={BankColorsThemes.black} size={20} />
+                  )}
+                </Pressable>
+              </View>
               <MainInput
                 control={control}
-                placeholder="Email"
-                name="email"
-                value={watch("email")}
-                onChangeText={(text) => setValue("email", text)}
-                error={errors.email?.message as string}
+                placeholder="Password"
+                name="password"
+                secureTextEntry={!showPassword}
+                value={watch("password")}
+                onChangeText={(text) => setValue("password", text)}
+                error={errors.password?.message as string}
               />
             </View>
 
-            <View style={tw`w-full`}>
-              <InputLabel title="Password" />
-              <View style={tw`relative w-full`}>
-                <View style={tw`absolute right-4 top-3 z-10`}>
-                  <Pressable onPress={togglePasswordVisibility}>
-                    {showPassword ? (
-                      <>
-                        <Eye
-                          color={BankColorsThemes.black}
-                          strokeWidth={2}
-                          size={20}
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <EyeOff
-                          color={BankColorsThemes.black}
-                          strokeWidth={2}
-                          size={20}
-                        />
-                      </>
-                    )}
-                  </Pressable>
-                </View>
-                <MainInput
-                  control={control}
-                  placeholder="Password"
-                  name="password"
-                  secureTextEntry={showPassword ? false : true}
-                  value={watch("password")}
-                  onChangeText={(text) => setValue("password", text)}
-                  error={errors.password?.message as string}
-                />
+            {/* Confirm Password */}
+            <InputLabel title="Confirm Password" />
+            <View style={tw`relative`}>
+              <View style={tw`absolute right-4 top-3 z-10`}>
+                <Pressable onPress={() => setShowConfirmPassword((p) => !p)}>
+                  {showConfirmPassword ? (
+                    <Eye color={BankColorsThemes.black} size={20} />
+                  ) : (
+                    <EyeOff color={BankColorsThemes.black} size={20} />
+                  )}
+                </Pressable>
               </View>
+              <MainInput
+                control={control}
+                placeholder="Confirm Password"
+                name="confirmPassword"
+                secureTextEntry={!showConfirmPassword}
+                value={watch("confirmPassword")}
+                onChangeText={(text) => setValue("confirmPassword", text)}
+                error={errors.confirmPassword?.message as string}
+              />
             </View>
-            <View style={tw`w-full`}>
-              <InputLabel title="Confirm Password" />
-              <View style={tw`relative w-full`}>
-                <View style={tw`absolute right-4 top-3 z-10`}>
-                  <Pressable onPress={toggleConfirmPasswordVisibility}>
-                    {showPassword ? (
-                      <>
-                        <Eye
-                          color={BankColorsThemes.black}
-                          strokeWidth={2}
-                          size={20}
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <EyeOff
-                          color={BankColorsThemes.black}
-                          strokeWidth={2}
-                          size={20}
-                        />
-                      </>
-                    )}
-                  </Pressable>
-                </View>
-                <MainInput
-                  control={control}
-                  placeholder="Confirm Password"
-                  name="confirmPassword"
-                  secureTextEntry={showConfirmPassword ? false : true}
-                  value={watch("confirmPassword")}
-                  onChangeText={(text) => setValue("confirmPassword", text)}
-                  error={errors.confirmPassword?.message as string}
-                />
-              </View>
+
+            {/* Submit Button */}
+            <View style={styles.submitButtonContainer}>
+              <MainLoginButton
+                onPress={handleSubmit(onSubmit)}
+                title="Create your account"
+                primary
+              />
             </View>
-          </View>
-          <View style={styles.submitButtonContainer}>
-            <MainLoginButton
-              onPress={handleSubmit(onSubmit)}
-              title="Create your account"
-              primary
-            />
           </View>
         </View>
-      </View>
-      <View>
-        <SocialButtons isGoogle title="Log In with Google" />
-        <SocialButtons title="Log In with Google" />
+
+        <View style={styles.formContainer}>
+          <SocialButtons
+            isGoogle
+            title="Sign up with Google"
+            socialLogo={<GoogleLogo />}
+          />
+          <SocialButtons
+            title="Sign up with Apple"
+            socialLogo={<AppleLogo />}
+          />
+        </View>
       </View>
     </AuthWrapper>
   )
@@ -163,20 +133,18 @@ const Signup = () => {
 export default Signup
 
 const styles = StyleSheet.create({
-  formCover: {
-    width: "100%",
-  },
-  submitButtonContainer: {
-    marginTop: 32,
+  formContainer: {
     width: "100%",
     marginBottom: 24,
   },
-  submitButton: {
-    backgroundColor: "#4CAF50",
-
-    textAlign: "center",
-    color: "#fff",
-    fontWeight: "bold",
-    borderRadius: 5,
+  formCover: {
+    width: "100%",
+    marginTop: 20,
+  },
+  submitButtonContainer: {
+    marginTop: 32,
+    marginBottom: 24,
+    height: 56, // ✅ ensures button has space
+    width: "100%",
   },
 })
