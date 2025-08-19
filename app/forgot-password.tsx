@@ -1,10 +1,4 @@
-import {
-  KeyboardAvoidingView,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native"
+import { Pressable, StyleSheet, Text, View } from "react-native"
 import React, { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import AuthWrapper from "@/src/components/wrapper/auth-wrapper"
@@ -20,9 +14,8 @@ import { LoginSchema } from "@/src/types/schema"
 import AuthHeader from "@/src/components/auth/auth-header"
 import SocialButtons from "@/src/style/button-styles/social-buttons"
 import { AppleLogo, GoogleLogo } from "@/src/utils/image-export"
-import { useRouter } from "expo-router"
 
-const LoginScreen = () => {
+const ForgotPassword = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const togglePasswordVisibility = () => {
@@ -44,13 +37,7 @@ const LoginScreen = () => {
     mode: "onChange",
     reValidateMode: "onChange",
   })
-  const router = useRouter()
-  const goToForgotPassword = () => {
-    router.push("/forgot-password")
-  }
-  const goToSignup = () => {
-    router.push("/signup")
-  }
+
   // Submit form handler
   const onSubmit: SubmitHandler<LoginFormDataProps> = (data) => {}
 
@@ -59,8 +46,9 @@ const LoginScreen = () => {
       <AuthWrapper>
         <AuthHeader
           style={tw`mt-6`}
-          title="Welcome Back!"
-          subtitle="Enter your details to log in to your account"
+          title="Forgot your Password?"
+          subtitle="We'll send you an email with instructions to
+reset your password."
         />
         <View
           style={[
@@ -82,81 +70,24 @@ const LoginScreen = () => {
             </View>
 
             <View style={tw`w-full`}>
-              <InputLabel title="Password" />
-              <View style={tw`relative w-full`}>
-                <View style={tw`absolute right-4 top-3 z-10`}>
-                  <Pressable onPress={togglePasswordVisibility}>
-                    {showPassword ? (
-                      <>
-                        <Eye
-                          color={BankColorsThemes.black}
-                          strokeWidth={2}
-                          size={20}
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <EyeOff
-                          color={BankColorsThemes.black}
-                          strokeWidth={2}
-                          size={20}
-                        />
-                      </>
-                    )}
-                  </Pressable>
-                </View>
-                <MainInput
-                  control={control}
-                  placeholder="Password"
-                  name="password"
-                  secureTextEntry={showPassword ? false : true}
-                  value={watch("password")}
-                  onChangeText={(text) => setValue("password", text)}
-                  error={errors.password?.message as string}
-                />
-              </View>
-              <View style={tw`w-full items-end justify-end`}>
-                <Pressable onPress={goToForgotPassword}>
-                  <Text style={tw`w-full text-white items-end justify-end`}>
-                    Forgot password?
-                  </Text>
-                </Pressable>
-              </View>
               <View>
                 <View style={styles.submitButtonContainer}>
                   <MainLoginButton
                     onPress={handleSubmit(onSubmit)}
-                    title="Continue"
+                    title="Send email"
                     primary
                   />
-                </View>
-
-                <View style={tw`w-full items-center justify-center`}>
-                  <Pressable onPress={goToSignup}>
-                    <Text style={tw`w-full items-center justify-center`}>
-                      <Text style={styles.joinTitle}>Don’t have account?</Text>
-                      <Text style={styles.joinAction}> Sign Up</Text>
-                    </Text>
-                  </Pressable>
                 </View>
               </View>
             </View>
           </View>
-        </View>
-        <View style={styles.formContainer}>
-          <SocialButtons
-            isGoogle
-            title="Log In with Google"
-            socialLogo={<GoogleLogo />}
-          />
-          <SocialButtons title="Log In with Apple" socialLogo={<AppleLogo />} />
         </View>
       </AuthWrapper>
     </>
   )
 }
 
-export default LoginScreen
+export default ForgotPassword
 
 const styles = StyleSheet.create({
   formContainer: {

@@ -63,6 +63,61 @@ function RootLayoutNav() {
       <AppProvider>
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen
+            name="login"
+            options={{
+              headerShown: true,
+              headerLeft: () => <GoBackButton />,
+
+              headerTitleAlign: "center",
+              headerTitleStyle: {
+                color: BankColorsThemes.white,
+                fontSize: 16,
+                fontWeight: "600",
+              },
+              headerTintColor: BankColorsThemes.white,
+              headerStyle: { backgroundColor: BankColorsThemes.black },
+              headerShadowVisible: false,
+              headerTitle: "Login",
+            }}
+          />
+          <Stack.Screen
+            name="forgot-password"
+            options={{
+              headerShown: true,
+              headerLeft: () => <GoBackButton />,
+
+              headerTitleAlign: "center",
+              headerTitleStyle: {
+                color: BankColorsThemes.white,
+                fontSize: 16,
+                fontWeight: "600",
+              },
+              headerTintColor: BankColorsThemes.white,
+              headerStyle: { backgroundColor: BankColorsThemes.black },
+              headerShadowVisible: false,
+              headerTitle: "Forgot Password",
+            }}
+          />
+          <Stack.Screen
+            name="reset-password"
+            options={{
+              headerShown: true,
+              headerLeft: () => <GoBackButton />,
+
+              headerTitleAlign: "center",
+              headerTitleStyle: {
+                color: BankColorsThemes.white,
+                fontSize: 16,
+                fontWeight: "600",
+              },
+              headerTintColor: BankColorsThemes.white,
+              headerStyle: { backgroundColor: BankColorsThemes.black },
+              headerShadowVisible: false,
+              headerTitle: "Reset Password",
+            }}
+          />
+
+          <Stack.Screen
             name="auth-pin"
             options={{
               headerTitle: () => <HeaderLogo />,
@@ -96,7 +151,6 @@ function RootLayoutNav() {
               headerStyle: { backgroundColor: BankColorsThemes.black },
             }}
           />
-
           <Stack.Screen
             name="signup"
             options={{
@@ -114,25 +168,6 @@ function RootLayoutNav() {
               headerShadowVisible: false,
             }}
           />
-          <Stack.Screen
-            name="login"
-            options={{
-              headerShown: true,
-              headerLeft: () => <GoBackButton />,
-
-              headerTitleAlign: "center",
-              headerTitleStyle: {
-                color: BankColorsThemes.white,
-                fontSize: 16,
-                fontWeight: "600",
-              },
-              headerTintColor: BankColorsThemes.white,
-              headerStyle: { backgroundColor: BankColorsThemes.black },
-              headerShadowVisible: false,
-              headerTitle: "Login",
-            }}
-          />
-
           <Stack.Screen name="(tabs)" />
         </Stack>
       </AppProvider>

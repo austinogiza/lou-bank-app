@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native"
+import { KeyboardAvoidingView, StyleSheet, View } from "react-native"
 import React, { FC } from "react"
 import { BankColorsThemes } from "@/src/style/color"
 interface AuthWrapperProps {
@@ -8,7 +8,11 @@ const AuthWrapper: FC<AuthWrapperProps> = (props) => {
   const { children } = props
   return (
     <>
-      <View style={styles.container}>{children}</View>
+      <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.keyboardContainer}>
+          {children}
+        </KeyboardAvoidingView>
+      </View>
     </>
   )
 }
@@ -17,6 +21,14 @@ export default AuthWrapper
 
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
+    height: "100%",
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    backgroundColor: BankColorsThemes.black,
+  },
+  keyboardContainer: {
     width: "100%",
     height: "100%",
     flex: 1,
