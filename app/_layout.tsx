@@ -116,13 +116,43 @@ function RootLayoutNav() {
               headerTitle: "Reset Password",
             }}
           />
-
           <Stack.Screen
             name="auth-pin"
             options={{
-              headerTitle: () => <HeaderLogo />,
+              headerShown: true,
+              headerLeft: () => <GoBackButton />,
+
+              headerTitleAlign: "center",
+              headerTitleStyle: {
+                color: BankColorsThemes.white,
+                fontSize: 16,
+                fontWeight: "600",
+              },
+              headerTintColor: BankColorsThemes.white,
+              headerStyle: { backgroundColor: BankColorsThemes.black },
+              headerShadowVisible: false,
+              headerTitle: "Create Passcode",
             }}
           />
+          <Stack.Screen
+            name="auth-verification"
+            options={{
+              headerShown: true,
+              headerLeft: () => <GoBackButton />,
+
+              headerTitleAlign: "center",
+              headerTitleStyle: {
+                color: BankColorsThemes.white,
+                fontSize: 16,
+                fontWeight: "600",
+              },
+              headerTintColor: BankColorsThemes.white,
+              headerStyle: { backgroundColor: BankColorsThemes.black },
+              headerShadowVisible: false,
+              headerTitle: "Verify",
+            }}
+          />
+
           <Stack.Screen
             name="auth-confirm-pin"
             options={{
