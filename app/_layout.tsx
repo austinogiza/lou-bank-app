@@ -33,6 +33,9 @@ export default function RootLayout() {
     NeuePlak: require("../src/assets/fonts/neue-plak/neue-plak-regular.ttf"),
     NeuePlakTextSemiBold: require("../src/assets/fonts/neue-plak/neue-plak-text-semiBold.ttf"),
     NeuePlakExtraBlack: require("../src/assets/fonts/neue-plak/neue-plak-condensed-extrablack.ttf"),
+    GeistRegular: require("../src/assets/fonts/Geist/Geist-Regular.otf"),
+    GeistSemiBold: require("../src/assets/fonts/Geist/Geist-SemiBold.otf"),
+    GeistMedium: require("../src/assets/fonts/Geist/Geist-Medium.otf"),
 
     ...FontAwesome.font,
   })
@@ -150,6 +153,12 @@ function RootLayoutNav() {
               headerStyle: { backgroundColor: BankColorsThemes.black },
               headerShadowVisible: false,
               headerTitle: "Verify",
+            }}
+          />
+          <Stack.Screen
+            name="transfer-successful"
+            options={{
+              headerShown: false,
             }}
           />
 

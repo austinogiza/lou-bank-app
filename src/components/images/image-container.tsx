@@ -1,10 +1,6 @@
 import React, { FC } from "react"
 import { StyleSheet, View, StyleProp, ViewStyle } from "react-native"
-import {
-  Image as ExpoImage,
-  ImageSource,
-  ImageErrorEventData,
-} from "expo-image"
+import { Image as ExpoImage, ImageSource } from "expo-image"
 import { blurhash } from "@/src/utils/image-blur"
 
 type Fit = "cover" | "contain" | "fill" | "none" | "scale-down"
@@ -25,15 +21,16 @@ const normalizeSource = (src?: ImageContainerProps["source"]) => {
   return src
 }
 
-const ImageContainer: FC<ImageContainerProps> = ({
-  source,
-  height,
-  width,
-  style,
-  placeholder,
-  transition = 120,
-  contentFit = "cover",
-}) => {
+const ImageContainer: FC<ImageContainerProps> = (props) => {
+  const {
+    source,
+    height,
+    width,
+    style,
+    placeholder,
+    transition = 120,
+    contentFit = "cover",
+  } = props
   const normalized = normalizeSource(source)
 
   return (
