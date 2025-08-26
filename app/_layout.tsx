@@ -158,7 +158,11 @@ function RootLayoutNav() {
           <Stack.Screen
             name="transfer-successful"
             options={{
-              headerShown: false,
+              headerShown: true,
+              headerTransparent: true,
+              headerTitle: "",
+              headerShadowVisible: false,
+              headerTitleStyle: { color: BankColorsThemes.white },
             }}
           />
 

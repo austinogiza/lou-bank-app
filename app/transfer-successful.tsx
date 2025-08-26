@@ -10,40 +10,48 @@ import { TextFontSize } from "@/src/style/text-styles/text-font-size"
 
 const TransferSuccessful = () => {
   return (
-    <>
-      <View style={styles.container}>
-        <View style={styles.textCover}>
-          <ImageContainer source={{ uri: TransferSuccessImage }} />
-          <View style={styles.textCover}>
-            <Text
-              style={[
-                styles.textWrapper,
-                {
-                  fontFamily: TextFontFamily.NeuePlakExtraBlack,
-                  fontSize: TextFontSize["text-4xl"],
-                },
-              ]}
-            >
-              Congratulations!
-            </Text>
-            <Text
-              style={[
-                styles.textWrapper,
-                {
-                  fontFamily: TextFontFamily.GeistRegular,
-                  fontSize: TextFontSize["text-base"],
-                },
-              ]}
-            >
-              Your Money Has been Sent Successfully To Ellizabeth Olsen
-            </Text>
-          </View>
-        </View>
-        <View style={styles.buttonCover}>
-          <MainLoginButton title="Back To Home" />
+    <View style={styles.container}>
+      {/* Main content area */}
+      <View style={styles.contentArea}>
+        {/* Image */}
+        <ImageContainer source={{ uri: TransferSuccessImage }} />
+
+        {/* Text content */}
+        <View style={styles.textContainer}>
+          <Text
+            style={[
+              styles.titleText,
+              {
+                fontFamily: TextFontFamily.NeuePlakExtraBlack,
+                fontSize: TextFontSize["text-4xl"],
+              },
+            ]}
+          >
+            Congratulations!
+          </Text>
+
+          <Text
+            numberOfLines={2}
+            adjustsFontSizeToFit={true}
+            minimumFontScale={0.7}
+            style={[
+              styles.subtitleText,
+              {
+                fontFamily: TextFontFamily.GeistRegular,
+                fontSize: TextFontSize["text-base"],
+              },
+            ]}
+          >
+            Your Money Has been Sent Successfully To Ellizabeth Olsen
+          </Text>
         </View>
       </View>
-    </>
+
+      {/* Button at bottom */}
+      <View style={styles.buttonContainer}>
+        <MainLoginButton title="Back To Home" />
+      </View>
+    </View>
   )
 }
 
@@ -53,29 +61,34 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    height: "100%",
-    justifyContent: "space-between",
-    alignItems: "center",
     backgroundColor: BankColorsThemes.secondary[500],
     paddingVertical: 32,
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
   },
-  textCover: {
+  contentArea: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 24,
-    gap: 8,
-    paddingHorizontal: 32,
+    gap: 24,
   },
-  textWrapper: {
-    textAlign: "center",
+  textContainer: {
     width: "100%",
+    alignItems: "center",
+    gap: 12,
+    paddingHorizontal: 16, // Additional padding for text
+  },
+  titleText: {
+    textAlign: "center",
     color: BankColorsThemes.white,
   },
-  buttonCover: {
-    height: 50,
+  subtitleText: {
+    textAlign: "center",
+    color: BankColorsThemes.white,
+    lineHeight: 24, // Add line height for better text spacing
+  },
+  buttonContainer: {
     width: "100%",
-    marginTop: 32,
+    height: 56,
+    marginTop: 24,
   },
 })

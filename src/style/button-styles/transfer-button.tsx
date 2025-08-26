@@ -4,21 +4,52 @@ import { BankColorsThemes } from "../color"
 import { LinearGradient } from "expo-linear-gradient"
 import { Link } from "expo-router"
 
-interface MainLoginButtonProps {
+interface TransferButtonProps {
   title?: string
   onPress?: () => void
   primary?: boolean
   link?: string
+  size?: "small" | "medium" | "large" | "extra-large"
+  outline?: boolean
+  destructive?: boolean
+  actionType?: "receive" | "send"
 }
 
-const MainLoginButton: FC<MainLoginButtonProps> = (props) => {
-  const { title, onPress, primary, link } = props
+const TransferButton: FC<TransferButtonProps> = (props) => {
+  const {
+    title,
+    onPress,
+    primary,
+    link,
+    outline,
+    destructive,
+    actionType,
+    size,
+  } = props
 
   return (
     <Pressable
       style={[
+        {
+          height:
+            size === "small"
+              ? 40
+              : size === "medium"
+              ? 48
+              : size === "large"
+              ? 56
+              : 64,
+        },
         styles.pressableButton,
-        primary ? styles.primaryButton : styles.secondaryButton,
+        !outline
+          ? primary
+            ? styles.primaryButton
+            : destructive
+            ? styles.destructiveButton
+            : styles.secondaryButton
+          : actionType === "receive"
+          ? styles.receiveButton
+          : actionType === "send" && styles.sendButton,
       ]}
       accessibilityRole="button"
       accessibilityLabel={title}
@@ -36,7 +67,7 @@ const MainLoginButton: FC<MainLoginButtonProps> = (props) => {
   )
 }
 
-export default MainLoginButton
+export default TransferButton
 
 const styles = StyleSheet.create({
   pressableButton: {
@@ -47,7 +78,6 @@ const styles = StyleSheet.create({
     borderRadius: 99,
     paddingVertical: 12,
     width: "100%",
-    height: 56,
   },
   primaryButton: {
     backgroundColor: BankColorsThemes.primary[500],
@@ -57,11 +87,10 @@ const styles = StyleSheet.create({
     backgroundColor: BankColorsThemes.white,
 
     color: BankColorsThemes.secondary[500],
-    shadowColor: BankColorsThemes.primary[500],
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+  },
+  destructiveButton: {
+    backgroundColor: BankColorsThemes.destructive[500],
+    color: BankColorsThemes.white,
   },
   buttonText: {
     textAlign: "center",
@@ -73,5 +102,17 @@ const styles = StyleSheet.create({
   },
   buttonTextWhite: {
     color: BankColorsThemes.primary[500],
+  },
+  receiveButton: {
+    backgroundColor: BankColorsThemes.black,
+    borderWidth: 1,
+    borderColor: BankColorsThemes.accent[600],
+    color: BankColorsThemes.white,
+  },
+  sendButton: {
+    backgroundColor: BankColorsThemes.black,
+    borderWidth: 1,
+    borderColor: BankColorsThemes.tertiary[500],
+    color: BankColorsThemes.white,
   },
 })
