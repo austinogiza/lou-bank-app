@@ -1,18 +1,15 @@
 import { StyleSheet, Text, View } from "react-native"
 import React from "react"
-import AuthOnboarding from "@/src/components/auth/auth-home"
-import ResetPassword from "./reset-password"
-import AuthPin from "./auth-pin"
-import OtpScreen from "./auth-verification"
-import TransferSuccessful from "./transfer-successful"
+import DownloadTransactionStatements from "./download-statements"
+import TransactionDetails from "./transaction-details"
+import CustomDateScreen from "./custom-range"
+import AddMoneyScreen from "./add-money"
+import SendMoneyScreen from "./send-money"
 
 const LouBank = () => {
   return (
     <>
-      {/* <AuthOnboarding /> */}
-      {/* <AuthPin /> */}
-      {/* <OtpScreen /> */}
-      <TransferSuccessful />
+      <SendMoneyScreen />
     </>
   )
 }

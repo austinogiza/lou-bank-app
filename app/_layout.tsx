@@ -155,43 +155,14 @@ function RootLayoutNav() {
               headerTitle: "Verify",
             }}
           />
-          <Stack.Screen
-            name="transfer-successful"
-            options={{
-              headerShown: true,
-              headerTransparent: true,
-              headerTitle: "",
-              headerShadowVisible: false,
-              headerTitleStyle: { color: BankColorsThemes.white },
-            }}
-          />
+          <Stack.Screen name="transfer-successful" />
 
-          <Stack.Screen
-            name="auth-confirm-pin"
-            options={{
-              headerTitle: () => <HeaderLogo />,
-            }}
-          />
-          <Stack.Screen
-            name="pin-success"
-            options={{
-              headerTitle: () => <HeaderLogo />,
-            }}
-          />
+          <Stack.Screen name="auth-confirm-pin" options={{}} />
+          <Stack.Screen name="pin-success" options={{}} />
           <Stack.Screen
             name="index"
             options={{
-              headerShown: true,
-              headerShadowVisible: false,
-              headerTitle: () => <HeaderLogo />,
-              headerTitleAlign: "center",
-              headerTitleStyle: {
-                color: BankColorsThemes.white,
-                fontSize: 24,
-                fontWeight: "600",
-              },
-              headerTintColor: BankColorsThemes.white,
-              headerStyle: { backgroundColor: BankColorsThemes.black },
+              headerShown: false,
             }}
           />
           <Stack.Screen

@@ -1,221 +1,116 @@
-import React, { useState } from "react"
+import React from "react"
 import {
   View,
   Text,
-  ScrollView,
   TouchableOpacity,
-  StatusBar,
-  SafeAreaView,
   Image,
+  ScrollView,
+  StyleSheet,
 } from "react-native"
-import { ChevronDown, CreditCard, X } from "lucide-react-native"
 import tw from "twrnc"
-import AppBalance from "@/src/components/home/app-balance"
-import SalaryCards from "@/src/components/home/salary-cards"
-import FinanceQuick from "@/src/components/home/finance-quick"
+import { BankColorsThemes } from "@/src/style/color"
 
-const BankingDashboard = () => {
-  const [showInvestmentBanner, setShowInvestmentBanner] = useState(true)
-  const [expandedSections, setExpandedSections] = useState({
-    loans: false,
-    currencies: false,
-  })
-
-  const toggleSection = (section) => {
-    setExpandedSections((prev) => ({
-      ...prev,
-      [section]: !prev[section],
-    }))
-  }
-
+const HomeScreen = () => {
   return (
-    <SafeAreaView style={tw`flex-1 bg-gray-900`}>
-      <StatusBar barStyle="light-content" backgroundColor="#1a1a1a" />
-
-      <ScrollView style={tw`flex-1 px-4 `}>
-        {/* Header */}
-        <AppBalance />
-
-        {/* Balance Section */}
-
-        {/* Cards Section */}
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={tw`mt-6 px-4`}
-        >
-          <SalaryCards />
-        </ScrollView>
-
-        {/* Finance Section */}
-        <FinanceQuick />
-
-        {/* Current Loans Section */}
-        <TouchableOpacity
-          onPress={() => toggleSection("loans")}
-          style={tw`flex-row items-center justify-between px-4 mt-8 mb-4`}
-        >
-          <Text style={tw`text-gray-400 text-xs uppercase`}>Current Loans</Text>
-          <ChevronDown
-            size={20}
-            color="#9ca3af"
-            style={{
-              transform: [
-                { rotate: expandedSections.loans ? "180deg" : "0deg" },
-              ],
-            }}
+    <ScrollView style={tw`flex-1 bg-black px-5 pt-10`}>
+      {/* Top Row */}
+      <View style={tw`flex-row justify-between items-center`}>
+        <View style={tw`flex-row items-center`}>
+          <Image
+            source={{ uri: "https://i.pravatar.cc/100" }}
+            style={tw`w-14 h-14 rounded-full mr-3`}
           />
-        </TouchableOpacity>
-
-        {expandedSections.loans && (
-          <View style={tw`px-4 mb-4`}>
-            <View
-              style={tw`bg-gray-800 rounded-2xl p-4 flex-row items-center justify-between`}
-            >
-              <View style={tw`flex-row items-center`}>
-                <View
-                  style={tw`bg-gray-700 w-10 h-10 rounded-lg items-center justify-center mr-3`}
-                >
-                  <CreditCard size={20} color="#9ca3af" />
-                </View>
-                <View>
-                  <Text style={tw`text-white font-medium`}>
-                    Account N° 3874825
-                  </Text>
-                  <Text style={tw`text-gray-500 text-xs`}>
-                    Expires 12/22/2023
-                  </Text>
-                </View>
-              </View>
-              <View style={tw`items-end`}>
-                <Text style={tw`text-white font-medium`}>$ 78.92</Text>
-                <Text style={tw`text-gray-500 text-xs`}>Rate 3.5%</Text>
-              </View>
-            </View>
+          <View>
+            <Text style={tw`text-gray-400 text-base`}>Hello, Adom!</Text>
+            <Text style={tw`text-white text-lg font-bold`}>Welcome Back!</Text>
           </View>
-        )}
+        </View>
 
-        {/* Investment Banner */}
-        {showInvestmentBanner && (
+        <TouchableOpacity style={tw`relative`}>
           <View
-            style={tw`mx-4 mb-4 bg-teal-900/30 rounded-2xl p-4 flex-row items-center justify-between`}
+            style={tw`w-10 h-10 rounded-full border border-gray-700 items-center justify-center`}
           >
-            <View style={tw`flex-row items-center flex-1`}>
-              <View
-                style={tw`bg-gray-700 w-10 h-10 rounded-full items-center justify-center mr-3`}
-              >
-                <Text style={tw`text-white text-lg`}>🚀</Text>
-              </View>
-              <View style={tw`flex-1`}>
-                <Text style={tw`text-white font-medium`}>
-                  Start investing now!
-                </Text>
-                <Text style={tw`text-gray-400 text-xs`}>
-                  Protected savings and investment plans
-                </Text>
-              </View>
-            </View>
-            <TouchableOpacity onPress={() => setShowInvestmentBanner(false)}>
-              <X size={20} color="#9ca3af" />
-            </TouchableOpacity>
+            <Text style={tw`text-white text-xl`}>🔔</Text>
           </View>
-        )}
-
-        {/* Currencies and Metals Section */}
-        <TouchableOpacity
-          onPress={() => toggleSection("currencies")}
-          style={tw`flex-row items-center justify-between px-4 mt-4 mb-4`}
-        >
-          <Text style={tw`text-gray-400 text-xs uppercase`}>
-            Currencies and Metals
-          </Text>
-          <ChevronDown
-            size={20}
-            color="#9ca3af"
-            style={{
-              transform: [
-                { rotate: expandedSections.currencies ? "180deg" : "0deg" },
-              ],
-            }}
+          <View
+            style={tw`absolute top-1 right-1 w-2.5 h-2.5 rounded-full bg-red-500`}
           />
         </TouchableOpacity>
+      </View>
 
-        {expandedSections.currencies && (
-          <View style={tw`px-4 mb-4`}>
-            {/* Currencies */}
-            <View style={tw`flex-row justify-between mb-2`}>
-              <Text style={tw`text-gray-500 text-xs flex-1`}>Currencies</Text>
-              <Text style={tw`text-gray-500 text-xs w-20 text-right`}>Buy</Text>
-              <Text style={tw`text-gray-500 text-xs w-20 text-right`}>
-                Sell
-              </Text>
-            </View>
+      {/* Balance Section */}
+      <View style={tw`mt-6`}>
+        <Text style={tw`text-gray-400`}>Your Balance</Text>
+        <Text style={tw`text-white text-4xl font-extrabold`}>$45,756.84</Text>
+      </View>
 
-            <View style={tw`flex-row items-center justify-between mb-3`}>
-              <View style={tw`flex-row items-center flex-1`}>
-                <View
-                  style={tw`bg-gray-700 w-8 h-8 rounded-full items-center justify-center mr-2`}
-                >
-                  <Text style={tw`text-white text-xs font-bold`}>$</Text>
-                </View>
-                <Text style={tw`text-white`}>USD</Text>
-              </View>
-              <Text style={tw`text-white w-20 text-right`}>$ 78.92</Text>
-              <Text style={tw`text-white w-20 text-right`}>$ 78.92</Text>
-            </View>
+      {/* Expense Cards */}
+      <View style={tw`flex-row mt-6`}>
+        {/* Left Card */}
+        <View
+          style={tw`flex-1 bg-black border border-gray-700 rounded-2xl p-4 mr-2`}
+        >
+          <Text style={tw`text-white text-lg font-semibold`}>All Expense</Text>
+          <Text style={tw`text-gray-400 text-xs mt-1`}>
+            Total expense this month only
+          </Text>
+          <Text style={tw`text-white text-3xl font-bold mt-3`}>$60,692</Text>
+        </View>
+        {/* Right Card */}
+        <View
+          style={tw`flex-1 bg-black border border-gray-700 rounded-2xl p-4 ml-2`}
+        >
+          <Text style={tw`text-white text-lg font-semibold`}>Monthly</Text>
+          <Text style={tw`text-gray-400 text-xs mt-1`}>
+            Total expense summary
+          </Text>
+          <Text style={tw`text-white text-3xl font-bold mt-3`}>$70,000</Text>
+        </View>
+      </View>
 
-            <View style={tw`flex-row items-center justify-between mb-4`}>
-              <View style={tw`flex-row items-center flex-1`}>
-                <View
-                  style={tw`bg-gray-700 w-8 h-8 rounded-full items-center justify-center mr-2`}
-                >
-                  <Text style={tw`text-white text-xs font-bold`}>€</Text>
-                </View>
-                <Text style={tw`text-white`}>EUR</Text>
-              </View>
-              <Text style={tw`text-white w-20 text-right`}>$ 78.92</Text>
-              <Text style={tw`text-white w-20 text-right`}>$ 78.92</Text>
-            </View>
+      {/* Action Buttons */}
+      <View style={tw`flex-row mt-6`}>
+        <TouchableOpacity
+          style={tw`flex-1 border border-blue-500 rounded-full py-3 mr-2 items-center`}
+        >
+          <Text style={tw`text-blue-500 font-semibold`}>Send Money</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={tw`flex-1 border border-purple-500 rounded-full py-3 ml-2 items-center`}
+        >
+          <Text style={tw`text-purple-500 font-semibold`}>Receive Money</Text>
+        </TouchableOpacity>
+      </View>
 
-            {/* Metals */}
-            <View style={tw`flex-row justify-between mb-2 mt-4`}>
-              <Text style={tw`text-gray-500 text-xs flex-1`}>Metals</Text>
-              <Text style={tw`text-gray-500 text-xs w-20 text-right`}>Buy</Text>
-              <Text style={tw`text-gray-500 text-xs w-20 text-right`}>
-                Sell
-              </Text>
-            </View>
+      {/* Transaction History */}
+      <View style={tw`mt-8`}>
+        <View style={tw`flex-row justify-between items-center mb-3`}>
+          <Text style={tw`text-white font-semibold text-lg`}>
+            Transaction History
+          </Text>
+          <Text style={tw`text-purple-400 text-sm`}>See all</Text>
+        </View>
 
-            <View style={tw`flex-row items-center justify-between mb-3`}>
-              <View style={tw`flex-row items-center flex-1`}>
-                <View
-                  style={tw`bg-gray-700 w-8 h-8 rounded-full items-center justify-center mr-2`}
-                >
-                  <Text style={tw`text-yellow-400 text-xs font-bold`}>Au</Text>
-                </View>
-                <Text style={tw`text-white`}>Gold</Text>
-              </View>
-              <Text style={tw`text-white w-20 text-right`}>$ 78.92</Text>
-              <Text style={tw`text-white w-20 text-right`}>$ 78.92</Text>
-            </View>
-
-            <View style={tw`flex-row items-center justify-between mb-4`}>
-              <View style={tw`flex-row items-center flex-1`}>
-                <View
-                  style={tw`bg-gray-700 w-8 h-8 rounded-full items-center justify-center mr-2`}
-                >
-                  <Text style={tw`text-gray-300 text-xs font-bold`}>Ag</Text>
-                </View>
-                <Text style={tw`text-white`}>Silver</Text>
-              </View>
-              <Text style={tw`text-white w-20 text-right`}>$ 78.92</Text>
-              <Text style={tw`text-white w-20 text-right`}>$ 78.92</Text>
-            </View>
+        {/* Single Transaction */}
+        <View
+          style={tw`flex-row items-center bg-black border border-gray-700 rounded-2xl p-4 mb-3`}
+        >
+          <Image
+            source={{
+              uri: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
+            }}
+            style={tw`w-10 h-10 rounded-full bg-white mr-3`}
+            resizeMode="contain"
+          />
+          <View style={tw`flex-1`}>
+            <Text style={tw`text-white font-semibold`}>Netflix</Text>
+            <Text style={tw`text-gray-400 text-xs`}>Today, 7:10 pm</Text>
           </View>
-        )}
-      </ScrollView>
-    </SafeAreaView>
+          <Text style={tw`text-green-400 font-semibold`}>+$120</Text>
+        </View>
+      </View>
+    </ScrollView>
   )
 }
 
-export default BankingDashboard
+export default HomeScreen
