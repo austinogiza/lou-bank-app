@@ -1,15 +1,12 @@
 import { StyleSheet, Text, View } from "react-native"
 import React from "react"
-import DownloadTransactionStatements from "./download-statements"
-import TransactionDetails from "./transaction-details"
-import CustomDateScreen from "./custom-range"
-import AddMoneyScreen from "./add-money"
-import SendMoneyScreen from "./send-money"
+
+import TransactionHistory from "./(tabs)/transaction-history"
 
 const LouBank = () => {
   return (
     <>
-      <SendMoneyScreen />
+      <TransactionHistory />
     </>
   )
 }
