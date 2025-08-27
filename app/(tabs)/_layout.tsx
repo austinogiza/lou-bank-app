@@ -23,9 +23,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="my-budget"
+        name="transaction-history"
         options={{
-          title: "My Budget",
+          title: "Transaction History",
           tabBarIcon: ({ color }) => <Banknote width={20} color={color} />,
         }}
       />
