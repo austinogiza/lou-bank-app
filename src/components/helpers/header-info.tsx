@@ -3,15 +3,38 @@ import React, { FC, ReactNode } from "react"
 import { BankColorsThemes } from "@/src/style/color"
 import tw from "twrnc"
 interface HeaderInfoProps {
-  icon?: ReactNode
-
-  onPress?: () => void
+  iconLeft?: ReactNode
+  iconRight?: ReactNode
+  title?: string
+  onPressRight?: () => void
+  onPressLeft?: () => void
+  rightEnabled?: boolean
 }
 const HeaderInfo: FC<HeaderInfoProps> = (props) => {
-  const { icon, onPress } = props
+  const {
+    iconLeft,
+    iconRight,
+    onPressLeft,
+    onPressRight,
+    title,
+    rightEnabled,
+  } = props
   return (
-    <View style={tw`flex-row justify-center items-center  py-4`}>
-      <Pressable style={styles.backWrap}>{icon}</Pressable>
+    <View style={tw`flex-row items-center justify-between w-full mb-8 mt-2`}>
+      <View style={tw`flex-row justify-center items-center py-4`}>
+        <Pressable onPress={onPressLeft} style={styles.backWrap}>
+          {iconLeft}
+        </Pressable>
+      </View>
+      <Text style={tw`text-white text-base font-semibold`}>{title}</Text>
+      <View style={tw`flex-row justify-center items-center  py-4`}>
+        <Pressable
+          onPress={onPressRight}
+          style={[styles.backWrap, rightEnabled && styles.rightEnabledStyle]}
+        >
+          {iconRight}
+        </Pressable>
+      </View>
     </View>
   )
 }
@@ -31,5 +54,8 @@ const styles = StyleSheet.create({
   text: {
     color: BankColorsThemes.white,
     fontSize: 16,
+  },
+  rightEnabledStyle: {
+    opacity: 0,
   },
 })

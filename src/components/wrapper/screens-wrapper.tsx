@@ -11,7 +11,7 @@ const ScreensWrapper: FC<AuthWrapperProps> = (props) => {
     <>
       <SafeAreaView
         style={[
-          tw`flex-1 items-center justify-center w-full`,
+          tw`flex-1 items-center justify-center bg-black w-full `,
           styles.container,
         ]}
       >
@@ -30,6 +30,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: "transparent",
   },
 })
