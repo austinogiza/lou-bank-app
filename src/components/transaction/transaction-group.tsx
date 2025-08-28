@@ -5,7 +5,7 @@ import tw from "twrnc"
 
 const TransactionGroup = () => {
   return (
-    <View style={tw`mt-6`}>
+    <View style={tw`mt-4`}>
       {/* Transaction Item */}
       <View
         style={tw`bg-black border-[0.5px] border-white flex-row items-center px-4 py-3 rounded-2xl mb-3`}

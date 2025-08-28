@@ -13,7 +13,7 @@ const TransactionFilters: FC<TransactionFiltersProps> = (props) => {
   const { active, toggleFilter } = props
 
   return (
-    <View style={tw`flex-row mt-4`}>
+    <View style={tw`flex-row w-full mt-4`}>
       {FilterDataOptions.map((filter, index) => {
         return (
           <TouchableOpacity

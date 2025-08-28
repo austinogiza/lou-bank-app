@@ -22,19 +22,28 @@ const TransactionHistory = () => {
     setActiveFilter(number)
   }
   return (
-    <View style={tw`flex-1 bg-black px-4 pt-18`}>
-      <Text style={tw`text-white text-lg font-semibold px-4`}>
-        All Transaction
-      </Text>
-      <TransactionSearch />
-      <TransactionFilters active={activeFilter} toggleFilter={toggleFilter} />
-      {/* <TransactionActions /> */}
+    <ScrollView
+      style={tw`flex-1 bg-black px-2`}
+      contentContainerStyle={tw`pb-20`}
+    >
+      <View style={tw`flex-1 bg-black px-2 pt-18`}>
+        <Text style={tw`text-white text-lg font-semibold `}>
+          All Transaction
+        </Text>
 
-      <View style={tw` mt-6`}>
-        <Text style={tw`text-gray-200 text-base mb-3`}>21 June, 2025</Text>
-        <TransactionGroup />
+        <View style={tw` flex justify-center items-center w-full`}>
+          <TransactionSearch />
+          <TransactionFilters
+            active={activeFilter}
+            toggleFilter={toggleFilter}
+          />
+          <View style={tw`w-full mt-6`}>
+            <Text style={tw`text-gray-200 text-base`}>21 June, 2025</Text>
+            <TransactionGroup />
+          </View>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 

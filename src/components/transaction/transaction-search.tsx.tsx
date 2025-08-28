@@ -14,7 +14,7 @@ const TransactionSearch = () => {
   return (
     <View
       style={[
-        tw`bg-neutral-900 h-[48px] items-start justify-center rounded-2xl px-4 py-2 mt-3 mx-4`,
+        tw`bg-neutral-900 h-[48px] w-full items-start justify-center rounded-2xl px-4 py-2 mt-3 mx-4`,
         styles.container,
       ]}
     >
