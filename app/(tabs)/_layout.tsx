@@ -8,7 +8,6 @@ import {
   CircleDollarSign,
 } from "lucide-react-native"
 import GoBackButton from "@/src/components/helpers/go-back-button"
-import TransactionCustom from "@/src/components/transaction/transaction-custom"
 export default function TabLayout() {
   return (
     <Tabs
@@ -29,8 +28,10 @@ export default function TabLayout() {
         options={{
           title: "Transaction History",
           headerShown: true,
+          headerShadowVisible: false,
+          tabBarIcon: ({ color }) => <Banknote width={20} color={color} />,
           headerLeft: () => <GoBackButton />,
-          headerRight: () => <TransactionCustom />,
+          // headerRight: () => <TransactionCustom />,
         }}
       />
       <Tabs.Screen
