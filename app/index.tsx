@@ -7,8 +7,8 @@ import AccountBalance from "./(tabs)/account-balance"
 const LouBank = () => {
   return (
     <>
-      {/* <AccountBalance /> */}
-      <TransactionHistory />
+      <AccountBalance />
+      {/* <TransactionHistory /> */}
     </>
   )
 }

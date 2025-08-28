@@ -13,6 +13,8 @@ export const BankColorsThemes = {
   brandButtonLight: "#FCFFDF",
   brandButtonDark: "#F1FE87",
   transactionBg: "#252626",
+  balanceAdd: "#FF7760",
+  balanceBill: "#FFB453",
   primary: {
     "50": "#f3f2ff",
     "100": "#e9e8ff",

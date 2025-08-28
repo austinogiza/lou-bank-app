@@ -20,7 +20,9 @@ const HeaderInfo: FC<HeaderInfoProps> = (props) => {
     rightEnabled,
   } = props
   return (
-    <View style={tw`flex-row items-center justify-between w-full mb-8 mt-2`}>
+    <View
+      style={tw`flex-row items-center justify-between w-full mb-3 mt-2 h-7`}
+    >
       <View style={tw`flex-row justify-center items-center py-4`}>
         <Pressable onPress={onPressLeft} style={styles.backWrap}>
           {iconLeft}
