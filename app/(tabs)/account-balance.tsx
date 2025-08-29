@@ -1,24 +1,13 @@
 import React from "react"
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  Image,
-} from "react-native"
+import { View, Text, ScrollView } from "react-native"
 import tw from "twrnc"
-import {
-  Ionicons,
-  MaterialCommunityIcons,
-  FontAwesome5,
-} from "@expo/vector-icons"
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons"
 import HeaderInfo from "@/src/components/helpers/header-info"
 import { ArrowLeft, EllipsisVertical } from "lucide-react-native"
 import ScreensWrapper from "@/src/components/wrapper/screens-wrapper"
 import { BankColorsThemes } from "@/src/style/color"
-import TransactionGroup from "@/src/components/transaction/transaction-group"
 import BalanceActions from "@/src/components/transaction/balance-actions"
+import TransactionInfo from "@/src/components/transaction/transaction-info"
 
 const AccountBalance = () => {
   return (
@@ -74,18 +63,7 @@ const AccountBalance = () => {
             </View>
           </View>
 
-          {/* Transaction History */}
-          <View style={tw`flex-row justify-between items-center  mt-8`}>
-            <Text style={tw`text-white font-semibold text-lg`}>
-              Transaction History
-            </Text>
-            <Text style={[tw` text-sm`, styles.seeMoreText]}>See all</Text>
-          </View>
-
-          {/* Transactions */}
-          <View style={tw` mt-4`}>
-            <TransactionGroup />
-          </View>
+          <TransactionInfo />
         </ScrollView>
       </View>
     </ScreensWrapper>
@@ -93,11 +71,3 @@ const AccountBalance = () => {
 }
 
 export default AccountBalance
-
-const styles = StyleSheet.create({
-  seeMoreText: {
-    color: BankColorsThemes.primary[500],
-    fontSize: 14,
-    fontWeight: "600",
-  },
-})

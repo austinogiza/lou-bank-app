@@ -3,12 +3,13 @@ import React from "react"
 
 import TransactionHistory from "./(tabs)/transaction-history"
 import AccountBalance from "./(tabs)/account-balance"
+import HomeScreen from "./(tabs)"
 
 const LouBank = () => {
   return (
     <>
-      <AccountBalance />
-      {/* <TransactionHistory /> */}
+      {/* <AccountBalance /> */}
+      <HomeScreen />
     </>
   )
 }
