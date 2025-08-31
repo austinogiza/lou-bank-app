@@ -1,203 +1,123 @@
-import React, { useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform } from 'react-native'
-import { ArrowLeft, Paperclip, Camera, Send, LucideIcon } from 'lucide-react-native'
-import { useRouter } from 'expo-router'
-import tw from "twrnc"
+
 import ScreensWrapper from '@/src/components/wrapper/screens-wrapper'
+import {
+  ArrowLeft,
+  ChevronRight,
+  MessageSquare,
+  Search
+} from 'lucide-react-native'
+import React, { useState } from 'react'
+import {
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
+} from 'react-native'
+import tw from "twrnc"
 import HeaderInfo from '../../src/components/helpers/header-info'
-import ImageContainer from '../../src/components/images/image-container'
 import { BankColorsThemes } from '../../src/style/color'
 
-interface ChatMessage {
-  id: number
-  text: string
-  isUser: boolean
-  timestamp: string
-}
+// Change Password Screen
 
-interface MessageProps {
-  text: string
-  isUser?: boolean
-  timestamp?: string
-}
-
-interface QuickReplyProps {
-  text: string
+// Support Agent Component
+interface SupportAgentProps {
+  name: string
+  phone: string
+  avatar: string
   onPress: () => void
 }
 
-const Message: React.FC<MessageProps> = ({ text, isUser = false, timestamp }) => {
-  return (
-    <View style={tw`mb-4 ${isUser ? 'items-end' : 'items-start'}`}>
-      <View style={tw`max-w-xs ${isUser ? 'bg-purple-600' : 'bg-gray-800'} p-4 rounded-2xl ${isUser ? 'rounded-br-sm' : 'rounded-bl-sm'}`}>
-        <Text style={tw`text-white text-base`}>{text}</Text>
-      </View>
-      {timestamp && (
-        <Text style={tw`text-gray-500 text-xs mt-1`}>{timestamp}</Text>
-      )}
-    </View>
-  )
-}
-
-const QuickReply: React.FC<QuickReplyProps> = ({ text, onPress }) => {
+const SupportAgent: React.FC<SupportAgentProps> = ({
+  name,
+  phone,
+  onPress
+}) => {
   return (
     <TouchableOpacity
+      style={tw`flex-row items-center justify-between py-3 px-4 bg-transparent border border-gray-700 rounded-xl mb-3`}
       onPress={onPress}
-      style={tw`bg-gray-800 px-4 py-2 rounded-full mr-2 mb-2`}
     >
-      <Text style={tw`text-white text-sm`}>{text}</Text>
+      <View style={tw`flex-row items-center flex-1`}>
+        <View style={tw`w-10 h-10 bg-gray-600 rounded-full mr-4`} />
+        <View style={tw`flex-1`}>
+          <Text style={tw`text-white font-semibold text-base`}>
+            {name}
+          </Text>
+          <Text style={tw`text-gray-400 text-sm`}>
+            {phone}
+          </Text>
+        </View>
+      </View>
+      <ChevronRight width={20} height={20} color="#6B7280" />
     </TouchableOpacity>
   )
 }
 
-const Support = () => {
-  const router = useRouter()
-  const [message, setMessage] = useState<string>('')
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      id: 1,
-      text: "Hi, I'm Alfred how can I help you today?",
-      isUser: false,
-      timestamp: "2:30 PM"
-    },
-    {
-      id: 2,
-      text: "Hello, I've got an issues with my card. It got stolen and I would like to block it",
-      isUser: true,
-      timestamp: "2:31 PM"
-    },
-    {
-      id: 3,
-      text: "I am sorry to hear that, please select one of the following options",
-      isUser: false,
-      timestamp: "2:32 PM"
-    }
-  ])
+// Support Screen
+const SupportScreen: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState<string>('')
 
-  const quickReplies: string[] = [
-    "Block my card",
-    "Report fraud",
-    "Request replacement",
-    "Check transactions"
+  const supportAgents = [
+    { name: 'Adam Shafi', phone: '2334 4783 389 0004-00-04' },
+    { name: 'Ava Kaysar', phone: '2334 4783 389 0004-00-04' },
+    { name: 'Sara William', phone: '2334 4783 389 0004-00-04' },
+    { name: 'Elizabeth Olsen', phone: '2334 4783 389 0004-00-04' },
   ]
-
-  const sendMessage = (): void => {
-    if (message.trim()) {
-      const newMessage: ChatMessage = {
-        id: messages.length + 1,
-        text: message.trim(),
-        isUser: true,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      }
-      setMessages(prevMessages => [...prevMessages, newMessage])
-      setMessage('')
-    }
-  }
-
-  const handleQuickReply = (replyText: string): void => {
-    const newMessage: ChatMessage = {
-      id: messages.length + 1,
-      text: replyText,
-      isUser: true,
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    }
-    setMessages(prevMessages => [...prevMessages, newMessage])
-  }
-
-  const handleAttachment = (): void => {
-    console.log('Handle attachment functionality')
-  }
-
-  const handleCamera = (): void => {
-    console.log('Handle camera functionality')
-  }
-
-  const handleGoBack = (): void => {
-    router.back()
-  }
 
   return (
     <ScreensWrapper>
-      <KeyboardAvoidingView
-        style={tw`flex-1 bg-black`}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      >
-        <View style={tw`px-4`}>
-          <HeaderInfo
-            title="Live Chat"
-            iconLeft={
-              <TouchableOpacity onPress={handleGoBack}>
-                <ArrowLeft width={18} height={18} color={BankColorsThemes.white} />
-              </TouchableOpacity>
-            }
-            iconRight={
-              <ImageContainer
-                source={{ uri: "https://i.pravatar.cc/200" }}
-                style={tw`w-10 h-10 rounded-full`}
-              />
-            }
-          />
-        </View>
+      <ScrollView style={tw`flex-1 bg-black px-4`}>
+        <HeaderInfo
+          title="Support"
+          iconLeft={
+            <ArrowLeft width={18} height={18} color={BankColorsThemes.white} />
+          }
+          iconRight={
+            <MessageSquare width={18} height={18} color={BankColorsThemes.white} />
+          }
+        />
 
-        <View style={tw`flex-1 px-4`}>
-          <View style={tw`mb-4`}>
-            <Text style={tw`text-gray-400 text-sm`}>Hello, Adom Shafi</Text>
-            <Text style={tw`text-white text-xl font-bold`}>Tell us more about the issue</Text>
-          </View>
+        <View style={tw`mt-6`}>
+          <Text style={tw`text-gray-400 text-sm mb-1`}>Hello, Adam Shafi</Text>
+          <Text style={tw`text-white text-2xl font-bold mb-6`}>How can we help you?</Text>
 
-          <ScrollView style={tw`flex-1 mb-4`} showsVerticalScrollIndicator={false}>
-            {messages.map((msg: ChatMessage) => (
-              <Message
-                key={msg.id}
-                text={msg.text}
-                isUser={msg.isUser}
-                timestamp={msg.timestamp}
-              />
-            ))}
-
-            {/* Quick Reply Options */}
-            <View style={tw`mt-4`}>
-              <View style={tw`flex-row flex-wrap`}>
-                {quickReplies.map((reply: string, index: number) => (
-                  <QuickReply
-                    key={index}
-                    text={reply}
-                    onPress={() => handleQuickReply(reply)}
-                  />
-                ))}
-              </View>
-            </View>
-          </ScrollView>
-
-          {/* Input Area */}
-          <View style={tw`flex-row items-center bg-gray-900 rounded-full px-4 py-2 mb-4`}>
-            <TouchableOpacity style={tw`mr-3`} onPress={handleAttachment}>
-              <Paperclip width={20} height={20} color="#666" />
-            </TouchableOpacity>
-
+          <View style={tw`relative mb-6`}>
             <TextInput
-              value={message}
-              onChangeText={setMessage}
-              placeholder="Type your message..."
-              placeholderTextColor="#666"
-              style={tw`flex-1 text-white text-base py-2`}
-              multiline
-              onSubmitEditing={sendMessage}
-              blurOnSubmit={false}
+              style={tw`bg-transparent border border-gray-700 rounded-xl px-12 py-4 text-white text-base`}
+              placeholder="Search Topic"
+              placeholderTextColor="#6B7280"
+              value={searchQuery}
+              onChangeText={setSearchQuery}
             />
+            <Search
+              width={20}
+              height={20}
+              color="#6B7280"
+              style={tw`absolute left-4 top-4`}
+            />
+          </View>
 
-            <TouchableOpacity onPress={message.trim() ? sendMessage : handleCamera} style={tw`ml-3`}>
-              {message.trim() ? (
-                <Send width={20} height={20} color="#8b5cf6" />
-              ) : (
-                <Camera width={20} height={20} color="#666" />
-              )}
+          <View style={tw`flex-row items-center justify-between mb-4`}>
+            <Text style={tw`text-white font-semibold text-lg`}>
+              Get help with transaction
+            </Text>
+            <TouchableOpacity>
+              <Text style={tw`text-purple-400 font-medium`}>See all</Text>
             </TouchableOpacity>
           </View>
+
+          {supportAgents.map((agent, index) => (
+            <SupportAgent
+              key={index}
+              name={agent.name}
+              phone={agent.phone}
+              avatar="https://i.pravatar.cc/200"
+              onPress={() => console.log(`Contact ${agent.name}`)}
+            />
+          ))}
         </View>
-      </KeyboardAvoidingView>
+      </ScrollView>
     </ScreensWrapper>
   )
 }
-
-export default Support

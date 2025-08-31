@@ -1,14 +1,7 @@
-import { StyleSheet, Text, View } from "react-native"
 import React from "react"
+import { StyleSheet } from "react-native"
 
-import TransactionHistory from "./(tabs)/transaction-history"
-import AccountBalance from "./(tabs)/account-balance"
-import HomeScreen from "./(tabs)"
-import Account from "./(tabs)/account"
-import LegalScreen from "./(tabs)/legal"
-import Support from "./(tabs)/support"
-import AppSettingsScreen from "./(tabs)/app-settings"
-import { ChangePasswordScreen, CloseAccountModal, EmailAddressScreen, SupportScreen, TwoStepsVerificationScreen } from "./(tabs)/others"
+import { UpdatedAppSettingsScreen } from "./(tabs)/others"
 
 const LouBank = () => {
   return (
@@ -31,7 +24,7 @@ const LouBank = () => {
       }} visible={true} onClose={() => {
         console.log('closing')
       }} /> */}
-      <TwoStepsVerificationScreen />
+      <UpdatedAppSettingsScreen />
     </>
   )
 }
