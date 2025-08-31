@@ -6,6 +6,8 @@ import {
   CreditCard,
   Send,
   CircleDollarSign,
+  User,
+  Gavel,
 } from "lucide-react-native"
 import GoBackButton from "@/src/components/helpers/go-back-button"
 export default function TabLayout() {
@@ -55,6 +57,23 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <CircleDollarSign width={20} color={color} />
           ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="account"
+        options={{
+          title: "Account",
+          tabBarIcon: ({ color }) => <User width={20} color={color} />,
+        }}
+      />
+
+
+      <Tabs.Screen
+        name="legal"
+        options={{
+          title: "Legal",
+          tabBarIcon: ({ color }) => <Gavel width={20} color={color} />,
         }}
       />
     </Tabs>

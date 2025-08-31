@@ -59,9 +59,9 @@ const HomeScreen = () => {
             <Text style={tw`text-blue-500 font-semibold`}>Send Money</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={tw`flex-1 border border-purple-500 rounded-full py-3 ml-2 items-center`}
+            style={tw`flex-1 border border-[#7A5BFF] rounded-full py-3 ml-2 items-center`}
           >
-            <Text style={tw`text-purple-500 font-semibold`}>Receive Money</Text>
+            <Text style={tw`text-[#7A5BFF] font-semibold`}>Receive Money</Text>
           </TouchableOpacity>
         </View>
 
