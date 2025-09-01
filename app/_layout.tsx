@@ -65,6 +65,7 @@ function RootLayoutNav() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <AppProvider>
         <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(tabs)" />
           <Stack.Screen
             name="login"
             options={{
@@ -182,7 +183,6 @@ function RootLayoutNav() {
               headerShadowVisible: false,
             }}
           />
-          <Stack.Screen name="(tabs)" />
         </Stack>
       </AppProvider>
     </ThemeProvider>

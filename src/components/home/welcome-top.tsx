@@ -2,7 +2,8 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import React from "react"
 import ImageContainer from "../images/image-container"
 import tw from "twrnc"
-import { BankColorsThemes } from "@/src/style/color"
+import { NotificationIcon } from "@/src/utils/image-export"
+
 interface WelcomeTopProps {}
 const WelcomeTop = () => {
   return (
@@ -13,8 +14,8 @@ const WelcomeTop = () => {
           style={tw`w-14 h-14 rounded-full mr-3`}
         />
         <View>
-          <Text style={tw`text-gray-400 text-base`}>Hello, Adom!</Text>
-          <Text style={tw`text-white text-lg font-bold`}>Welcome Back!</Text>
+          <Text style={tw`text-gray-400 text-sm`}>Hello, Adom!</Text>
+          <Text style={tw`text-white text-xl font-bold`}>Welcome Back!</Text>
         </View>
       </View>
 
@@ -22,10 +23,10 @@ const WelcomeTop = () => {
         <View
           style={tw`w-10 h-10 rounded-full border border-gray-700 items-center justify-center`}
         >
-          <Text style={tw`text-white text-xl`}>🔔</Text>
+          <NotificationIcon height={20} width={20} />
         </View>
         <View
-          style={tw`absolute top-1 right-1 w-2.5 h-2.5 rounded-full bg-red-500`}
+          style={tw`absolute -top-0.5 right-1 w-2.5 h-2.5 rounded-full bg-red-500`}
         />
       </TouchableOpacity>
     </View>
