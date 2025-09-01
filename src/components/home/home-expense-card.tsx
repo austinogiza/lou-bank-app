@@ -13,7 +13,7 @@ const HomeExpenseCard: FC<HomeExpenseCardProps> = (props) => {
   const { title, amount } = props
   return (
     <View
-      style={tw`flex-1 justify-between bg-black border min-h-[230px] border-gray-700 rounded-3xl p-4 mr-2`}
+      style={tw`flex-1 justify-between bg-black border min-h-[230px] border-gray-700 rounded-3xl py-4 px-5  mr-2`}
     >
       <View style={tw`flex-row justify-between items-center`}>
         <View

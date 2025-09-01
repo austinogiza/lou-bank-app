@@ -7,6 +7,7 @@ import React from "react"
 import { Dimensions, StyleSheet, Text, View } from "react-native"
 import bankImage from "@/src/assets/images/bank_earth.png"
 import { TextFontFamily } from "@/src/style/text-styles/text-font-family"
+import AuthButton from "@/src/style/button-styles/auth-button"
 const { width: W, height: H } = Dimensions.get("window")
 
 const AuthOnboarding = () => {
@@ -33,8 +34,8 @@ const AuthOnboarding = () => {
       </Text>
 
       <View style={styles.ctaRow}>
-        <MainLoginButton onPress={goToSignUp} title="Sign Up" />
-        <MainLoginButton primary onPress={goToLogin} title="Log In" />
+        <AuthButton onPress={goToSignUp} title="Sign Up" />
+        <AuthButton primary onPress={goToLogin} title="Log In" />
       </View>
 
       <ImageContainer
@@ -49,6 +50,7 @@ const AuthOnboarding = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 64,
     backgroundColor: BankColorsThemes.black,
   },
 

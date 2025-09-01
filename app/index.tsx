@@ -1,15 +1,12 @@
 import { StyleSheet, Text, View } from "react-native"
 import React from "react"
 
-import TransactionHistory from "./(tabs)/transaction-history"
-import AccountBalance from "./(tabs)/account-balance"
-import HomeScreen from "./(tabs)"
+import AuthOnboarding from "@/src/components/auth/auth-home"
 
 const LouBank = () => {
   return (
     <>
-      {/* <AccountBalance /> */}
-      <HomeScreen />
+      <AuthOnboarding />
     </>
   )
 }
