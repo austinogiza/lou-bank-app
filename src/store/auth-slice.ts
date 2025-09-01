@@ -41,9 +41,9 @@ export const authLogin = createAsyncThunk<
         expirationDate.toISOString()
       )
 
-      // if (navigation) {
-      //   navigation.navigate("Dashboard") // adjust route
-      // }
+      if (navigation) {
+        navigation.navigate("/(tabs)") // adjust route
+      }
 
       return token
     } catch (err: any) {

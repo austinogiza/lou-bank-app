@@ -102,7 +102,7 @@ const LoginScreen = () => {
                     {showPassword ? (
                       <>
                         <Eye
-                          color={BankColorsThemes.black}
+                          color={BankColorsThemes.white}
                           strokeWidth={2}
                           size={20}
                         />
@@ -110,7 +110,7 @@ const LoginScreen = () => {
                     ) : (
                       <>
                         <EyeOff
-                          color={BankColorsThemes.black}
+                          color={BankColorsThemes.white}
                           strokeWidth={2}
                           size={20}
                         />
