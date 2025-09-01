@@ -37,7 +37,11 @@ const MainInput: FC<MainInputProps> = (props) => {
             value={value}
             onChangeText={onChange}
             secureTextEntry={secureTextEntry}
-            style={[styles.mainInput, error && { borderColor: "red" }]}
+            style={[
+              styles.mainInput,
+              { color: BankColorsThemes.white },
+              error && { borderColor: "red" },
+            ]}
             placeholderTextColor={BankColorsThemes.neutral[500]}
           />
         )}
