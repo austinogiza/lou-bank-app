@@ -1,4 +1,10 @@
-import { Pressable, StyleSheet, Text, View } from "react-native"
+import {
+  ActivityIndicator,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native"
 import React, { FC } from "react"
 import { BankColorsThemes } from "../color"
 import { LinearGradient } from "expo-linear-gradient"
@@ -9,10 +15,11 @@ interface MainLoginButtonProps {
   onPress?: () => void
   primary?: boolean
   link?: string
+  loading?: boolean
 }
 
 const MainLoginButton: FC<MainLoginButtonProps> = (props) => {
-  const { title, onPress, primary, link } = props
+  const { title, onPress, primary, link, loading } = props
 
   return (
     <Pressable
@@ -24,14 +31,22 @@ const MainLoginButton: FC<MainLoginButtonProps> = (props) => {
       accessibilityLabel={title}
       onPress={onPress}
     >
-      <Text
-        style={[
-          primary ? styles.buttonTextDark : styles.buttonTextWhite,
-          styles.buttonText,
-        ]}
-      >
-        {title}
-      </Text>
+      {loading ? (
+        <>
+          <ActivityIndicator />
+        </>
+      ) : (
+        <>
+          <Text
+            style={[
+              primary ? styles.buttonTextDark : styles.buttonTextWhite,
+              styles.buttonText,
+            ]}
+          >
+            {title}
+          </Text>
+        </>
+      )}
     </Pressable>
   )
 }

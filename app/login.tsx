@@ -21,6 +21,8 @@ import AuthHeader from "@/src/components/auth/auth-header"
 import SocialButtons from "@/src/style/button-styles/social-buttons"
 import { AppleLogo, GoogleLogo } from "@/src/utils/image-export"
 import { useRouter } from "expo-router"
+import { useAppDispatch, useAppSelector } from "@/src/store/hooks"
+import { authLogin } from "@/src/store/auth-slice"
 
 const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -51,8 +53,19 @@ const LoginScreen = () => {
   const goToSignup = () => {
     router.push("/signup")
   }
+  const dispatch = useAppDispatch()
   // Submit form handler
-  const onSubmit: SubmitHandler<LoginFormDataProps> = (data) => {}
+  const { loading, error } = useAppSelector((state) => state.auth)
+  const onSubmit: SubmitHandler<LoginFormDataProps> = (data) => {
+    console.log(data, error)
+    dispatch(
+      authLogin({
+        email: data.email,
+        password: data.password,
+        navigation: router,
+      })
+    )
+  }
 
   return (
     <>
@@ -125,6 +138,7 @@ const LoginScreen = () => {
               <View>
                 <View style={styles.submitButtonContainer}>
                   <MainLoginButton
+                    loading={loading}
                     onPress={handleSubmit(onSubmit)}
                     title="Continue"
                     primary
