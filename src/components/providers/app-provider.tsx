@@ -31,7 +31,9 @@ const AppProvider: FC<AppProviderProps> = (props) => {
       <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
       <PinProvider>
         <ReactQueryProvider>
-          <SafeAreaProvider>{children}</SafeAreaProvider>
+          <SafeAreaProvider style={styles.container}>
+            {children}
+          </SafeAreaProvider>
         </ReactQueryProvider>
       </PinProvider>
     </>
@@ -40,4 +42,8 @@ const AppProvider: FC<AppProviderProps> = (props) => {
 
 export default AppProvider
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    paddingVertical: 16,
+  },
+})
