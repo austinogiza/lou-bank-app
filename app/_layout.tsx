@@ -16,10 +16,8 @@ import { BankColorsThemes } from "@/src/style/color"
 import HeaderLogo from "@/src/components/images/header-logo"
 import GoBackButton from "@/src/components/helpers/go-back-button"
 import AppSplashScreen from "@/src/components/splash-screen/splash-screen"
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from "expo-router"
+import ReduxProvider from "@/src/components/providers/redux-provider"
+export { ErrorBoundary } from "expo-router"
 
 export const unstable_settings = {
   initialRouteName: "welcome",
@@ -63,128 +61,130 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <AppProvider>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen
-            name="login"
-            options={{
-              headerShown: true,
-              headerLeft: () => <GoBackButton />,
+      <ReduxProvider>
+        <AppProvider>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen
+              name="login"
+              options={{
+                headerShown: true,
+                headerLeft: () => <GoBackButton />,
 
-              headerTitleAlign: "center",
-              headerTitleStyle: {
-                color: BankColorsThemes.white,
-                fontSize: 16,
-                fontWeight: "600",
-              },
-              headerTintColor: BankColorsThemes.white,
-              headerStyle: { backgroundColor: BankColorsThemes.black },
-              headerShadowVisible: false,
-              headerTitle: "Login",
-            }}
-          />
-          <Stack.Screen
-            name="forgot-password"
-            options={{
-              headerShown: true,
-              headerLeft: () => <GoBackButton />,
+                headerTitleAlign: "center",
+                headerTitleStyle: {
+                  color: BankColorsThemes.white,
+                  fontSize: 16,
+                  fontWeight: "600",
+                },
+                headerTintColor: BankColorsThemes.white,
+                headerStyle: { backgroundColor: BankColorsThemes.black },
+                headerShadowVisible: false,
+                headerTitle: "Login",
+              }}
+            />
+            <Stack.Screen
+              name="forgot-password"
+              options={{
+                headerShown: true,
+                headerLeft: () => <GoBackButton />,
 
-              headerTitleAlign: "center",
-              headerTitleStyle: {
-                color: BankColorsThemes.white,
-                fontSize: 16,
-                fontWeight: "600",
-              },
-              headerTintColor: BankColorsThemes.white,
-              headerStyle: { backgroundColor: BankColorsThemes.black },
-              headerShadowVisible: false,
-              headerTitle: "Forgot Password",
-            }}
-          />
-          <Stack.Screen
-            name="reset-password"
-            options={{
-              headerShown: true,
-              headerLeft: () => <GoBackButton />,
+                headerTitleAlign: "center",
+                headerTitleStyle: {
+                  color: BankColorsThemes.white,
+                  fontSize: 16,
+                  fontWeight: "600",
+                },
+                headerTintColor: BankColorsThemes.white,
+                headerStyle: { backgroundColor: BankColorsThemes.black },
+                headerShadowVisible: false,
+                headerTitle: "Forgot Password",
+              }}
+            />
+            <Stack.Screen
+              name="reset-password"
+              options={{
+                headerShown: true,
+                headerLeft: () => <GoBackButton />,
 
-              headerTitleAlign: "center",
-              headerTitleStyle: {
-                color: BankColorsThemes.white,
-                fontSize: 16,
-                fontWeight: "600",
-              },
-              headerTintColor: BankColorsThemes.white,
-              headerStyle: { backgroundColor: BankColorsThemes.black },
-              headerShadowVisible: false,
-              headerTitle: "Reset Password",
-            }}
-          />
-          <Stack.Screen
-            name="auth-pin"
-            options={{
-              headerShown: true,
-              headerLeft: () => <GoBackButton />,
+                headerTitleAlign: "center",
+                headerTitleStyle: {
+                  color: BankColorsThemes.white,
+                  fontSize: 16,
+                  fontWeight: "600",
+                },
+                headerTintColor: BankColorsThemes.white,
+                headerStyle: { backgroundColor: BankColorsThemes.black },
+                headerShadowVisible: false,
+                headerTitle: "Reset Password",
+              }}
+            />
+            <Stack.Screen
+              name="auth-pin"
+              options={{
+                headerShown: true,
+                headerLeft: () => <GoBackButton />,
 
-              headerTitleAlign: "center",
-              headerTitleStyle: {
-                color: BankColorsThemes.white,
-                fontSize: 16,
-                fontWeight: "600",
-              },
-              headerTintColor: BankColorsThemes.white,
-              headerStyle: { backgroundColor: BankColorsThemes.black },
-              headerShadowVisible: false,
-              headerTitle: "Create Passcode",
-            }}
-          />
-          <Stack.Screen
-            name="auth-verification"
-            options={{
-              headerShown: true,
-              headerLeft: () => <GoBackButton />,
+                headerTitleAlign: "center",
+                headerTitleStyle: {
+                  color: BankColorsThemes.white,
+                  fontSize: 16,
+                  fontWeight: "600",
+                },
+                headerTintColor: BankColorsThemes.white,
+                headerStyle: { backgroundColor: BankColorsThemes.black },
+                headerShadowVisible: false,
+                headerTitle: "Create Passcode",
+              }}
+            />
+            <Stack.Screen
+              name="auth-verification"
+              options={{
+                headerShown: true,
+                headerLeft: () => <GoBackButton />,
 
-              headerTitleAlign: "center",
-              headerTitleStyle: {
-                color: BankColorsThemes.white,
-                fontSize: 16,
-                fontWeight: "600",
-              },
-              headerTintColor: BankColorsThemes.white,
-              headerStyle: { backgroundColor: BankColorsThemes.black },
-              headerShadowVisible: false,
-              headerTitle: "Verify",
-            }}
-          />
-          <Stack.Screen name="transfer-successful" />
+                headerTitleAlign: "center",
+                headerTitleStyle: {
+                  color: BankColorsThemes.white,
+                  fontSize: 16,
+                  fontWeight: "600",
+                },
+                headerTintColor: BankColorsThemes.white,
+                headerStyle: { backgroundColor: BankColorsThemes.black },
+                headerShadowVisible: false,
+                headerTitle: "Verify",
+              }}
+            />
+            <Stack.Screen name="transfer-successful" />
 
-          <Stack.Screen name="auth-confirm-pin" options={{}} />
-          <Stack.Screen name="pin-success" options={{}} />
-          <Stack.Screen
-            name="index"
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="signup"
-            options={{
-              headerShown: true,
-              headerLeft: () => <GoBackButton />,
-              headerTitle: "Sign Up",
-              headerTitleAlign: "center",
-              headerTitleStyle: {
-                color: BankColorsThemes.white,
-                fontSize: 16,
-                fontWeight: "600",
-              },
-              headerTintColor: BankColorsThemes.white,
-              headerStyle: { backgroundColor: BankColorsThemes.black },
-              headerShadowVisible: false,
-            }}
-          />
-          <Stack.Screen name="(tabs)" />
-        </Stack>
-      </AppProvider>
+            <Stack.Screen name="auth-confirm-pin" options={{}} />
+            <Stack.Screen name="pin-success" options={{}} />
+            <Stack.Screen
+              name="index"
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="signup"
+              options={{
+                headerShown: true,
+                headerLeft: () => <GoBackButton />,
+                headerTitle: "Sign Up",
+                headerTitleAlign: "center",
+                headerTitleStyle: {
+                  color: BankColorsThemes.white,
+                  fontSize: 16,
+                  fontWeight: "600",
+                },
+                headerTintColor: BankColorsThemes.white,
+                headerStyle: { backgroundColor: BankColorsThemes.black },
+                headerShadowVisible: false,
+              }}
+            />
+          </Stack>
+        </AppProvider>
+      </ReduxProvider>
     </ThemeProvider>
   )
 }

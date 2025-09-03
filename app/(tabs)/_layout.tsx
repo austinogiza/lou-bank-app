@@ -1,61 +1,132 @@
-import React from "react"
-import { Tabs } from "expo-router"
-import {
-  House,
-  Banknote,
-  CreditCard,
-  Send,
-  CircleDollarSign,
-  User,
-  Gavel,
-} from "lucide-react-native"
 import GoBackButton from "@/src/components/helpers/go-back-button"
+import { BankColorsThemes } from "@/src/style/color"
+import {
+  HomeActiveIcon,
+  HomeInactiveIcon,
+  NotificationIcon,
+  WalletIcon,
+} from "@/src/utils/image-export"
+import { Tabs } from "expo-router"
+import { Gavel, User } from "lucide-react-native"
+import React from "react"
+import { Text, View } from "react-native"
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: "",
         headerShown: false,
+        // tabBarBackgroundColor: "black",
+        tabBarStyle: { backgroundColor: "black", borderTopColor: "#1f2937" },
+        tabBarInactiveTintColor: "gray",
+        tabBarIconStyle: { marginTop: 5, color: "white" },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
           title: "Home",
-          tabBarIcon: ({ color }) => <House width={20} color={color} />,
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={{
+                fontSize: 12,
+                marginBottom: 3,
+                color: focused
+                  ? BankColorsThemes.white
+                  : BankColorsThemes.neutral[400],
+              }}
+            >
+              Home
+            </Text>
+          ),
+          tabBarIcon: ({ focused }) => (
+            <View>
+              {focused ? (
+                <>
+                  <HomeActiveIcon />
+                </>
+              ) : (
+                <>
+                  <HomeInactiveIcon />
+                </>
+              )}
+            </View>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="account-balance"
+        options={{
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={{
+                fontSize: 12,
+                marginBottom: 3,
+                color: focused
+                  ? BankColorsThemes.white
+                  : BankColorsThemes.neutral[400],
+              }}
+            >
+              Account
+            </Text>
+          ),
+          headerShown: false,
+          headerShadowVisible: false,
+          tabBarIcon: ({ color, focused }) => (
+            <View></View>
+            // <Banknote
+            //   width={20}
+            //   color={
+            //     focused ? BankColorsThemes.white : BankColorsThemes.neutral[400]
+            //   }
+            // />
+          ),
+          headerLeft: () => <GoBackButton />,
+          // headerRight: () => <TransactionCustom />,
+        }}
+      />
+
+      <Tabs.Screen
+        name="notification"
+        options={{
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={{
+                fontSize: 12,
+                marginBottom: 3,
+                color: focused
+                  ? BankColorsThemes.white
+                  : BankColorsThemes.neutral[400],
+              }}
+            >
+              Notifications
+            </Text>
+          ),
+          headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <NotificationIcon height={20} width={20} color={color} />
+          ),
         }}
       />
       <Tabs.Screen
         name="transaction-history"
         options={{
-          title: "Transaction History",
-          headerShown: true,
-          headerShadowVisible: false,
-          tabBarIcon: ({ color }) => <Banknote width={20} color={color} />,
-          headerLeft: () => <GoBackButton />,
-          // headerRight: () => <TransactionCustom />,
-        }}
-      />
-      <Tabs.Screen
-        name="my-cards"
-        options={{
-          title: "My Cards",
-          tabBarIcon: ({ color }) => <CreditCard width={20} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="transfer-hub-screen"
-        options={{
-          title: "Transfer",
-          tabBarIcon: ({ color }) => <Send width={20} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="transfer-money"
-        options={{
-          title: "Send money",
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={{
+                fontSize: 12,
+                marginBottom: 3,
+                color: focused
+                  ? BankColorsThemes.white
+                  : BankColorsThemes.neutral[400],
+              }}
+            >
+              Transaction
+            </Text>
+          ),
+          headerShown: false,
           tabBarIcon: ({ color }) => (
-            <CircleDollarSign width={20} color={color} />
+            <WalletIcon height={20} width={20} color={color} />
           ),
         }}
       />

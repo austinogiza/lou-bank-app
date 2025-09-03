@@ -1,6 +1,5 @@
 import { SafeAreaView, StyleSheet, View } from "react-native"
 import React, { FC } from "react"
-import { BankColorsThemes } from "@/src/style/color"
 import tw from "twrnc"
 interface AuthWrapperProps {
   children?: React.ReactNode

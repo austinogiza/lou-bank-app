@@ -1,25 +1,16 @@
-import {
-  ActivityIndicator,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native"
+import { Pressable, StyleSheet, Text, View } from "react-native"
 import React, { FC } from "react"
 import { BankColorsThemes } from "../color"
-import { LinearGradient } from "expo-linear-gradient"
-import { Link } from "expo-router"
 
-interface MainLoginButtonProps {
+interface AuthButtonButtonProps {
   title?: string
   onPress?: () => void
   primary?: boolean
   link?: string
-  loading?: boolean
 }
 
-const MainLoginButton: FC<MainLoginButtonProps> = (props) => {
-  const { title, onPress, primary, link, loading } = props
+const AuthButton: FC<AuthButtonButtonProps> = (props) => {
+  const { title, onPress, primary, link } = props
 
   return (
     <Pressable
@@ -31,27 +22,19 @@ const MainLoginButton: FC<MainLoginButtonProps> = (props) => {
       accessibilityLabel={title}
       onPress={onPress}
     >
-      {loading ? (
-        <>
-          <ActivityIndicator />
-        </>
-      ) : (
-        <>
-          <Text
-            style={[
-              primary ? styles.buttonTextDark : styles.buttonTextWhite,
-              styles.buttonText,
-            ]}
-          >
-            {title}
-          </Text>
-        </>
-      )}
+      <Text
+        style={[
+          primary ? styles.buttonTextDark : styles.buttonTextWhite,
+          styles.buttonText,
+        ]}
+      >
+        {title}
+      </Text>
     </Pressable>
   )
 }
 
-export default MainLoginButton
+export default AuthButton
 
 const styles = StyleSheet.create({
   pressableButton: {
@@ -69,9 +52,10 @@ const styles = StyleSheet.create({
     color: BankColorsThemes.white,
   },
   secondaryButton: {
-    backgroundColor: BankColorsThemes.white,
-
-    color: BankColorsThemes.secondary[500],
+    backgroundColor: BankColorsThemes.black,
+    borderColor: BankColorsThemes.primary[500],
+    borderWidth: 1,
+    color: BankColorsThemes.primary[500],
     shadowColor: BankColorsThemes.primary[500],
     shadowOffset: {
       width: 0,

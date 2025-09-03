@@ -1,198 +1,179 @@
+// features/auth/authSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
 import axios from "axios"
-import { toast } from "sonner"
-import { loginURL } from "@/constants/constants"
-import { getExpiresFromUrl } from "@/utils/utils"
-import { fetchUserDetails } from "@/utils/fetch-user-details"
-import type { any } from "@/utils/types"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { toast } from "sonner-native"
+import { AuthLoginURL, AuthSignupURL } from "../api/constant"
 
-type AuthError = unknown
-
-type AuthState = {
+interface AuthState {
   token: string | null
-  user: null
-  profilePhoto: string | null
   loading: boolean
-  error: AuthError | null
+  error: string | null
 }
 
 const initialState: AuthState = {
   token: null,
-  user: null,
-  profilePhoto: null,
   loading: false,
   error: null,
 }
 
-function safeParse<T>(raw: string | null): T | null {
-  try {
-    return raw ? (JSON.parse(raw) as T) : null
-  } catch {
-    return null
-  }
-}
+// --- Async Thunks ---
 
-/** LOGIN */
+// Login
 export const authLogin = createAsyncThunk<
-  { token: string; user: any },
-  { username?: string; password?: string; navigation?: (path: string) => void }
+  string,
+  { email: string; password: string; navigation?: any },
+  { rejectValue: string }
 >(
   "auth/login",
-  async ({ username, password, navigation }, { rejectWithValue, dispatch }) => {
+  async ({ email, password, navigation }, { rejectWithValue }) => {
     try {
-      const res = await axios.post(loginURL, {
-        username: String(username ?? "").trim(),
-        password,
-      })
+      const res = await axios.post(AuthLoginURL, { email, password })
+      const token = res.data.key
 
       const expirationDate = new Date(
-        new Date(res?.data?.jwt?.expirationDate).getTime()
-      )
-      const token: string = res?.data?.jwt?.token
-      const user: any = res?.data?.user
-
-      const needsPasswordChange = (user as any)?.needsPasswordChange
-
-      localStorage.setItem("feedToken", token)
-      localStorage.setItem("feedTokenDate", expirationDate.toISOString())
-      localStorage.setItem("userInfo", JSON.stringify(user))
-      localStorage.setItem(
-        "passwordChange",
-        JSON.stringify(needsPasswordChange)
+        new Date().getTime() + 7 * 24 * 60 * 60 * 1000
       )
 
-      const profileKey = (user as any)?.profile_s3_key
-      if (profileKey) {
-        const timestamp = getExpiresFromUrl(profileKey)
-        const formattedDate = new Date(Number(timestamp) * 1000).toISOString()
-        localStorage.setItem("userProfilePhoto", JSON.stringify(profileKey))
-        localStorage.setItem("profilePhotoExpire", formattedDate)
-        dispatch(setProfilePhoto(profileKey))
+      await AsyncStorage.setItem("louBankToken", token)
+      await AsyncStorage.setItem(
+        "louBankTokenDate",
+        expirationDate.toISOString()
+      )
+
+      if (navigation) {
+        navigation.navigate("/(tabs)") // adjust route
       }
 
-      navigation?.("/home")
-      return { token, user }
+      return token
     } catch (err: any) {
-      return rejectWithValue(err?.response?.data ?? err?.message ?? err)
+      const authError =
+        err.response?.data?.non_field_errors?.[0] || "Login failed"
+      toast.error(authError)
+      return rejectWithValue(authError)
     }
   }
 )
 
-/** CHECK AUTH FROM LOCALSTORAGE */
-export const authCheckState = createAsyncThunk<
-  { token: string; user: any | null },
-  void
->("auth/checkState", async (_, { dispatch, rejectWithValue }) => {
+// Signup
+export const authSignup = createAsyncThunk<
+  string,
+  {
+    first_name: string
+    last_name: string
+    email: string
+    password1: string
+    password2: string
+    navigation?: any
+  },
+  { rejectValue: string }
+>("auth/signup", async (payload, { rejectWithValue }) => {
   try {
-    const token = localStorage.getItem("feedToken")
-    const expirationDateString = localStorage.getItem("feedTokenDate")
-    const rawUser = localStorage.getItem("userInfo")
+    const res = await axios.post(AuthSignupURL, payload)
+    const token = res.data.key
 
-    if (!token || !expirationDateString) {
-      await dispatch(authLogout()).unwrap()
-      // Use reject to drive error state to null later via matcher if you want
-      return rejectWithValue("No token")
+    const expirationDate = new Date(
+      new Date().getTime() + 7 * 24 * 60 * 60 * 1000
+    )
+    await AsyncStorage.setItem("louBankToken", token)
+    await AsyncStorage.setItem("louBankTokenDate", expirationDate.toISOString())
+
+    if (payload.navigation) {
+      payload.navigation.navigate("Dashboard") // adjust route
     }
 
-    const expirationDate = new Date(expirationDateString)
-    if (expirationDate <= new Date()) {
-      await dispatch(authLogout()).unwrap()
-      return rejectWithValue("Token expired")
-    }
-
-    const storedUser = safeParse<any>(rawUser)
-    let freshUser: any | null = storedUser ?? null
-
-    // Refresh user details & profile photo just like the old code
-    const userId = Number((storedUser as any)?.userId)
-    if (!Number.isNaN(userId) && userId > 0) {
-      const res = await fetchUserDetails(userId)
-      const userInfo: any = res?.userData
-      freshUser = userInfo ?? storedUser ?? null
-
-      const newPhoto = (userInfo as any)?.profile_s3_key
-      if (newPhoto) {
-        const timestamp = getExpiresFromUrl(newPhoto)
-        const formattedDate = new Date(Number(timestamp) * 1000).toISOString()
-        localStorage.setItem("userProfilePhoto", JSON.stringify(newPhoto))
-        localStorage.setItem("profilePhotoExpire", formattedDate)
-        dispatch(setProfilePhoto(newPhoto))
-      }
-    }
-
-    return { token, user: freshUser }
-  } catch (err) {
-    await dispatch(authLogout()).unwrap()
-    return rejectWithValue("Auth check failed")
+    return token
+  } catch (err: any) {
+    const authError =
+      err.response?.data?.email?.[0] ||
+      err.response?.data?.password1?.[0] ||
+      err.response?.data?.password2?.[0] ||
+      "Signup failed"
+    return rejectWithValue(authError)
   }
 })
 
-/** LOGOUT */
-export const authLogout = createAsyncThunk<void, void>(
-  "auth/logout",
-  async () => {
-    localStorage.removeItem("feedToken")
-    localStorage.removeItem("feedTokenDate")
-    localStorage.removeItem("userInfo")
-    localStorage.removeItem("passwordChange")
-    localStorage.removeItem("userProfilePhoto")
-    localStorage.removeItem("profilePhotoExpire")
-    toast.info("Logged out. Kindly login to continue")
+// Logout
+export const authLogout = createAsyncThunk("auth/logout", async () => {
+  try {
+    await AsyncStorage.clear()
+  } catch (e) {
+    // ignore logout server error
   }
-)
+  await AsyncStorage.clear()
+  return null
+})
 
+// Check session
+export const authCheckState = createAsyncThunk("auth/check", async () => {
+  const token = await AsyncStorage.getItem("louBankToken")
+  const expirationDateString = await AsyncStorage.getItem("louBankTokenDate")
+
+  if (!token || !expirationDateString) {
+    await AsyncStorage.clear()
+    return null
+  }
+
+  const expirationDate = new Date(expirationDateString)
+  if (expirationDate <= new Date()) {
+    await AsyncStorage.clear()
+    return null
+  }
+
+  return token
+})
+
+// --- Slice ---
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setProfilePhoto(state, action: PayloadAction<string | null>) {
-      state.profilePhoto = action.payload
-    },
-    resetAuthError(state) {
+    clearError(state) {
       state.error = null
     },
   },
   extraReducers: (builder) => {
-    // login
-    builder.addCase(authLogin.pending, (state) => {
-      state.loading = true
-      state.error = null
-    })
-    builder.addCase(authLogin.fulfilled, (state, action) => {
-      state.loading = false
-      state.token = action.payload.token
-      state.user = action.payload.user
-      state.error = null
-    })
-    builder.addCase(authLogin.rejected, (state, action) => {
-      state.loading = false
-      state.error = action.payload ?? action.error
-    })
+    builder
+      // Login
+      .addCase(authLogin.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(authLogin.fulfilled, (state, action: PayloadAction<string>) => {
+        state.loading = false
+        state.token = action.payload
+      })
+      .addCase(authLogin.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload || "Login failed"
+      })
 
-    // check state
-    builder.addCase(authCheckState.pending, (state) => {
-      state.loading = true
-      state.error = null
-    })
-    builder.addCase(authCheckState.fulfilled, (state, action) => {
-      state.loading = false
-      state.token = action.payload.token
-      state.user = action.payload.user
-      state.error = null
-    })
-    builder.addCase(authCheckState.rejected, (state) => {
-      // We already logged out inside the thunk if needed
-      state.loading = false
-      state.token = null
-      state.user = null
-    })
+      // Signup
+      .addCase(authSignup.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(authSignup.fulfilled, (state, action: PayloadAction<string>) => {
+        state.loading = false
+        state.token = action.payload
+      })
+      .addCase(authSignup.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload || "Signup failed"
+      })
 
-    // logout
-    builder.addCase(authLogout.fulfilled, (state) => {
-      Object.assign(state, initialState)
-    })
+      // Logout
+      .addCase(authLogout.fulfilled, (state) => {
+        state.token = null
+        state.loading = false
+      })
+
+      // Check session
+      .addCase(authCheckState.fulfilled, (state, action) => {
+        state.token = action.payload
+      })
   },
 })
 
-export const { setProfilePhoto, resetAuthError } = authSlice.actions
+export const { clearError } = authSlice.actions
 export default authSlice.reducer
