@@ -3,8 +3,10 @@ import React from "react"
 import ImageContainer from "../images/image-container"
 import tw from "twrnc"
 import { BankColorsThemes } from "@/src/style/color"
+import { useFetchAccountOverview } from "@/src/api/queries/fetch-account-overview"
 
 const TransactionGroup = () => {
+  const { allAccountOverview } = useFetchAccountOverview()
   return (
     <View style={tw`mt-4`}>
       {/* Transaction Item */}

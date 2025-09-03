@@ -44,6 +44,6 @@ export default AppProvider
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 16,
+    // paddingVertical: 16,
   },
 })

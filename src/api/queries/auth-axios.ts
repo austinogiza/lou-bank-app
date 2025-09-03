@@ -5,22 +5,23 @@ import { endpoint } from "../constant"
 const isValidToken = (token: string | null | undefined): boolean =>
   Boolean(token && typeof token === "string" && token.trim() !== "")
 
-const getTokenFromStore = async (): Promise<string> => {
+const getTokenFromStore = async (): Promise<string | null> => {
   const token = await AsyncStorage.getItem("louBankToken")
-  return isValidToken(token) ? `Bearer ${token}` : "Bearer "
+  if (!token) return null
+  return `Bearer ${token}`
 }
 
+// Axios instance
 export const authAxios = axios.create({
   baseURL: endpoint,
 })
 
 authAxios.interceptors.request.use(
   async (config) => {
-    const token = await getTokenFromStore() // Fixed: await the promise
+    const token = await getTokenFromStore()
 
-    if (token && token !== "Bearer ") {
-      // Optional: better check
-      config.headers.Authorization = token
+    if (isValidToken(token)) {
+      config.headers.Authorization = token as string
     }
 
     return config

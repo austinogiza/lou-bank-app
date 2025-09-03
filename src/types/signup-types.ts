@@ -13,3 +13,7 @@ export interface LoginFormDataProps {
   email: string
   password: string
 }
+
+export interface ForgotPasswordData {
+  email: string
+}

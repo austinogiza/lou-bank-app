@@ -39,6 +39,13 @@ export const LoginSchema = z.object({
   //   "Password must contain at least one uppercase letter, one lowercase letter, and one number"
   // ),
 })
+export const ForgotPasswordSchema = z.object({
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email("Invalid email address")
+    .max(100, "Email must be less than 100 characters"),
+})
 
 export const ResetPasswordSchema = z
   .object({
@@ -62,3 +69,4 @@ export const ResetPasswordSchema = z
 export type SignupFormData = z.infer<typeof SignupSchema>
 export type LoginFormData = z.infer<typeof LoginSchema>
 export type ResetPasswordData = z.infer<typeof ResetPasswordSchema>
+export type ForgotPasswordData = z.infer<typeof ForgotPasswordSchema>

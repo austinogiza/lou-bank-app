@@ -6,8 +6,12 @@ import WelcomeTop from "@/src/components/home/welcome-top"
 import HomeActionButtons from "@/src/components/home/home-action-buttons"
 import TransactionInfo from "@/src/components/transaction/transaction-info"
 import HomeExpenseCard from "@/src/components/home/home-expense-card"
+import { useFetchAccountOverview } from "@/src/api/queries/fetch-account-overview"
+import { formatNumber } from "@/src/utils/format-number"
 
 const HomeScreen = () => {
+  const { allAccountOverview } = useFetchAccountOverview()
+  console.log("Account Overview Data:", allAccountOverview)
   return (
     <ScreensWrapper>
       <ScrollView style={tw`flex-1 bg-black px-2  w-full`}>
@@ -19,7 +23,9 @@ const HomeScreen = () => {
         {/* Balance Section */}
         <View style={tw`mt-6 w-full mb-2`}>
           <Text style={tw`text-gray-400 text-sm  `}>Your Balance</Text>
-          <Text style={tw`text-white text-4xl font-medium`}>$45,756.84</Text>
+          <Text style={tw`text-white text-4xl font-medium`}>
+            ${formatNumber(allAccountOverview?.account_balance || 0)}
+          </Text>
         </View>
 
         {/* Expense Cards */}

@@ -3,9 +3,12 @@ import React from "react"
 import ImageContainer from "../images/image-container"
 import tw from "twrnc"
 import { NotificationIcon } from "@/src/utils/image-export"
+import { useFetchAccountOverview } from "@/src/api/queries/fetch-account-overview"
 
 interface WelcomeTopProps {}
 const WelcomeTop = () => {
+  const { allAccountOverview } = useFetchAccountOverview()
+
   return (
     <View style={tw`w-full flex-row justify-between items-center`}>
       <View style={tw`flex-row items-center`}>
@@ -14,7 +17,9 @@ const WelcomeTop = () => {
           style={tw`w-14 h-14 rounded-full mr-3`}
         />
         <View>
-          <Text style={tw`text-gray-400 text-sm`}>Hello, Adom!</Text>
+          <Text style={tw`text-gray-400 text-sm capitalize`}>
+            Hello, {allAccountOverview?.first_name}!
+          </Text>
           <Text style={tw`text-white text-xl font-bold`}>Welcome Back!</Text>
         </View>
       </View>

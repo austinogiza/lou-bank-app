@@ -10,6 +10,7 @@ interface TransactionInfoProps {
 const TransactionInfo: FC<TransactionInfoProps> = (props) => {
   const { transactionData } = props
   const router = useRouter()
+
   const goToAllTransactions = () => {
     router.push("/(tabs)/transaction-history")
   }

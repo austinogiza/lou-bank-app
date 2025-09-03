@@ -7,13 +7,16 @@ import MainInput from "@/src/style/input/main-input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import MainLoginButton from "@/src/style/button-styles/main-login"
 import InputLabel from "@/src/style/input/input-label"
-import { Eye, EyeOff } from "lucide-react-native"
 import { BankColorsThemes } from "@/src/style/color"
-import { LoginFormDataProps } from "@/src/types/signup-types"
-import { LoginSchema } from "@/src/types/schema"
+import {
+  ForgotPasswordData,
+  ForgotPasswordSchema,
+  LoginSchema,
+} from "@/src/types/schema"
 import AuthHeader from "@/src/components/auth/auth-header"
-import SocialButtons from "@/src/style/button-styles/social-buttons"
-import { AppleLogo, GoogleLogo } from "@/src/utils/image-export"
+
+import axios from "axios"
+import { ResetPasswordURL } from "@/src/api/constant"
 
 const ForgotPassword = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -28,18 +31,27 @@ const ForgotPassword = () => {
     formState: { errors, isSubmitting },
     watch,
     setValue,
-  } = useForm<LoginFormDataProps>({
-    resolver: zodResolver(LoginSchema),
+  } = useForm<ForgotPasswordData>({
+    resolver: zodResolver(ForgotPasswordSchema),
     defaultValues: {
       email: "",
-      password: "",
     },
     mode: "onChange",
     reValidateMode: "onChange",
   })
 
   // Submit form handler
-  const onSubmit: SubmitHandler<LoginFormDataProps> = (data) => {}
+  const onSubmit: SubmitHandler<ForgotPasswordData> = (data) => {
+    console.log(data, "working")
+    axios
+      .post(ResetPasswordURL, {
+        email: data.email,
+      })
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => {})
+  }
 
   return (
     <>
@@ -73,6 +85,7 @@ reset your password."
               <View>
                 <View style={styles.submitButtonContainer}>
                   <MainLoginButton
+                    loading={isSubmitting}
                     onPress={handleSubmit(onSubmit)}
                     title="Send email"
                     primary
