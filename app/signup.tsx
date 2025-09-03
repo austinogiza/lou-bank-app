@@ -14,6 +14,13 @@ import { SignupSchema } from "@/src/types/schema"
 import AuthHeader from "@/src/components/auth/auth-header"
 import SocialButtons from "@/src/style/button-styles/social-buttons"
 import { AppleLogo, GoogleLogo } from "@/src/utils/image-export"
+import axios from "axios"
+import { AuthSignupURL } from "@/src/api/constant"
+import { email } from "zod"
+import { toast } from "sonner-native"
+import { useAppDispatch } from "@/src/store/hooks"
+import { useRouter } from "expo-router"
+import { authSignup } from "@/src/store/auth-slice"
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -22,17 +29,26 @@ const Signup = () => {
   const {
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     watch,
     setValue,
   } = useForm<SignupFormDataProps>({
     resolver: zodResolver(SignupSchema),
     defaultValues: { email: "", password: "", confirmPassword: "" },
-    mode: "onChange",
+    mode: "onBlur",
+    reValidateMode: "onBlur",
   })
-
+  const router = useRouter()
+  const dispatch = useAppDispatch()
   const onSubmit: SubmitHandler<SignupFormDataProps> = (data) => {
-    console.log("form submitted:", data)
+    dispatch(
+      authSignup({
+        email: data.email,
+        password1: data.password,
+        password2: data.confirmPassword,
+        navigation: router,
+      })
+    )
   }
 
   return (
@@ -63,9 +79,9 @@ const Signup = () => {
               <View style={tw`absolute right-4 top-3 z-10`}>
                 <Pressable onPress={() => setShowPassword((p) => !p)}>
                   {showPassword ? (
-                    <Eye color={BankColorsThemes.black} size={20} />
+                    <Eye color={BankColorsThemes.white} size={20} />
                   ) : (
-                    <EyeOff color={BankColorsThemes.black} size={20} />
+                    <EyeOff color={BankColorsThemes.white} size={20} />
                   )}
                 </Pressable>
               </View>
@@ -86,9 +102,9 @@ const Signup = () => {
               <View style={tw`absolute right-4 top-3 z-10`}>
                 <Pressable onPress={() => setShowConfirmPassword((p) => !p)}>
                   {showConfirmPassword ? (
-                    <Eye color={BankColorsThemes.black} size={20} />
+                    <Eye color={BankColorsThemes.white} size={20} />
                   ) : (
-                    <EyeOff color={BankColorsThemes.black} size={20} />
+                    <EyeOff color={BankColorsThemes.white} size={20} />
                   )}
                 </Pressable>
               </View>
@@ -106,6 +122,7 @@ const Signup = () => {
             {/* Submit Button */}
             <View style={styles.submitButtonContainer}>
               <MainLoginButton
+                loading={isSubmitting}
                 onPress={handleSubmit(onSubmit)}
                 title="Create your account"
                 primary

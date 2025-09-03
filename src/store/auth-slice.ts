@@ -58,38 +58,35 @@ export const authLogin = createAsyncThunk<
 // Signup
 export const authSignup = createAsyncThunk<
   string,
-  {
-    first_name: string
-    last_name: string
-    email: string
-    password1: string
-    password2: string
-    navigation?: any
-  },
+  { email: string; password1: string; password2: string; navigation?: any },
   { rejectValue: string }
 >("auth/signup", async (payload, { rejectWithValue }) => {
   try {
     const res = await axios.post(AuthSignupURL, payload)
     const token = res.data.key
+    console.log("API success:", token)
 
-    const expirationDate = new Date(
-      new Date().getTime() + 7 * 24 * 60 * 60 * 1000
-    )
     await AsyncStorage.setItem("louBankToken", token)
-    await AsyncStorage.setItem("louBankTokenDate", expirationDate.toISOString())
+    await AsyncStorage.setItem(
+      "louBankTokenDate",
+      new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+    )
 
-    if (payload.navigation) {
-      payload.navigation.navigate("Dashboard") // adjust route
-    }
+    payload.navigation?.navigate("Dashboard")
 
     return token
   } catch (err: any) {
-    const authError =
-      err.response?.data?.email?.[0] ||
-      err.response?.data?.password1?.[0] ||
-      err.response?.data?.password2?.[0] ||
-      "Signup failed"
-    return rejectWithValue(authError)
+    console.log("API error:", err.response?.data)
+    if (err.response?.data?.email?.[0]) {
+      toast.error(err.response?.data?.email?.[0])
+      return rejectWithValue(err.response?.data?.email?.[0])
+    } else if (err.response?.data?.password1?.[0]) {
+      toast.error(err.response?.data?.password1?.[0])
+      return rejectWithValue(err.response?.data?.password1?.[0])
+    } else {
+      toast.error("Signup failed")
+      return rejectWithValue("Signup failed")
+    }
   }
 })
 

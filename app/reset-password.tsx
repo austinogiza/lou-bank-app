@@ -27,6 +27,7 @@ const ResetPassword = () => {
     resolver: zodResolver(ResetPasswordSchema),
     defaultValues: { password: "", confirmPassword: "" },
     mode: "onChange",
+    reValidateMode: "onChange",
   })
 
   const onSubmit: SubmitHandler<ResetPasswordDataProps> = (data) => {
