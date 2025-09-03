@@ -1,5 +1,5 @@
-import { Pressable, StyleSheet, Text, View } from "react-native"
-import React, { useState } from "react"
+import { StyleSheet, View } from "react-native"
+import React from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import AuthWrapper from "@/src/components/wrapper/auth-wrapper"
 import tw from "twrnc"
@@ -8,36 +8,28 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import MainLoginButton from "@/src/style/button-styles/main-login"
 import InputLabel from "@/src/style/input/input-label"
 import { BankColorsThemes } from "@/src/style/color"
-import {
-  ForgotPasswordData,
-  ForgotPasswordSchema,
-  LoginSchema,
-} from "@/src/types/schema"
+import { ForgotPasswordData, ForgotPasswordSchema } from "@/src/types/schema"
 import AuthHeader from "@/src/components/auth/auth-header"
-
 import axios from "axios"
 import { ResetPasswordURL } from "@/src/api/constant"
+import { toast } from "sonner-native"
 
 const ForgotPassword = () => {
-  const [showPassword, setShowPassword] = useState<boolean>(false)
-
-  const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev)
-  }
   const {
     handleSubmit,
     control,
-    register,
+
     formState: { errors, isSubmitting },
     watch,
     setValue,
+    reset,
   } = useForm<ForgotPasswordData>({
     resolver: zodResolver(ForgotPasswordSchema),
     defaultValues: {
       email: "",
     },
-    mode: "onChange",
-    reValidateMode: "onChange",
+    mode: "onBlur",
+    reValidateMode: "onBlur",
   })
 
   // Submit form handler
@@ -49,6 +41,9 @@ const ForgotPassword = () => {
       })
       .then((res) => {
         console.log(res.data)
+
+        toast.success("Password reset email sent")
+        reset()
       })
       .catch((err) => {})
   }

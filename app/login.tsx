@@ -43,8 +43,8 @@ const LoginScreen = () => {
       email: "",
       password: "",
     },
-    mode: "onChange",
-    reValidateMode: "onChange",
+    mode: "onBlur",
+    reValidateMode: "onBlur",
   })
   const router = useRouter()
   const goToForgotPassword = () => {
