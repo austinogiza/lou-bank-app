@@ -1,14 +1,14 @@
-import React from "react"
-import { Tabs } from "expo-router"
-import { House, Banknote } from "lucide-react-native"
 import GoBackButton from "@/src/components/helpers/go-back-button"
+import { BankColorsThemes } from "@/src/style/color"
 import {
   HomeActiveIcon,
   HomeInactiveIcon,
-  WalletIcon,
   NotificationIcon,
+  WalletIcon,
 } from "@/src/utils/image-export"
-import { BankColorsThemes } from "@/src/style/color"
+import { Tabs } from "expo-router"
+import { Gavel, User } from "lucide-react-native"
+import React from "react"
 import { Text, View } from "react-native"
 export default function TabLayout() {
   return (
@@ -128,6 +128,23 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <WalletIcon height={20} width={20} color={color} />
           ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="account"
+        options={{
+          title: "Account",
+          tabBarIcon: ({ color }) => <User width={20} color={color} />,
+        }}
+      />
+
+
+      <Tabs.Screen
+        name="legal"
+        options={{
+          title: "Legal",
+          tabBarIcon: ({ color }) => <Gavel width={20} color={color} />,
         }}
       />
     </Tabs>
