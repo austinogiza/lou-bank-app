@@ -62,9 +62,9 @@ export const authSignup = createAsyncThunk<
   { rejectValue: string }
 >("auth/signup", async (payload, { rejectWithValue }) => {
   try {
-    console.log("API success:payload")
     const res = await axios.post(AuthSignupURL, payload)
     const token = res.data.key
+    console.log("API success:payload", payload, res)
     console.log("API success:", token)
     await AsyncStorage.setItem("louBankToken", token)
     await AsyncStorage.setItem(
@@ -76,7 +76,7 @@ export const authSignup = createAsyncThunk<
 
     return token
   } catch (err: any) {
-    console.log("API error:", err.response?.data)
+    console.log("API error:", err?.response?.data)
     if (err.response?.data?.email?.[0]) {
       toast.error(err.response?.data?.email?.[0])
       return rejectWithValue(err.response?.data?.email?.[0])

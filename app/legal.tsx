@@ -1,19 +1,24 @@
-import ScreensWrapper from '@/src/components/wrapper/screens-wrapper'
-import { ArrowLeft, Building2, ChevronRight, Wifi } from 'lucide-react-native'
-import React, { useState } from 'react'
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import HeaderInfo from "@/src/components/helpers/header-info"
+import ScreensWrapper from "@/src/components/wrapper/screens-wrapper"
+import { BankColorsThemes } from "@/src/style/color"
+import { ArrowLeft, Building2, ChevronRight, Wifi } from "lucide-react-native"
+import React, { useState } from "react"
+import { ScrollView, Text, TouchableOpacity, View } from "react-native"
 import tw from "twrnc"
-import HeaderInfo from '../../src/components/helpers/header-info'
-import { BankColorsThemes } from '../../src/style/color'
 
 type CardProp = {
-  cardNumber: string,
-  holderName: string,
-  expiry: string,
+  cardNumber: string
+  holderName: string
+  expiry: string
   isActive: boolean
 }
 
-const CreditCard = ({ cardNumber, holderName, expiry, isActive = false }: CardProp) => {
+const CreditCard = ({
+  cardNumber,
+  holderName,
+  expiry,
+  isActive = false,
+}: CardProp) => {
   return (
     <View style={tw`bg-[#7A5BFF] p-6 rounded-2xl mb-4`}>
       {/* <View style={tw`bg-gradient-to-br from-[#7A5BFF] to-purple-700 p-6 rounded-2xl mb-4`}> */}
@@ -30,16 +35,24 @@ const CreditCard = ({ cardNumber, holderName, expiry, isActive = false }: CardPr
         <Text style={tw`text-white font-medium`}>{holderName}</Text>
         <View style={tw`flex-row items-center`}>
           <Text style={tw`text-white font-medium mr-2`}>{expiry}</Text>
-          <View style={tw`w-8 h-8 rounded-full ${isActive ? 'bg-black' : 'bg-white/30'}`} />
+          <View
+            style={tw`w-8 h-8 rounded-full ${
+              isActive ? "bg-black" : "bg-white/30"
+            }`}
+          />
         </View>
       </View>
     </View>
   )
 }
 
-const BankAccount = ({ bankName, accountNumber, onPress }: {
-  bankName: string,
-  accountNumber: string,
+const BankAccount = ({
+  bankName,
+  accountNumber,
+  onPress,
+}: {
+  bankName: string
+  accountNumber: string
   onPress: () => any
 }) => {
   return (
@@ -53,9 +66,9 @@ const BankAccount = ({ bankName, accountNumber, onPress }: {
         </View>
         <View>
           <Text style={tw`text-white font-semibold text-lg`}>{bankName}</Text>
-          <Text style={tw`text-white/800 font-extralight`}>Account number: <Text style={tw`font-bold text-gray-300`}>
-            {accountNumber}
-          </Text>
+          <Text style={tw`text-white/800 font-extralight`}>
+            Account number:{" "}
+            <Text style={tw`font-bold text-gray-300`}>{accountNumber}</Text>
           </Text>
         </View>
       </View>
@@ -71,19 +84,19 @@ const LegalScreen = () => {
     {
       cardNumber: "1234 5678 9000 0000",
       holderName: "Adom Shafi",
-      expiry: "12/24"
-    }
+      expiry: "12/24",
+    },
   ]
 
   const bankAccounts = [
     {
       bankName: "United Commercial Bank",
-      accountNumber: "9189 1278 0000 7652"
+      accountNumber: "9189 1278 0000 7652",
     },
     {
       bankName: "NRBC Bank LLC.",
-      accountNumber: "9189 1278 0000 7652"
-    }
+      accountNumber: "9189 1278 0000 7652",
+    },
   ]
 
   return (

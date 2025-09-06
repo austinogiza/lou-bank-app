@@ -1,27 +1,22 @@
-import ScreensWrapper from '@/src/components/wrapper/screens-wrapper'
+import HeaderInfo from "@/src/components/helpers/header-info"
+import ScreensWrapper from "@/src/components/wrapper/screens-wrapper"
+import { BankColorsThemes } from "@/src/style/color"
 import {
   ArrowLeft,
   ChevronRight,
   MessageSquare,
-  RefreshCw
-} from 'lucide-react-native'
-import React, { useState } from 'react'
-import {
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View
-} from 'react-native'
+  RefreshCw,
+} from "lucide-react-native"
+import React, { useState } from "react"
+import { ScrollView, Text, TouchableOpacity, View } from "react-native"
 import tw from "twrnc"
-import HeaderInfo from '../../src/components/helpers/header-info'
-import { BankColorsThemes } from '../../src/style/color'
 
 // Email Address Screen
 const EmailAddressScreen: React.FC = () => {
-  const [email] = useState<string>('adomshafi007@gmail.com')
+  const [email] = useState<string>("adomshafi007@gmail.com")
 
   const handleContactUs = (): void => {
-    console.log('Navigate to contact us')
+    console.log("Navigate to contact us")
   }
 
   return (
@@ -35,14 +30,20 @@ const EmailAddressScreen: React.FC = () => {
         />
 
         <View style={tw`mt-6`}>
-          <Text style={tw`text-white text-2xl font-bold mb-6`}>Email Address</Text>
+          <Text style={tw`text-white text-2xl font-bold mb-6`}>
+            Email Address
+          </Text>
 
-          <View style={tw`bg-transparent border border-gray-700 rounded-xl px-4 py-4 mb-6 flex-row items-center justify-between`}>
+          <View
+            style={tw`bg-transparent border border-gray-700 rounded-xl px-4 py-4 mb-6 flex-row items-center justify-between`}
+          >
             <Text style={tw`text-white text-base`}>{email}</Text>
             <RefreshCw width={20} height={20} color="#6B7280" />
           </View>
 
-          <TouchableOpacity style={tw`bg-transparent border border-gray-700 rounded-xl p-4 mb-6`}>
+          <TouchableOpacity
+            style={tw`bg-transparent border border-gray-700 rounded-xl p-4 mb-6`}
+          >
             <View style={tw`flex-row items-center justify-between`}>
               <View style={tw`flex-row items-center flex-1`}>
                 <View style={tw`bg-gray-800 p-2 rounded-lg mr-3`}>
@@ -53,7 +54,8 @@ const EmailAddressScreen: React.FC = () => {
                     Want to change your email?
                   </Text>
                   <Text style={tw`text-gray-400 text-sm`}>
-                    Contact us if you would like to change the email registered on your account
+                    Contact us if you would like to change the email registered
+                    on your account
                   </Text>
                 </View>
               </View>
@@ -76,6 +78,5 @@ const EmailAddressScreen: React.FC = () => {
     </ScreensWrapper>
   )
 }
-
 
 export default EmailAddressScreen

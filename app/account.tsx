@@ -1,21 +1,26 @@
-import ScreensWrapper from '@/src/components/wrapper/screens-wrapper'
-import { ArrowLeft, ChevronLeft, ChevronRight, MessageCircleQuestionMark } from 'lucide-react-native'
-import React, { useState } from 'react'
-import { ScrollView, View, Text, TouchableOpacity } from 'react-native'
-import { useRouter } from 'expo-router'
+import ScreensWrapper from "@/src/components/wrapper/screens-wrapper"
+import {
+  ArrowLeft,
+  ChevronLeft,
+  ChevronRight,
+  MessageCircleQuestionMark,
+} from "lucide-react-native"
+import React, { useState } from "react"
+import { ScrollView, View, Text, TouchableOpacity } from "react-native"
+import { useRouter } from "expo-router"
 import tw from "twrnc"
-import HeaderInfo from '../../src/components/helpers/header-info'
-import ImageContainer from '../../src/components/images/image-container'
-import { BankColorsThemes } from '../../src/style/color'
+import { BankColorsThemes } from "@/src/style/color"
+import HeaderInfo from "@/src/components/helpers/header-info"
+import ImageContainer from "@/src/components/images/image-container"
 
 type Props = {}
 
 type TabRoutes =
-  | '/(tabs)/personal-info'
-  | '/(tabs)/financial-info'
-  | '/(tabs)/app-settings'
-  | '/(tabs)/support'
-  | '/(tabs)/legal'
+  | "/(tabs)/personal-info"
+  | "/(tabs)/financial-info"
+  | "/(tabs)/app-settings"
+  | "/(tabs)/support"
+  | "/(tabs)/legal"
 
 interface NavigationItem {
   title: string
@@ -37,9 +42,9 @@ interface BottomNavIconProps {
 }
 
 const InformationCard: React.FC<InformationCardProps> = ({
-  title = 'Adom Shafi',
-  subTitle = '@adomshafi_tag',
-  onPress
+  title = "Adom Shafi",
+  subTitle = "@adomshafi_tag",
+  onPress,
 }) => {
   return (
     <TouchableOpacity
@@ -61,18 +66,16 @@ const InformationCard: React.FC<InformationCardProps> = ({
 const BottomNavIcon: React.FC<BottomNavIconProps> = ({
   icon: Icon,
   isActive = false,
-  onPress
+  onPress,
 }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={tw`h-16 w-16 rounded-full flex justify-center items-center ${isActive ? 'bg-purple-600' : 'bg-gray-700'}`}
+      style={tw`h-16 w-16 rounded-full flex justify-center items-center ${
+        isActive ? "bg-purple-600" : "bg-gray-700"
+      }`}
     >
-      <Icon
-        width={24}
-        height={24}
-        color={BankColorsThemes.white}
-      />
+      <Icon width={24} height={24} color={BankColorsThemes.white} />
     </TouchableOpacity>
   )
 }
@@ -86,21 +89,21 @@ function Account() {
 
     // Type-safe navigation with Expo Router
     switch (screen) {
-      case 'PersonalInfo':
-        router.push('/(tabs)/personal-info')
+      case "PersonalInfo":
+        router.push("/(tabs)/personal-info")
         break
-      case 'FinancialInfo':
-        router.push('/(tabs)/financial-info')
-        break
-      case 'AppSettings':
-        router.push('/(tabs)/app-settings')
-        break
-      case 'Support':
-        router.push('/(tabs)/support')
-        break
-      case 'Legal':
-        router.push('/(tabs)/legal')
-        break
+      // case "FinancialInfo":
+      //   router.push("/(tabs)/financial-info")
+      //   break
+      // case "AppSettings":
+      //   router.push("/(tabs)/app-settings")
+      //   break
+      // case "Support":
+      //   router.push("/(tabs)/support")
+      //   break
+      // case "Legal":
+      //   router.push("/(tabs)/legal")
+      //   break
       default:
         console.log(`Route not found for ${screen}`)
     }
@@ -108,35 +111,35 @@ function Account() {
 
   const navigationItems: NavigationItem[] = [
     {
-      title: 'Personal Information',
-      subtitle: 'Name, email, phone number',
-      screen: 'PersonalInfo',
-      route: '/(tabs)/personal-info'
+      title: "Personal Information",
+      subtitle: "Name, email, phone number",
+      screen: "PersonalInfo",
+      route: "/(tabs)/personal-info",
     },
     {
-      title: 'Financial Information',
-      subtitle: 'Linked financial institutions, cards you carry',
-      screen: 'FinancialInfo',
-      route: '/(tabs)/financial-info'
+      title: "Financial Information",
+      subtitle: "Linked financial institutions, cards you carry",
+      screen: "FinancialInfo",
+      route: "/(tabs)/financial-info",
     },
     {
-      title: 'App Settings',
-      subtitle: 'Notifications, password, face id, close my a...',
-      screen: 'AppSettings',
-      route: '/(tabs)/app-settings'
+      title: "App Settings",
+      subtitle: "Notifications, password, face id, close my a...",
+      screen: "AppSettings",
+      route: "/(tabs)/app-settings",
     },
     {
-      title: 'Support',
-      subtitle: 'Help centre, contact us',
-      screen: 'Support',
-      route: '/(tabs)/support'
+      title: "Support",
+      subtitle: "Help centre, contact us",
+      screen: "Support",
+      route: "/(tabs)/support",
     },
     {
-      title: 'Legal',
-      subtitle: 'Terms of use, privacy policies',
-      screen: 'Legal',
-      route: '/(tabs)/legal'
-    }
+      title: "Legal",
+      subtitle: "Terms of use, privacy policies",
+      screen: "Legal",
+      route: "/(tabs)/legal",
+    },
   ]
 
   return (
@@ -147,7 +150,11 @@ function Account() {
             <HeaderInfo
               title="Settings"
               iconLeft={
-                <ArrowLeft width={18} height={18} color={BankColorsThemes.white} />
+                <ArrowLeft
+                  width={18}
+                  height={18}
+                  color={BankColorsThemes.white}
+                />
               }
               iconRight={
                 <MessageCircleQuestionMark
@@ -166,8 +173,12 @@ function Account() {
                 style={tw`w-20 h-20 rounded-full`}
               />
               <View style={tw`text-center my-3`}>
-                <Text style={tw`text-white text-2xl font-bold text-center`}>Adom Shafi</Text>
-                <Text style={tw`text-gray-400 text-md text-center`}>@adomshafi_tag</Text>
+                <Text style={tw`text-white text-2xl font-bold text-center`}>
+                  Adom Shafi
+                </Text>
+                <Text style={tw`text-gray-400 text-md text-center`}>
+                  @adomshafi_tag
+                </Text>
               </View>
             </View>
 
@@ -185,7 +196,9 @@ function Account() {
         </ScrollView>
 
         {/* Bottom Navigation - Fixed at bottom with centered content */}
-        <View style={tw`absolute bottom-0 left-0 right-0 flex-row justify-center pb-8`}>
+        <View
+          style={tw`absolute bottom-0 left-0 right-0 flex-row justify-center pb-8`}
+        >
           <View style={tw`flex-row rounded-full bg-gray-800/80 p-2 gap-x-2`}>
             <BottomNavIcon
               icon={MessageCircleQuestionMark}

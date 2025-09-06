@@ -1,14 +1,20 @@
-import React, { useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native'
-import { ArrowLeft, Edit, Copy, Share } from 'lucide-react-native'
+import React, { useState } from "react"
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native"
+import { ArrowLeft, Edit, Copy, Share } from "lucide-react-native"
 import tw from "twrnc"
-import ScreensWrapper from '@/src/components/wrapper/screens-wrapper'
-import HeaderInfo from '../../src/components/helpers/header-info'
-import ImageContainer from '../../src/components/images/image-container'
-import { BankColorsThemes } from '../../src/style/color'
+import ScreensWrapper from "@/src/components/wrapper/screens-wrapper"
+import HeaderInfo from "@/src/components/helpers/header-info"
+import { BankColorsThemes } from "@/src/style/color"
+import ImageContainer from "@/src/components/images/image-container"
 
 const PersonalInfoScreen = () => {
-  const [name, setName] = useState('Adom Shafi')
+  const [name, setName] = useState("Adom Shafi")
   const [isEditing, setIsEditing] = useState(false)
 
   return (
@@ -42,12 +48,18 @@ const PersonalInfoScreen = () => {
           </View>
 
           <View style={tw`w-full items-center mb-8`}>
-            <Text style={tw`text-white text-xl font-bold mb-2`}>Your profile link</Text>
+            <Text style={tw`text-white text-xl font-bold mb-2`}>
+              Your profile link
+            </Text>
 
             <View style={tw`bg-white p-6 rounded-2xl mb-6`}>
               {/* QR Code placeholder */}
-              <View style={tw`w-48 h-48 bg-gray-200 rounded-lg flex items-center justify-center`}>
-                <View style={tw`w-40 h-40 bg-green-600 rounded-lg flex items-center justify-center`}>
+              <View
+                style={tw`w-48 h-48 bg-gray-200 rounded-lg flex items-center justify-center`}
+              >
+                <View
+                  style={tw`w-40 h-40 bg-green-600 rounded-lg flex items-center justify-center`}
+                >
                   <Text style={tw`text-white text-6xl font-bold`}>Z</Text>
                 </View>
               </View>

@@ -1,10 +1,19 @@
-import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, ScrollView, Switch } from 'react-native'
-import { ArrowLeft, Key, Mail, Shield, UserMinus, ChevronRight, LucideIcon, UserPlus2 } from 'lucide-react-native'
+import React, { useState } from "react"
+import { View, Text, TouchableOpacity, ScrollView, Switch } from "react-native"
+import {
+  ArrowLeft,
+  Key,
+  Mail,
+  Shield,
+  UserMinus,
+  ChevronRight,
+  LucideIcon,
+  UserPlus2,
+} from "lucide-react-native"
 import tw from "twrnc"
-import ScreensWrapper from '@/src/components/wrapper/screens-wrapper'
-import HeaderInfo from '../../src/components/helpers/header-info'
-import { BankColorsThemes } from '../../src/style/color'
+import { BankColorsThemes } from "@/src/style/color"
+import ScreensWrapper from "@/src/components/wrapper/screens-wrapper"
+import HeaderInfo from "@/src/components/helpers/header-info"
 
 interface SettingItemProps {
   icon: LucideIcon
@@ -26,8 +35,8 @@ const SettingItem: React.FC<SettingItemProps> = ({
   hasToggle = false,
   toggleValue = false,
   onToggleChange,
-  iconColor = 'white',
-  isDangerous = false
+  iconColor = "white",
+  isDangerous = false,
 }) => {
   return (
     <TouchableOpacity
@@ -36,12 +45,14 @@ const SettingItem: React.FC<SettingItemProps> = ({
     >
       <View style={tw`flex-row items-center flex-1`}>
         <View style={tw`p-3 rounded-lg mr-4`}>
-          <Icon width={20} height={20} color={isDangerous ? '#ef4444' : iconColor} />
+          <Icon
+            width={20}
+            height={20}
+            color={isDangerous ? "#ef4444" : iconColor}
+          />
         </View>
         <View style={tw`flex-1`}>
-          <Text style={tw`text-white font-semibold text-lg`}>
-            {title}
-          </Text>
+          <Text style={tw`text-white font-semibold text-lg`}>{title}</Text>
           <Text style={tw`text-gray-400 text-sm mt-1`}>{subtitle}</Text>
         </View>
       </View>
@@ -50,8 +61,8 @@ const SettingItem: React.FC<SettingItemProps> = ({
         <Switch
           value={toggleValue}
           onValueChange={onToggleChange}
-          thumbColor={toggleValue ? '#8b5cf6' : '#6b7280'}
-          trackColor={{ false: '#374151', true: '#8b5cf6' }}
+          thumbColor={toggleValue ? "#8b5cf6" : "#6b7280"}
+          trackColor={{ false: "#374151", true: "#8b5cf6" }}
         />
       ) : (
         <ChevronRight width={20} height={20} color="#666" />
@@ -62,38 +73,39 @@ const SettingItem: React.FC<SettingItemProps> = ({
 
 const AppSettingsScreen = () => {
   const [twoFactorEnabled, setTwoFactorEnabled] = useState<boolean>(false)
-  const [notificationsEnabled, setNotificationsEnabled] = useState<boolean>(true)
+  const [notificationsEnabled, setNotificationsEnabled] =
+    useState<boolean>(true)
   const [faceIdEnabled, setFaceIdEnabled] = useState<boolean>(true)
 
   const handlePasswordChange = (): void => {
-    console.log('Navigate to change password')
+    console.log("Navigate to change password")
   }
 
   const handleEmailChange = (): void => {
-    console.log('Navigate to change email')
+    console.log("Navigate to change email")
   }
 
   const handleTwoFactorToggle = (): void => {
-    console.log('Navigate to 2FA settings')
+    console.log("Navigate to 2FA settings")
   }
 
   const handleCloseAccount = (): void => {
-    console.log('Navigate to close account confirmation')
+    console.log("Navigate to close account confirmation")
   }
 
   const handleTwoFactorChange = (value: boolean): void => {
     setTwoFactorEnabled(value)
-    console.log(`2FA ${value ? 'enabled' : 'disabled'}`)
+    console.log(`2FA ${value ? "enabled" : "disabled"}`)
   }
 
   const handleNotificationsChange = (value: boolean): void => {
     setNotificationsEnabled(value)
-    console.log(`Notifications ${value ? 'enabled' : 'disabled'}`)
+    console.log(`Notifications ${value ? "enabled" : "disabled"}`)
   }
 
   const handleFaceIdChange = (value: boolean): void => {
     setFaceIdEnabled(value)
-    console.log(`Face ID ${value ? 'enabled' : 'disabled'}`)
+    console.log(`Face ID ${value ? "enabled" : "disabled"}`)
   }
 
   return (
@@ -107,7 +119,9 @@ const AppSettingsScreen = () => {
         />
 
         <View style={tw`mt-6`}>
-          <Text style={tw`text-white text-2xl font-bold mb-6`}>App Settings</Text>
+          <Text style={tw`text-white text-2xl font-bold mb-6`}>
+            App Settings
+          </Text>
 
           <SettingItem
             icon={Key}
@@ -132,7 +146,7 @@ const AppSettingsScreen = () => {
             toggleValue={twoFactorEnabled}
             onToggleChange={handleTwoFactorChange}
           />
-          {/* 
+          {/*
           <SettingItem
             icon={Shield}
             title="Notifications"

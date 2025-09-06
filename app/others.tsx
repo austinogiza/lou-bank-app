@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from "react"
 import {
   View,
   Text,
@@ -6,8 +6,8 @@ import {
   ScrollView,
   TextInput,
   Modal,
-  Alert
-} from 'react-native'
+  Alert,
+} from "react-native"
 import {
   ArrowLeft,
   Eye,
@@ -19,27 +19,27 @@ import {
   Search,
   ChevronRight,
   X,
-  LucideIcon
-} from 'lucide-react-native'
+  LucideIcon,
+} from "lucide-react-native"
 import tw from "twrnc"
-import ScreensWrapper from '@/src/components/wrapper/screens-wrapper'
-import HeaderInfo from '../../src/components/helpers/header-info'
-import { BankColorsThemes } from '../../src/style/color'
+import ScreensWrapper from "@/src/components/wrapper/screens-wrapper"
+import HeaderInfo from "@/src/components/helpers/header-info"
+import { BankColorsThemes } from "@/src/style/color"
 
 // Change Password Screen
 const ChangePasswordScreen: React.FC = () => {
-  const [currentPassword, setCurrentPassword] = useState<string>('')
-  const [confirmPassword, setConfirmPassword] = useState<string>('')
+  const [currentPassword, setCurrentPassword] = useState<string>("")
+  const [confirmPassword, setConfirmPassword] = useState<string>("")
   const [showCurrentPassword, setShowCurrentPassword] = useState<boolean>(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
 
   const handleChangePassword = (): void => {
     if (currentPassword !== confirmPassword) {
-      Alert.alert('Error', 'Passwords do not match')
+      Alert.alert("Error", "Passwords do not match")
       return
     }
     // Handle password change logic
-    console.log('Password changed successfully')
+    console.log("Password changed successfully")
   }
 
   return (
@@ -53,7 +53,9 @@ const ChangePasswordScreen: React.FC = () => {
         />
 
         <View style={tw`mt-6`}>
-          <Text style={tw`text-white text-2xl font-bold mb-6`}>Change Password</Text>
+          <Text style={tw`text-white text-2xl font-bold mb-6`}>
+            Change Password
+          </Text>
 
           <View style={tw`mb-4`}>
             <View style={tw`relative`}>
@@ -102,7 +104,12 @@ const ChangePasswordScreen: React.FC = () => {
           </View>
 
           <Text style={tw`text-gray-400 text-sm mb-8`}>
-            Must contain minimum of <Text style={tw`text-white font-semibold`}>8 characters, contain a letter, a number, special character</Text> and <Text style={tw`text-white font-semibold`}>upper case letter</Text>
+            Must contain minimum of{" "}
+            <Text style={tw`text-white font-semibold`}>
+              8 characters, contain a letter, a number, special character
+            </Text>{" "}
+            and{" "}
+            <Text style={tw`text-white font-semibold`}>upper case letter</Text>
           </Text>
         </View>
 
@@ -123,10 +130,10 @@ const ChangePasswordScreen: React.FC = () => {
 
 // Email Address Screen
 const EmailAddressScreen: React.FC = () => {
-  const [email] = useState<string>('adomshafi007@gmail.com')
+  const [email] = useState<string>("adomshafi007@gmail.com")
 
   const handleContactUs = (): void => {
-    console.log('Navigate to contact us')
+    console.log("Navigate to contact us")
   }
 
   return (
@@ -140,14 +147,20 @@ const EmailAddressScreen: React.FC = () => {
         />
 
         <View style={tw`mt-6`}>
-          <Text style={tw`text-white text-2xl font-bold mb-6`}>Email Address</Text>
+          <Text style={tw`text-white text-2xl font-bold mb-6`}>
+            Email Address
+          </Text>
 
-          <View style={tw`bg-transparent border border-gray-700 rounded-xl px-4 py-4 mb-6 flex-row items-center justify-between`}>
+          <View
+            style={tw`bg-transparent border border-gray-700 rounded-xl px-4 py-4 mb-6 flex-row items-center justify-between`}
+          >
             <Text style={tw`text-white text-base`}>{email}</Text>
             <RefreshCw width={20} height={20} color="#6B7280" />
           </View>
 
-          <TouchableOpacity style={tw`bg-transparent border border-gray-700 rounded-xl p-4 mb-6`}>
+          <TouchableOpacity
+            style={tw`bg-transparent border border-gray-700 rounded-xl p-4 mb-6`}
+          >
             <View style={tw`flex-row items-center justify-between`}>
               <View style={tw`flex-row items-center flex-1`}>
                 <View style={tw`bg-gray-800 p-2 rounded-lg mr-3`}>
@@ -158,7 +171,8 @@ const EmailAddressScreen: React.FC = () => {
                     Want to change your email?
                   </Text>
                   <Text style={tw`text-gray-400 text-sm`}>
-                    Contact us if you would like to change the email registered on your account
+                    Contact us if you would like to change the email registered
+                    on your account
                   </Text>
                 </View>
               </View>
@@ -194,7 +208,7 @@ const VerificationOption: React.FC<VerificationOptionProps> = ({
   icon: Icon,
   title,
   subtitle,
-  onPress
+  onPress,
 }) => {
   return (
     <TouchableOpacity
@@ -209,9 +223,7 @@ const VerificationOption: React.FC<VerificationOptionProps> = ({
           <Text style={tw`text-white font-semibold text-base mb-1`}>
             {title}
           </Text>
-          <Text style={tw`text-gray-400 text-sm`}>
-            {subtitle}
-          </Text>
+          <Text style={tw`text-gray-400 text-sm`}>{subtitle}</Text>
         </View>
       </View>
       <ChevronRight width={20} height={20} color="#6B7280" />
@@ -222,15 +234,15 @@ const VerificationOption: React.FC<VerificationOptionProps> = ({
 // 2 Steps Verification Screen
 const TwoStepsVerificationScreen: React.FC = () => {
   const handleFinePay = (): void => {
-    console.log('Setup FinePay App verification')
+    console.log("Setup FinePay App verification")
   }
 
   const handleAuthApp = (): void => {
-    console.log('Setup Authentication App verification')
+    console.log("Setup Authentication App verification")
   }
 
   const handleTextMessage = (): void => {
-    console.log('Setup Text message verification')
+    console.log("Setup Text message verification")
   }
 
   return (
@@ -244,7 +256,9 @@ const TwoStepsVerificationScreen: React.FC = () => {
         />
 
         <View style={tw`mt-6`}>
-          <Text style={tw`text-white text-2xl font-bold mb-2`}>2 Steps Verifications</Text>
+          <Text style={tw`text-white text-2xl font-bold mb-2`}>
+            2 Steps Verifications
+          </Text>
           <Text style={tw`text-gray-400 text-sm mb-6`}>
             This provides an extra layer of security on your account.
           </Text>
@@ -286,7 +300,7 @@ interface SupportAgentProps {
 const SupportAgent: React.FC<SupportAgentProps> = ({
   name,
   phone,
-  onPress
+  onPress,
 }) => {
   return (
     <TouchableOpacity
@@ -296,12 +310,8 @@ const SupportAgent: React.FC<SupportAgentProps> = ({
       <View style={tw`flex-row items-center flex-1`}>
         <View style={tw`w-10 h-10 bg-gray-600 rounded-full mr-4`} />
         <View style={tw`flex-1`}>
-          <Text style={tw`text-white font-semibold text-base`}>
-            {name}
-          </Text>
-          <Text style={tw`text-gray-400 text-sm`}>
-            {phone}
-          </Text>
+          <Text style={tw`text-white font-semibold text-base`}>{name}</Text>
+          <Text style={tw`text-gray-400 text-sm`}>{phone}</Text>
         </View>
       </View>
       <ChevronRight width={20} height={20} color="#6B7280" />
@@ -311,13 +321,13 @@ const SupportAgent: React.FC<SupportAgentProps> = ({
 
 // Support Screen
 const SupportScreen: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [searchQuery, setSearchQuery] = useState<string>("")
 
   const supportAgents = [
-    { name: 'Adam Shafi', phone: '2334 4783 389 0004-00-04' },
-    { name: 'Ava Kaysar', phone: '2334 4783 389 0004-00-04' },
-    { name: 'Sara William', phone: '2334 4783 389 0004-00-04' },
-    { name: 'Elizabeth Olsen', phone: '2334 4783 389 0004-00-04' },
+    { name: "Adam Shafi", phone: "2334 4783 389 0004-00-04" },
+    { name: "Ava Kaysar", phone: "2334 4783 389 0004-00-04" },
+    { name: "Sara William", phone: "2334 4783 389 0004-00-04" },
+    { name: "Elizabeth Olsen", phone: "2334 4783 389 0004-00-04" },
   ]
 
   return (
@@ -329,13 +339,19 @@ const SupportScreen: React.FC = () => {
             <ArrowLeft width={18} height={18} color={BankColorsThemes.white} />
           }
           iconRight={
-            <MessageSquare width={18} height={18} color={BankColorsThemes.white} />
+            <MessageSquare
+              width={18}
+              height={18}
+              color={BankColorsThemes.white}
+            />
           }
         />
 
         <View style={tw`mt-6`}>
           <Text style={tw`text-gray-400 text-sm mb-1`}>Hello, Adam Shafi</Text>
-          <Text style={tw`text-white text-2xl font-bold mb-6`}>How can we help you?</Text>
+          <Text style={tw`text-white text-2xl font-bold mb-6`}>
+            How can we help you?
+          </Text>
 
           <View style={tw`relative mb-6`}>
             <TextInput
@@ -387,7 +403,7 @@ interface CloseAccountModalProps {
 const CloseAccountModal: React.FC<CloseAccountModalProps> = ({
   visible,
   onClose,
-  onDelete
+  onDelete,
 }) => {
   return (
     <Modal
@@ -443,21 +459,22 @@ const CloseAccountModal: React.FC<CloseAccountModalProps> = ({
 // Updated App Settings Screen with modal
 const UpdatedAppSettingsScreen: React.FC = () => {
   const [twoFactorEnabled, setTwoFactorEnabled] = useState<boolean>(false)
-  const [showCloseAccountModal, setShowCloseAccountModal] = useState<boolean>(false)
+  const [showCloseAccountModal, setShowCloseAccountModal] =
+    useState<boolean>(false)
 
   const handlePasswordChange = (): void => {
     // Navigate to ChangePasswordScreen
-    console.log('Navigate to change password')
+    console.log("Navigate to change password")
   }
 
   const handleEmailChange = (): void => {
     // Navigate to EmailAddressScreen
-    console.log('Navigate to change email')
+    console.log("Navigate to change email")
   }
 
   const handleTwoFactorToggle = (): void => {
     // Navigate to TwoStepsVerificationScreen
-    console.log('Navigate to 2FA settings')
+    console.log("Navigate to 2FA settings")
   }
 
   const handleCloseAccount = (): void => {
@@ -467,7 +484,7 @@ const UpdatedAppSettingsScreen: React.FC = () => {
   const handleDeleteAccount = (): void => {
     setShowCloseAccountModal(false)
     // Handle account deletion
-    Alert.alert('Account Deleted', 'Your account has been permanently deleted.')
+    Alert.alert("Account Deleted", "Your account has been permanently deleted.")
   }
 
   return (
@@ -480,7 +497,9 @@ const UpdatedAppSettingsScreen: React.FC = () => {
           }
         />
         <View style={tw`mt-6`}>
-          <Text style={tw`text-white text-2xl font-bold mb-6`}>App Settings</Text>
+          <Text style={tw`text-white text-2xl font-bold mb-6`}>
+            App Settings
+          </Text>
 
           <TouchableOpacity
             onPress={handlePasswordChange}
@@ -544,5 +563,5 @@ export {
   TwoStepsVerificationScreen,
   SupportScreen,
   CloseAccountModal,
-  UpdatedAppSettingsScreen
+  UpdatedAppSettingsScreen,
 }
