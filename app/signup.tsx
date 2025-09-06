@@ -1,4 +1,4 @@
-import { ScrollView, Pressable, StyleSheet, Text, View } from "react-native"
+import { Pressable, StyleSheet, Text, View } from "react-native"
 import React, { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import AuthWrapper from "@/src/components/wrapper/auth-wrapper"

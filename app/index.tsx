@@ -7,25 +7,6 @@ import AuthOnboarding from "@/src/components/auth/auth-home"
 const LouBank = () => {
   return (
     <>
-      {/* <TransactionHistory /> */}
-      {/* <HomeScreen /> */}
-      {/* <Account /> */}
-      {/* <LegalScreen /> */}
-      {/* <Support /> */}
-      {/* <AppSettingsScreen /> */}
-      {/* <ChangePasswordScreen /> */}
-      {/* EmailAddressScreen,
-      TwoStepsVerificationScreen,
-      SupportScreen,
-      CloseAccountModal,
-      UpdatedAppSettingsScreen */}
-      {/* <EmailAddressScreen /> */}
-      {/* <CloseAccountModal onDelete={() => {
-        console.log('deleting')
-      }} visible={true} onClose={() => {
-        console.log('closing')
-      }} /> */}
-      <UpdatedAppSettingsScreen />
       <AuthOnboarding />
     </>
   )

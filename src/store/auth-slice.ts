@@ -62,10 +62,10 @@ export const authSignup = createAsyncThunk<
   { rejectValue: string }
 >("auth/signup", async (payload, { rejectWithValue }) => {
   try {
+    console.log("API success:payload")
     const res = await axios.post(AuthSignupURL, payload)
     const token = res.data.key
     console.log("API success:", token)
-
     await AsyncStorage.setItem("louBankToken", token)
     await AsyncStorage.setItem(
       "louBankTokenDate",
