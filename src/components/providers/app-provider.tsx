@@ -8,6 +8,7 @@ import { Toaster } from "sonner-native"
 import { useAppDispatch, useAppSelector } from "@/src/store/hooks"
 import { authCheckState } from "@/src/store/auth-slice"
 import { useRouter } from "expo-router"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 interface AppProviderProps {
   children?: React.ReactNode
 }
@@ -17,7 +18,13 @@ const AppProvider: FC<AppProviderProps> = (props) => {
   const { loading, token } = useAppSelector((state) => state.auth)
   const isAuthenticated = !loading && !!token
   const router = useRouter()
+  const onBoardingState = async () => {
+    const onBoarding = await AsyncStorage.getItem("onboarding")
+    return onBoarding
+  }
+  console.log("onBoardingState", onBoardingState)
   useEffect(() => {
+    // const onBoardingState = await AsyncStorage.getItem("onboarding")
     dispatch(authCheckState())
     if (isAuthenticated) {
       router.navigate("/(tabs)")

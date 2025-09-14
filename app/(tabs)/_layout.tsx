@@ -138,14 +138,6 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <User width={20} color={color} />,
         }}
       />
-
-      {/* <Tabs.Screen
-        name="legal"
-        options={{
-          title: "Legal",
-          tabBarIcon: ({ color }) => <Gavel width={20} color={color} />,
-        }}
-      /> */}
     </Tabs>
   )
 }

@@ -90,18 +90,7 @@ function Account() {
       case "PersonalInfo":
         router.push("/(tabs)/personal-info")
         break
-      // case "FinancialInfo":
-      //   router.push("/(tabs)/financial-info")
-      //   break
-      // case "AppSettings":
-      //   router.push("/(tabs)/app-settings")
-      //   break
-      // case "Support":
-      //   router.push("/(tabs)/support")
-      //   break
-      // case "Legal":
-      //   router.push("/(tabs)/legal")
-      //   break
+
       default:
     }
   }

@@ -8,18 +8,17 @@ import { AuthLoginURL, AuthSignupURL } from "../api/constant"
 interface AuthState {
   token: string | null
   loading: boolean
+  onboarded: boolean
   error: string | null
 }
 
 const initialState: AuthState = {
   token: null,
   loading: false,
+  onboarded: false,
   error: null,
 }
 
-// --- Async Thunks ---
-
-// Login
 export const authLogin = createAsyncThunk<
   string,
   { email: string; password: string; navigation?: any },
@@ -42,7 +41,7 @@ export const authLogin = createAsyncThunk<
       )
 
       if (navigation) {
-        navigation.navigate("/(tabs)") // adjust route
+        navigation.navigate("/(tabs)")
       }
 
       return token
@@ -71,6 +70,7 @@ export const authSignup = createAsyncThunk<
       new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
     )
 
+    await AsyncStorage.setItem("onboarding", "false")
     payload.navigation?.navigate("profile-setup")
 
     return token
@@ -106,9 +106,8 @@ export const authLogout = createAsyncThunk("auth/logout", async () => {
 // Check session
 export const authCheckState = createAsyncThunk("auth/check", async () => {
   const token = await AsyncStorage.getItem("louBankToken")
-  console.log("Checking auth state, found token:", token)
   const expirationDateString = await AsyncStorage.getItem("louBankTokenDate")
-  await AsyncStorage.clear()
+  // await AsyncStorage.clear()
   if (!token || !expirationDateString) {
     await AsyncStorage.clear()
     return null
@@ -122,7 +121,10 @@ export const authCheckState = createAsyncThunk("auth/check", async () => {
 
   return token
 })
-
+const authOnboarded = createAsyncThunk<boolean>("auth/onboarded", async () => {
+  const onboarded = await AsyncStorage.getItem("onboarding")
+  return onboarded
+})
 // --- Slice ---
 const authSlice = createSlice({
   name: "auth",
@@ -171,6 +173,9 @@ const authSlice = createSlice({
       // Check session
       .addCase(authCheckState.fulfilled, (state, action) => {
         state.token = action.payload
+      })
+      .addCase(authOnboarded.fulfilled, (state, action) => {
+        state.onboarded = action.payload
       })
   },
 })
