@@ -21,6 +21,8 @@ import { AddInfoSchema } from "@/src/types/schema"
 
 import { AddUserInfoURL } from "@/src/api/constant"
 import { authAxios } from "@/src/api/queries/auth-axios"
+import { useRouter } from "expo-router"
+import { toast } from "sonner-native"
 
 const ProfileSetup = () => {
   const {
@@ -38,15 +40,24 @@ const ProfileSetup = () => {
     mode: "onBlur",
     reValidateMode: "onBlur",
   })
-
+  const router = useRouter()
   const onSubmit: SubmitHandler<AddDataProps> = (data) => {
     console.log(data)
     const first_name = data.first_name
     const last_name = data.last_name
-    authAxios.post(AddUserInfoURL, {
-      first_name,
-      last_name,
-    })
+    authAxios
+      .post(AddUserInfoURL, {
+        first_name,
+        last_name,
+      })
+      .then((response) => {
+        toast.success("Profile setup completed!")
+        console.log("✅ API response:", response.data)
+        router.navigate("/(tabs)")
+      })
+      .catch((error) => {
+        console.log("❌ API error:", error?.response?.data || error.message)
+      })
   }
   return (
     <>

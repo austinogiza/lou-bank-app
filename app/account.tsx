@@ -85,8 +85,6 @@ function Account() {
   const [activeTab, setActiveTab] = useState<number>(2) // Default to middle tab
 
   const handleNavigation = (screen: string): void => {
-    console.log(`Navigate to ${screen}`)
-
     // Type-safe navigation with Expo Router
     switch (screen) {
       case "PersonalInfo":
@@ -105,7 +103,6 @@ function Account() {
       //   router.push("/(tabs)/legal")
       //   break
       default:
-        console.log(`Route not found for ${screen}`)
     }
   }
 

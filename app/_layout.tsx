@@ -156,7 +156,6 @@ function RootLayoutNav() {
               }}
             />
             <Stack.Screen name="transfer-successful" />
-
             <Stack.Screen name="auth-confirm-pin" options={{}} />
             <Stack.Screen name="pin-success" options={{}} />
             <Stack.Screen
@@ -172,6 +171,23 @@ function RootLayoutNav() {
                 headerLeft: () => <GoBackButton />,
                 headerTitle: "Sign Up",
                 headerTitleAlign: "center",
+                headerTitleStyle: {
+                  color: BankColorsThemes.white,
+                  fontSize: 16,
+                  fontWeight: "600",
+                },
+                headerTintColor: BankColorsThemes.white,
+                headerStyle: { backgroundColor: BankColorsThemes.black },
+                headerShadowVisible: false,
+              }}
+            />
+            <Stack.Screen
+              name="profile-setup"
+              options={{
+                headerShown: true,
+                headerLeft: () => <GoBackButton />,
+                // headerTitle: "Sign Up",
+                // headerTitleAlign: "center",
                 headerTitleStyle: {
                   color: BankColorsThemes.white,
                   fontSize: 16,

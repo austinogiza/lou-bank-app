@@ -77,35 +77,16 @@ const AppSettingsScreen = () => {
     useState<boolean>(true)
   const [faceIdEnabled, setFaceIdEnabled] = useState<boolean>(true)
 
-  const handlePasswordChange = (): void => {
-    console.log("Navigate to change password")
-  }
+  const handlePasswordChange = (): void => {}
 
-  const handleEmailChange = (): void => {
-    console.log("Navigate to change email")
-  }
+  const handleEmailChange = (): void => {}
 
-  const handleTwoFactorToggle = (): void => {
-    console.log("Navigate to 2FA settings")
-  }
+  const handleTwoFactorToggle = (): void => {}
 
-  const handleCloseAccount = (): void => {
-    console.log("Navigate to close account confirmation")
-  }
+  const handleCloseAccount = (): void => {}
 
   const handleTwoFactorChange = (value: boolean): void => {
     setTwoFactorEnabled(value)
-    console.log(`2FA ${value ? "enabled" : "disabled"}`)
-  }
-
-  const handleNotificationsChange = (value: boolean): void => {
-    setNotificationsEnabled(value)
-    console.log(`Notifications ${value ? "enabled" : "disabled"}`)
-  }
-
-  const handleFaceIdChange = (value: boolean): void => {
-    setFaceIdEnabled(value)
-    console.log(`Face ID ${value ? "enabled" : "disabled"}`)
   }
 
   return (

@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query"
 import { authAxios } from "./auth-axios"
-import { AccountsOverviewURL } from "../constant"
+import { AddUserInfoURL } from "../constant"
 
 const fetchAccountOverview = async () => {
   try {
-    const response = await authAxios.get(AccountsOverviewURL)
+    const response = await authAxios.get(AddUserInfoURL)
     console.log("✅ API response:", response.data)
     return response.data
   } catch (error: any) {

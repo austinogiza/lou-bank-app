@@ -10,5 +10,5 @@ export const ConfirmPasswordURL = `${authEndpoint}/password/reset/confirm/`
 export const ResetPasswordURL = `${authEndpoint}/password/reset/`
 // Authentication ends
 
-export const AccountsOverviewURL = `${endpoint}/account-overview/`
-export const AddUserInfoURL = `${endpoint}/add-account-info/`
+// export const AccountsOverviewURL = `${endpoint}/account-overview/`
+export const AddUserInfoURL = `${endpoint}/account-info/`

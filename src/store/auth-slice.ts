@@ -64,15 +64,14 @@ export const authSignup = createAsyncThunk<
   try {
     const res = await axios.post(AuthSignupURL, payload)
     const token = res.data.key
-    console.log("API success:payload", payload, res)
-    console.log("API success:", token)
+
     await AsyncStorage.setItem("louBankToken", token)
     await AsyncStorage.setItem(
       "louBankTokenDate",
       new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
     )
 
-    payload.navigation?.navigate("Dashboard")
+    payload.navigation?.navigate("profile-setup")
 
     return token
   } catch (err: any) {
@@ -83,6 +82,9 @@ export const authSignup = createAsyncThunk<
     } else if (err.response?.data?.username?.[0]) {
       toast.error(err.response?.data?.username)
       return rejectWithValue(err.response?.data?.username)
+    } else if (err.response?.data?.password1?.[0]) {
+      toast.error(err.response?.data?.password1)
+      return rejectWithValue(err.response?.data?.password1)
     } else {
       toast.error("Signup failed")
       return rejectWithValue("Signup failed")
@@ -106,7 +108,7 @@ export const authCheckState = createAsyncThunk("auth/check", async () => {
   const token = await AsyncStorage.getItem("louBankToken")
   console.log("Checking auth state, found token:", token)
   const expirationDateString = await AsyncStorage.getItem("louBankTokenDate")
-  // await AsyncStorage.clear()
+  await AsyncStorage.clear()
   if (!token || !expirationDateString) {
     await AsyncStorage.clear()
     return null
