@@ -557,11 +557,4 @@ const UpdatedAppSettingsScreen: React.FC = () => {
 }
 
 // Export all components
-export {
-  ChangePasswordScreen,
-  EmailAddressScreen,
-  TwoStepsVerificationScreen,
-  SupportScreen,
-  CloseAccountModal,
-  UpdatedAppSettingsScreen,
-}
+export default ChangePasswordScreen

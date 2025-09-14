@@ -76,13 +76,13 @@ export const authSignup = createAsyncThunk<
 
     return token
   } catch (err: any) {
-    console.log("API error:", err?.response?.data)
+    console.log("API Signup error:", err?.response?.data)
     if (err.response?.data?.email?.[0]) {
       toast.error(err.response?.data?.email?.[0])
       return rejectWithValue(err.response?.data?.email?.[0])
-    } else if (err.response?.data?.password1?.[0]) {
-      toast.error(err.response?.data?.password1?.[0])
-      return rejectWithValue(err.response?.data?.password1?.[0])
+    } else if (err.response?.data?.username?.[0]) {
+      toast.error(err.response?.data?.username)
+      return rejectWithValue(err.response?.data?.username)
     } else {
       toast.error("Signup failed")
       return rejectWithValue("Signup failed")
@@ -104,8 +104,9 @@ export const authLogout = createAsyncThunk("auth/logout", async () => {
 // Check session
 export const authCheckState = createAsyncThunk("auth/check", async () => {
   const token = await AsyncStorage.getItem("louBankToken")
+  console.log("Checking auth state, found token:", token)
   const expirationDateString = await AsyncStorage.getItem("louBankTokenDate")
-
+  // await AsyncStorage.clear()
   if (!token || !expirationDateString) {
     await AsyncStorage.clear()
     return null

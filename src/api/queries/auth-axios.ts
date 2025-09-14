@@ -8,10 +8,9 @@ const isValidToken = (token: string | null | undefined): boolean =>
 const getTokenFromStore = async (): Promise<string | null> => {
   const token = await AsyncStorage.getItem("louBankToken")
   if (!token) return null
-  return `Bearer ${token}`
+  return `Token ${token}`
 }
 
-// Axios instance
 export const authAxios = axios.create({
   baseURL: endpoint,
 })
@@ -19,7 +18,7 @@ export const authAxios = axios.create({
 authAxios.interceptors.request.use(
   async (config) => {
     const token = await getTokenFromStore()
-
+    console.log("Token from store:", token) // Debug log
     if (isValidToken(token)) {
       config.headers.Authorization = token as string
     }

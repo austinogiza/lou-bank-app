@@ -46,7 +46,18 @@ export const ForgotPasswordSchema = z.object({
     .email("Invalid email address")
     .max(100, "Email must be less than 100 characters"),
 })
+export const AddInfoSchema = z.object({
+  first_name: z
+    .string()
+    .min(1, "First Name is required")
 
+    .max(100),
+  last_name: z
+    .string()
+    .min(1, "Last Name is required")
+
+    .max(100),
+})
 export const ResetPasswordSchema = z
   .object({
     password: z

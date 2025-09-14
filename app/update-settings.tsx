@@ -13,6 +13,7 @@ import tw from "twrnc"
 import CloseAccountModal from "@/src/components/settings/close-account"
 import HeaderInfo from "@/src/components/helpers/header-info"
 import { BankColorsThemes } from "@/src/style/color"
+import { de } from "zod/v4/locales"
 
 // Close Account Modal
 // Updated App Settings Screen with modal
@@ -117,3 +118,4 @@ const UpdatedAppSettingsScreen: React.FC = () => {
     </ScreensWrapper>
   )
 }
+export default UpdatedAppSettingsScreen

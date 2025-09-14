@@ -57,7 +57,6 @@ const LoginScreen = () => {
   // Submit form handler
   const { loading, error } = useAppSelector((state) => state.auth)
   const onSubmit: SubmitHandler<LoginFormDataProps> = (data) => {
-    console.log(data, error)
     dispatch(
       authLogin({
         email: data.email,

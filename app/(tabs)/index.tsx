@@ -11,7 +11,7 @@ import { formatNumber } from "@/src/utils/format-number"
 
 const HomeScreen = () => {
   const { allAccountOverview } = useFetchAccountOverview()
-  console.log("Account Overview Data:", allAccountOverview)
+  // console.log("Account Overview Data:", allAccountOverview)
   return (
     <ScreensWrapper>
       <ScrollView style={tw`flex-1 bg-black px-2  w-full`}>

@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   labelText: {
     color: BankColorsThemes.white,
     fontSize: 16,
-    marginBottom: 6,
+    marginBottom: 8,
     fontWeight: "500",
   },
 })
