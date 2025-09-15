@@ -18,7 +18,6 @@ export const authAxios = axios.create({
 authAxios.interceptors.request.use(
   async (config) => {
     const token = await getTokenFromStore()
-    console.log("Token from store:", token) // Debug log
     if (isValidToken(token)) {
       config.headers.Authorization = token as string
     }

@@ -3,12 +3,14 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
 import axios from "axios"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { toast } from "sonner-native"
-import { AuthLoginURL, AuthSignupURL } from "../api/constant"
+import { AddUserInfoURL, AuthLoginURL, AuthSignupURL } from "../api/constant"
+import { authAxios } from "../api/queries/auth-axios"
 
 interface AuthState {
   token: string | null
   loading: boolean
   onboarded: boolean
+  kycDone: boolean
   error: string | null
 }
 
@@ -16,9 +18,23 @@ const initialState: AuthState = {
   token: null,
   loading: false,
   onboarded: false,
+  kycDone: false,
   error: null,
 }
 
+// ----------------------
+// Logout
+// ----------------------
+export const authLogout = createAsyncThunk("auth/logout", async () => {
+  try {
+    await AsyncStorage.clear()
+  } catch (e) {}
+  return null
+})
+
+// ----------------------
+// Login
+// ----------------------
 export const authLogin = createAsyncThunk<
   string,
   { email: string; password: string; navigation?: any },
@@ -29,20 +45,22 @@ export const authLogin = createAsyncThunk<
     try {
       const res = await axios.post(AuthLoginURL, { email, password })
       const token = res.data.key
+      const user = await authAxios.get(AddUserInfoURL)
+      console.log("User info:", user, user.data)
 
-      const expirationDate = new Date(
-        new Date().getTime() + 7 * 24 * 60 * 60 * 1000
-      )
+      // const expirationDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+      // await AsyncStorage.setItem("louBankToken", token)
+      // await AsyncStorage.setItem(
+      //   "louBankTokenDate",
+      //   expirationDate.toISOString()
+      // )
 
-      await AsyncStorage.setItem("louBankToken", token)
-      await AsyncStorage.setItem(
-        "louBankTokenDate",
-        expirationDate.toISOString()
-      )
+      // mark KYC as false until completed
+      // await AsyncStorage.setItem("kycDone", "false")
 
-      if (navigation) {
-        navigation.navigate("/(tabs)")
-      }
+      // if (navigation) {
+      //   navigation.navigate("/(tabs)")
+      // }
 
       return token
     } catch (err: any) {
@@ -54,7 +72,9 @@ export const authLogin = createAsyncThunk<
   }
 )
 
+// ----------------------
 // Signup
+// ----------------------
 export const authSignup = createAsyncThunk<
   string,
   { email: string; password1: string; password2: string; navigation?: any },
@@ -70,62 +90,37 @@ export const authSignup = createAsyncThunk<
       new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
     )
 
-    await AsyncStorage.setItem("onboarding", "false")
-    payload.navigation?.navigate("profile-setup")
+    // mark KYC as false until completed
+    await AsyncStorage.setItem("kycDone", "false")
 
+    payload.navigation?.navigate("profile-setup")
     return token
   } catch (err: any) {
     console.log("API Signup error:", err?.response?.data)
-    if (err.response?.data?.email?.[0]) {
-      toast.error(err.response?.data?.email?.[0])
-      return rejectWithValue(err.response?.data?.email?.[0])
-    } else if (err.response?.data?.username?.[0]) {
-      toast.error(err.response?.data?.username)
-      return rejectWithValue(err.response?.data?.username)
-    } else if (err.response?.data?.password1?.[0]) {
-      toast.error(err.response?.data?.password1)
-      return rejectWithValue(err.response?.data?.password1)
-    } else {
-      toast.error("Signup failed")
-      return rejectWithValue("Signup failed")
-    }
+    toast.error("Signup failed")
+    return rejectWithValue("Signup failed")
   }
 })
 
-// Logout
-export const authLogout = createAsyncThunk("auth/logout", async () => {
-  try {
-    await AsyncStorage.clear()
-  } catch (e) {
-    // ignore logout server error
-  }
-  await AsyncStorage.clear()
-  return null
-})
-
-// Check session
 export const authCheckState = createAsyncThunk("auth/check", async () => {
   const token = await AsyncStorage.getItem("louBankToken")
   const expirationDateString = await AsyncStorage.getItem("louBankTokenDate")
+  const kycDone = await AsyncStorage.getItem("kycDone")
   // await AsyncStorage.clear()
   if (!token || !expirationDateString) {
     await AsyncStorage.clear()
-    return null
+    return { token: null, kycDone: false }
   }
 
   const expirationDate = new Date(expirationDateString)
   if (expirationDate <= new Date()) {
     await AsyncStorage.clear()
-    return null
+    return { token: null, kycDone: false }
   }
 
-  return token
+  return { token, kycDone: kycDone === "true" }
 })
-const authOnboarded = createAsyncThunk<boolean>("auth/onboarded", async () => {
-  const onboarded = await AsyncStorage.getItem("onboarding")
-  return onboarded
-})
-// --- Slice ---
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -136,7 +131,6 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Login
       .addCase(authLogin.pending, (state) => {
         state.loading = true
         state.error = null
@@ -150,7 +144,6 @@ const authSlice = createSlice({
         state.error = action.payload || "Login failed"
       })
 
-      // Signup
       .addCase(authSignup.pending, (state) => {
         state.loading = true
         state.error = null
@@ -164,18 +157,21 @@ const authSlice = createSlice({
         state.error = action.payload || "Signup failed"
       })
 
-      // Logout
       .addCase(authLogout.fulfilled, (state) => {
         state.token = null
+        state.kycDone = false
         state.loading = false
       })
 
-      // Check session
       .addCase(authCheckState.fulfilled, (state, action) => {
-        state.token = action.payload
+        state.loading = false
+        state.token = action.payload.token
+        state.kycDone = action.payload.kycDone
       })
-      .addCase(authOnboarded.fulfilled, (state, action) => {
-        state.onboarded = action.payload
+      .addCase(authCheckState.rejected, (state) => {
+        state.loading = false
+        state.token = null
+        state.kycDone = false
       })
   },
 })

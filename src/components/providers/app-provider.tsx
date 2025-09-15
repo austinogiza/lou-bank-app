@@ -1,4 +1,4 @@
-import { Platform, StyleSheet, Text, View } from "react-native"
+import { Platform, StyleSheet } from "react-native"
 import React, { FC, useEffect } from "react"
 import { StatusBar } from "expo-status-bar"
 import { SafeAreaProvider } from "react-native-safe-area-context"
@@ -8,30 +8,36 @@ import { Toaster } from "sonner-native"
 import { useAppDispatch, useAppSelector } from "@/src/store/hooks"
 import { authCheckState } from "@/src/store/auth-slice"
 import { useRouter } from "expo-router"
-import AsyncStorage from "@react-native-async-storage/async-storage"
+
 interface AppProviderProps {
   children?: React.ReactNode
 }
-const AppProvider: FC<AppProviderProps> = (props) => {
-  const { children } = props
+
+const AppProvider: FC<AppProviderProps> = ({ children }) => {
   const dispatch = useAppDispatch()
-  const { loading, token } = useAppSelector((state) => state.auth)
-  const isAuthenticated = !loading && !!token
+  const { loading, token, kycDone } = useAppSelector((state) => state.auth)
   const router = useRouter()
-  const onBoardingState = async () => {
-    const onBoarding = await AsyncStorage.getItem("onboarding")
-    return onBoarding
-  }
-  console.log("onBoardingState", onBoardingState)
+
+  const isAuthenticated = !!token
+
+  // ✅ Run check once on mount
   useEffect(() => {
-    // const onBoardingState = await AsyncStorage.getItem("onboarding")
     dispatch(authCheckState())
-    if (isAuthenticated) {
-      router.navigate("/(tabs)")
-    } else {
-      router.navigate("/")
+  }, [dispatch])
+
+  // ✅ Handle navigation only when auth state changes
+  useEffect(() => {
+    if (!loading) {
+      if (isAuthenticated && kycDone) {
+        // router.replace("/(tabs)")
+      } else if (isAuthenticated && !kycDone) {
+        // router.replace("/profile-setup")
+      } else {
+        router.replace("/login")
+      }
     }
-  }, [router, isAuthenticated, dispatch])
+  }, [loading, isAuthenticated, kycDone, router])
+
   return (
     <>
       <Toaster />
@@ -51,6 +57,6 @@ export default AppProvider
 
 const styles = StyleSheet.create({
   container: {
-    // paddingVertical: 16,
+    flex: 1,
   },
 })

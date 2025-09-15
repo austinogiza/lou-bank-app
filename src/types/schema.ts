@@ -21,7 +21,7 @@ export const SignupSchema = z
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
-    path: ["confirmPassword"], // This assigns the error to confirmPassword field
+    path: ["confirmPassword"],
   })
 
 export const LoginSchema = z.object({
@@ -32,12 +32,8 @@ export const LoginSchema = z.object({
     .max(100, "Email must be less than 100 characters"),
   password: z
     .string()
-    .min(5, "Password must be at least 5 characters")
-    .max(100, "Password must be less than 100 characters"),
-  // .regex(
-  //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-  //   "Password must contain at least one uppercase letter, one lowercase letter, and one number"
-  // ),
+    .min(1, "Password is required")
+    .min(5, "Password is required"),
 })
 export const ForgotPasswordSchema = z.object({
   email: z
@@ -64,10 +60,6 @@ export const ResetPasswordSchema = z
       .string()
       .min(5, "Password must be at least 5 characters")
       .max(100, "Password must be less than 100 characters"),
-    //   .regex(
-    //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-    //     "Password must contain at least one uppercase letter, one lowercase letter, and one number"
-    //   ),
 
     confirmPassword: z.string().min(1, "Please confirm your password"),
   })

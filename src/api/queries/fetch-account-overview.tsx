@@ -6,6 +6,7 @@ const fetchAccountOverview = async () => {
   try {
     const response = await authAxios.get(AddUserInfoURL)
     console.log("✅ API response overview:", response.data)
+    // if (response.data)
     return response.data
   } catch (error: any) {
     console.log("❌ API error:", error?.response?.data || error.message)

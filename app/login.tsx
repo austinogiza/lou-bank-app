@@ -70,7 +70,7 @@ const LoginScreen = () => {
     <>
       <AuthWrapper>
         <AuthHeader
-          style={tw`mt-6`}
+          style={tw`mt-6 w-full`}
           title="Welcome Back!"
           subtitle="Enter your details to log in to your account"
         />
